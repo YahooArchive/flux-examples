@@ -18,7 +18,7 @@ var Nav = React.createClass({
         e.preventDefault();
         if (this.props.onNavigate) {
             this.props.onNavigate({
-                url: url
+                path: url
             });
         }
     },

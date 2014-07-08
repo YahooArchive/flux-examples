@@ -4,23 +4,26 @@
  */
 var util = require('util'),
     EventEmitter = require('events').EventEmitter,
+    Router = require('routr'),
     TimeStore = require('./TimeStore'),
+    routes = require('../configs/routes'),
     debug = require('debug')('ApplicationStore');
 
 function ApplicationStore(context, initialState) {
     initialState = initialState || {};
     this.page = initialState.page || null;
     this.url = initialState.url || null;
+    this.router = new Router(routes);
     this.pages = initialState.pages || [
         {
             name: 'home',
             text: 'Home',
-            url: '/'
+            url: this.router.makePath('home')
         },
         {
             name: 'about',
             text: 'About',
-            url: '/about'
+            url: this.router.makePath('about')
         }
     ];
 }
@@ -39,13 +42,19 @@ ApplicationStore.prototype.setDispatcher = function (dispatcher) {
 ApplicationStore.prototype.handleNavigate = function (payload, done) {
     var self = this,
         newPage = null,
+        route = this.router.getRoute(payload.path, {navParams: payload.params}),
         timeStore = this.dispatcher.getStore(TimeStore);
 
-    this.pages.forEach(function (link) {
-        if (payload.url === link.url) {
-            newPage = link;
+    if (route) {
+        this.route = route;
+        if (route.config.page) {
+            this.pages.forEach(function (page) {
+                if (route.name === page.name) {
+                    newPage = page;
+                }
+            });
         }
-    });
+    }
     if (newPage && newPage.name !== self.page ) {
         self.page = newPage.name;
         self.url = newPage.url;
