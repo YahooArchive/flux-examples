@@ -72,6 +72,7 @@ ApplicationStore.prototype.getState = function () {
     return {
         page: this.page,
         pages: this.pages,
+        route: this.route,
         url: this.url
     };
 };
