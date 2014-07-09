@@ -4,25 +4,26 @@
  */
 var util = require('util'),
     EventEmitter = require('events').EventEmitter,
+    Router = require('routr'),
     TimeStore = require('./TimeStore'),
+    routes = require('../configs/routes'),
     debug = require('debug')('ApplicationStore');
 
 function ApplicationStore(context, initialState) {
     initialState = initialState || {};
     this.page = initialState.page || null;
     this.url = initialState.url || null;
-    this.pages = initialState.pages || [
-        {
-            name: 'home',
+    this.router = new Router(routes);
+    this.pages = initialState.pages || {
+        home: {
             text: 'Home',
-            url: '/'
+            url: this.router.makePath('home')
         },
-        {
-            name: 'about',
+        about: {
             text: 'About',
-            url: '/about'
+            url: this.router.makePath('about')
         }
-    ];
+    };
 }
 
 ApplicationStore.storeName = 'ApplicationStore';
@@ -38,16 +39,14 @@ ApplicationStore.prototype.setDispatcher = function (dispatcher) {
 
 ApplicationStore.prototype.handleNavigate = function (payload, done) {
     var self = this,
-        newPage = null,
-        timeStore = this.dispatcher.getStore(TimeStore);
+        route = this.router.getRoute(payload.path, {navParams: payload.params}),
+        timeStore = this.dispatcher.getStore(TimeStore),
+        newPageName = (route && route.config.page) || null,
+        newPage = (newPageName && this.pages[newPageName]) || null;
 
-    this.pages.forEach(function (link) {
-        if (payload.url === link.url) {
-            newPage = link;
-        }
-    });
-    if (newPage && newPage.name !== self.page ) {
-        self.page = newPage.name;
+    if (newPage && newPageName !== self.page) {
+        self.route = route;
+        self.page = newPageName;
         self.url = newPage.url;
         timeStore.reset(function () {
             debug('page switched to ' + self.page);
@@ -63,6 +62,7 @@ ApplicationStore.prototype.getState = function () {
     return {
         page: this.page,
         pages: this.pages,
+        route: this.route,
         url: this.url
     };
 };

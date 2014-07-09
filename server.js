@@ -27,7 +27,7 @@ app.use(function (req, res, next) {
     var dispatcher = new Dispatchr(req.context || {});
 
     dispatcher.dispatch('NAVIGATE', {
-        url: req.url
+        path: req.url
     }, function (err) {
         if (err) {
             next(err);
