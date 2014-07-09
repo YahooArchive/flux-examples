@@ -10,7 +10,7 @@ var Nav = React.createClass({
     getInitialState: function () {
         return {
             selected: 'home',
-            links: []
+            links: {}
         };
     },
     onNavigate: function (e) {
@@ -26,13 +26,14 @@ var Nav = React.createClass({
         var self = this,
             selected = this.props.selected || this.state.selected,
             links = this.props.links || this.state.links,
-            linkHTML = links.map(function (link) {
-                var className = '';
-                if (selected === link.name) {
+            linkHTML = Object.keys(links).map(function (name) {
+                var className = '',
+                    link = links[name];
+                if (selected === name) {
                     className = 'pure-menu-selected';
                 }
                 return (
-                    <li className={className} key={link.name}>
+                    <li className={className} key={name}>
                         <a href={link.url} onClick={self.onNavigate}>{link.text}</a>
                     </li>
                 );
