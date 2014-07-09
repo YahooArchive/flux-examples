@@ -8,7 +8,7 @@ var React = require('react/addons'),
     Nav = require('./Nav.jsx'),
     Home = require('./Home.jsx'),
     About = require('./About.jsx'),
-    Timestamp = require('./Timestamp.jsx');
+    Timestamp = require('./Timestamp.jsx'),
     RouterMixin = require('flux-router-component').RouterMixin;
 
 var Application = React.createClass({
