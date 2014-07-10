@@ -46,6 +46,7 @@ ApplicationStore.prototype.handleNavigate = function (payload, done) {
 
     if (newPage && newPageName !== self.page) {
         self.route = route;
+        self.navigateType = payload.type;
         self.page = newPageName;
         self.url = newPage.url;
         timeStore.reset(function () {
@@ -63,6 +64,7 @@ ApplicationStore.prototype.getState = function () {
         page: this.page,
         pages: this.pages,
         route: this.route,
+        navigateType: this.navigateType,
         url: this.url
     };
 };
