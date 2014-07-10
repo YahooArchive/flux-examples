@@ -27,7 +27,7 @@ var Nav = React.createClass({
                 }
                 return (
                     <li className={className} key={name}>
-                        <a href={link.url} dispatcher={dispatcher}>{link.text}</a>
+                        <NavLink href={link.url} dispatcher={dispatcher}>{link.text}</NavLink>
                     </li>
                 );
             });
