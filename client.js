@@ -6,7 +6,7 @@
 'use strict';
 require('setimmediate');
 var React = require('react/addons'),
-    Dispatchr = require('dispatchr'),
+    Dispatchr = require('dispatchr')(),
     ApplicationStore = require('./stores/ApplicationStore'),
     TimeStore = require('./stores/TimeStore'),
     Application = require('./components/Application.jsx'),
