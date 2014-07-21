@@ -4,7 +4,6 @@
  */
 /*global App, document, window */
 'use strict';
-require('setimmediate');
 var React = require('react/addons'),
     Dispatchr = require('dispatchr')(),
     ApplicationStore = require('./stores/ApplicationStore'),
