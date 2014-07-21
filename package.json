@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "jsx-loader": "^0.10.2",
-    "setimmediate": "^1.0.2",
     "webpack": "^1.2.0-beta6"
   }
 }
