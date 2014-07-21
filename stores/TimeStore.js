@@ -25,7 +25,7 @@ TimeStore.prototype.reset = function (callback) {
         var date = new Date();
         self.time = date.toString();
         debug('time updated');
-        self.emit('update');
+        self.emit('change');
         callback();
     }, 100);
 };

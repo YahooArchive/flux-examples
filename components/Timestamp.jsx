@@ -13,7 +13,7 @@ var Timestamp = React.createClass({
     },
     componentDidMount: function() {
         var self = this;
-        this.store.on('update', function () {
+        this.store.on('change', function () {
             var state = self.store.getState();
             self.setState(state);
         });

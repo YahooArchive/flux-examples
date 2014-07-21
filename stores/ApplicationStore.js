@@ -51,7 +51,7 @@ ApplicationStore.prototype.handleNavigate = function (payload, done) {
         self.url = newPage.url;
         timeStore.reset(function () {
             debug('page switched to ' + self.page);
-            self.emit('update'); // Store may be listening for updates to state
+            self.emit('change'); // Store may be listening for changes to state
             done();
         });
     } else {

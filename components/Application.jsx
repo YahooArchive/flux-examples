@@ -19,16 +19,16 @@ var Application = React.createClass({
     },
     componentDidMount: function() {
         var self = this;
-        self._updateEventListener = function () {
+        self._changeEventListener = function () {
             var state = self.store.getState();
             self.setState(state);
         };
-        self.store.on('update', self._updateEventListener);
+        self.store.on('change', self._changeEventListener);
     },
     componentWillUnmount: function() {
         var self = this;
-        self.store.removeListener('update', self._updateEventListener);
-        self._updateEventListener = null;
+        self.store.removeListener('change', self._changeEventListener);
+        self._changeEventListener = null;
     },
     render: function() {
         return (
