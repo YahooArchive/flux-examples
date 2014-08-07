@@ -39,14 +39,13 @@ ApplicationStore.prototype.setDispatcher = function (dispatcher) {
 
 ApplicationStore.prototype.handleNavigate = function (payload, done) {
     var self = this,
-        route = this.router.getRoute(payload.path, {navParams: payload.params}),
+        route = this.router.getRoute(payload.path, {navigate: payload}),
         timeStore = this.dispatcher.getStore(TimeStore),
         newPageName = (route && route.config.page) || null,
         newPage = (newPageName && this.pages[newPageName]) || null;
 
     if (newPage && newPageName !== self.page) {
         self.route = route;
-        self.navigateType = payload.type;
         self.page = newPageName;
         self.url = newPage.url;
         timeStore.reset(function () {
