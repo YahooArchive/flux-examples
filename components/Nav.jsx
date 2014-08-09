@@ -15,10 +15,9 @@ var Nav = React.createClass({
         };
     },
     render: function() {
-        var self = this,
-            selected = this.props.selected || this.state.selected,
+        var selected = this.props.selected || this.state.selected,
             links = this.props.links || this.state.links,
-            dispatcher = this.props.dispatcher,
+            context = this.props.context,
             linkHTML = Object.keys(links).map(function (name) {
                 var className = '',
                     link = links[name];
@@ -27,7 +26,7 @@ var Nav = React.createClass({
                 }
                 return (
                     <li className={className} key={name}>
-                        <NavLink href={link.url} dispatcher={dispatcher}>{link.text}</NavLink>
+                        <NavLink name={link.route} context={context}>{link.text}</NavLink>
                     </li>
                 );
             });

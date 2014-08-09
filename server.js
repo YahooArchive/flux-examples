@@ -7,13 +7,15 @@ var http = require('http'),
     express = require('express'),
     expressState = require('express-state'),
     React = require('react/addons'),
-    Dispatchr = require('dispatchr')(),
+    Context = require('./lib/Context'),
     ApplicationStore = require('./stores/ApplicationStore'),
     TimeStore = require('./stores/TimeStore'),
-    Application = require('./components/Application.jsx');
+    Application = require('./components/Application.jsx'),
+    navigateAction = require('flux-router-component').navigateAction,
+    debug = require('debug')('flux-example:server');
 
-Dispatchr.registerStore(ApplicationStore);
-Dispatchr.registerStore(TimeStore);
+Context.registerStore(ApplicationStore);
+Context.registerStore(TimeStore);
 
 var app = express();
 expressState.extend(app);
@@ -24,21 +26,35 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/build'));
 
 app.use(function (req, res, next) {
-    var dispatcher = new Dispatchr(req.context || {});
+    debug('Creating context');
+    var context = new Context();
 
-    dispatcher.dispatch('NAVIGATE', {
+    debug('Executing navigate action');
+    context.getActionContext().executeAction(navigateAction, {
         path: req.url
     }, function (err) {
         if (err) {
-            next(err);
+            if (err.status && err.status === 404) {
+                next();
+            } else {
+                next(err);
+            }
             return;
         }
-        var appComponent = Application({dispatcher: dispatcher});
+        debug('Creating Application component');
+        var appComponent = Application({context: context.getComponentContext()});
+        debug('Rendering Application component');
         var html = React.renderComponentToString(appComponent);
-        res.expose(dispatcher.toJSON(), 'Dispatcher');
+        debug('Exposing context state');
+        res.expose(context.dehydrate(), 'Context');
+        debug('Rendering application into layout');
         res.render('layout', {
             html: html
         }, function (err, markup) {
+            if (err) {
+                next(err);
+            }
+            debug('Sending markup');
             res.send(markup);
         });
     });
