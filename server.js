@@ -6,16 +6,10 @@ require('node-jsx').install({ extension: '.jsx' });
 var http = require('http'),
     express = require('express'),
     expressState = require('express-state'),
-    React = require('react/addons'),
-    Context = require('./lib/Context'),
-    ApplicationStore = require('./stores/ApplicationStore'),
-    TimeStore = require('./stores/TimeStore'),
-    Application = require('./components/Application.jsx'),
     navigateAction = require('flux-router-component').navigateAction,
-    debug = require('debug')('flux-example:server');
-
-Context.registerStore(ApplicationStore);
-Context.registerStore(TimeStore);
+    debug = require('debug')('flux-example:server'),
+    React = require('react/addons'),
+    Application = require('./app');
 
 var app = express();
 expressState.extend(app);
@@ -26,11 +20,10 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/build'));
 
 app.use(function (req, res, next) {
-    debug('Creating context');
-    var context = new Context();
+    var application = new Application();
 
     debug('Executing navigate action');
-    context.getActionContext().executeAction(navigateAction, {
+    application.context.getActionContext().executeAction(navigateAction, {
         path: req.url
     }, function (err) {
         if (err) {
@@ -41,12 +34,10 @@ app.use(function (req, res, next) {
             }
             return;
         }
-        debug('Creating Application component');
-        var appComponent = Application({context: context.getComponentContext()});
         debug('Rendering Application component');
-        var html = React.renderComponentToString(appComponent);
+        var html = React.renderComponentToString(application.getComponent());
         debug('Exposing context state');
-        res.expose(context.dehydrate(), 'Context');
+        res.expose(application.context.dehydrate(), 'Context');
         debug('Rendering application into layout');
         res.render('layout', {
             html: html
