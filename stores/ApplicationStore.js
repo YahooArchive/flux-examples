@@ -30,8 +30,8 @@ ApplicationStore.handlers = {
 
 util.inherits(ApplicationStore, EventEmitter);
 
-ApplicationStore.prototype.handleNavigate = function (payload) {
-    var pageName = payload.config.page,
+ApplicationStore.prototype.handleNavigate = function (route) {
+    var pageName = route.config.page,
         page = this.pages[pageName];
 
     if (pageName === this.getCurrentPageName()) {
@@ -40,7 +40,7 @@ ApplicationStore.prototype.handleNavigate = function (payload) {
 
     this.currentPageName = pageName;
     this.currentPage = page;
-    this.currentRoute = payload;
+    this.currentRoute = route;
     this.emit('change');
 };
 

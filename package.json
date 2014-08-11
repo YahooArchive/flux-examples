@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "debug": "^1.0.0",
-    "dispatchr": "git://github.com/yahoo/dispatchr.git",
-    "envify": "^1.2.1",
+    "dispatchr": "^0.2.0",
     "express": "^4.3.2",
     "express-state": "^1.2.0",
     "flux-router-component": "^0.0.6",
