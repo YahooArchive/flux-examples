@@ -4,68 +4,64 @@
  */
 var util = require('util'),
     EventEmitter = require('events').EventEmitter,
-    Router = require('routr'),
     TimeStore = require('./TimeStore'),
-    routes = require('../configs/routes'),
     debug = require('debug')('ApplicationStore');
 
-function ApplicationStore(context, initialState) {
-    initialState = initialState || {};
-    this.page = initialState.page || null;
-    this.url = initialState.url || null;
-    this.router = new Router(routes);
-    this.pages = initialState.pages || {
+function ApplicationStore(dispatcher) {
+    this.currentPageName = null;
+    this.currentPage = null;
+    this.currentRoute = null;
+    this.pages = {
         home: {
             text: 'Home',
-            url: this.router.makePath('home')
+            route: 'home'
         },
         about: {
             text: 'About',
-            url: this.router.makePath('about')
+            route: 'about'
         }
     };
 }
 
 ApplicationStore.storeName = 'ApplicationStore';
 ApplicationStore.handlers = {
-    'NAVIGATE': 'handleNavigate'
+    'CHANGE_ROUTE': 'handleNavigate'
 };
 
 util.inherits(ApplicationStore, EventEmitter);
 
-ApplicationStore.prototype.setDispatcher = function (dispatcher) {
-    this.dispatcher = dispatcher;
+ApplicationStore.prototype.handleNavigate = function (route) {
+    var pageName = route.config.page,
+        page = this.pages[pageName];
+
+    if (pageName === this.getCurrentPageName()) {
+        return;
+    }
+
+    this.currentPageName = pageName;
+    this.currentPage = page;
+    this.currentRoute = route;
+    this.emit('change');
 };
 
-ApplicationStore.prototype.handleNavigate = function (payload, done) {
-    var self = this,
-        route = this.router.getRoute(payload.path, {navigate: payload}),
-        timeStore = this.dispatcher.getStore(TimeStore),
-        newPageName = (route && route.config.page) || null,
-        newPage = (newPageName && this.pages[newPageName]) || null;
-
-    if (newPage && newPageName !== self.page) {
-        self.route = route;
-        self.page = newPageName;
-        self.url = newPage.url;
-        timeStore.reset(function () {
-            debug('page switched to ' + self.page);
-            self.emit('change'); // Store may be listening for changes to state
-            done();
-        });
-    } else {
-        done(); // Action has been fully handled
-    }
+ApplicationStore.prototype.getCurrentPageName = function () {
+    return this.currentPageName;
 };
 
 ApplicationStore.prototype.getState = function () {
     return {
-        page: this.page,
+        currentPageName: this.currentPageName,
+        currentPage: this.currentPage,
         pages: this.pages,
-        route: this.route,
-        navigateType: this.navigateType,
-        url: this.url
+        route: this.currentRoute
     };
+};
+
+ApplicationStore.prototype.rehydrate = function (state) {
+    this.currentPageName = state.currentPageName;
+    this.currentPage = state.currentPage;
+    this.pages = state.pages;
+    this.currentRoute = state.route;
 };
 
 module.exports = ApplicationStore;

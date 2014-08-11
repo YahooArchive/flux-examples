@@ -14,10 +14,10 @@ var React = require('react/addons'),
 var Application = React.createClass({
     mixins: [RouterMixin],
     getInitialState: function () {
-        this.store = this.props.dispatcher.getStore('ApplicationStore');
+        this.store = this.props.context.getStore('ApplicationStore');
         return this.store.getState();
     },
-    componentDidMount: function() {
+    componentDidMount: function () {
         var self = this;
         self._changeEventListener = function () {
             var state = self.store.getState();
@@ -25,17 +25,17 @@ var Application = React.createClass({
         };
         self.store.on('change', self._changeEventListener);
     },
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         var self = this;
         self.store.removeListener('change', self._changeEventListener);
         self._changeEventListener = null;
     },
-    render: function() {
+    render: function () {
         return (
             <div>
-                <Nav selected={this.state.page} links={this.state.pages} dispatcher={this.props.dispatcher}/>
-                {'home' === this.state.page ? <Home/> : <About/>}
-                <Timestamp dispatcher={this.props.dispatcher}/>
+                <Nav selected={this.state.currentPageName} links={this.state.pages} context={this.props.context}/>
+                {'home' === this.state.currentPageName ? <Home/> : <About/>}
+                <Timestamp context={this.props.context}/>
             </div>
         );
     }

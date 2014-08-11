@@ -5,26 +5,27 @@
 /*global App, document, window */
 'use strict';
 var React = require('react/addons'),
-    Dispatchr = require('dispatchr')(),
+    Context = require('./lib/Context'),
     ApplicationStore = require('./stores/ApplicationStore'),
     TimeStore = require('./stores/TimeStore'),
     Application = require('./components/Application.jsx'),
     debug = require('debug'),
-    bootstrapDebug = debug('Example:bootstrap');
+    bootstrapDebug = debug('Example:bootstrap'),
+    navigateAction = require('flux-router-component').navigateAction;
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
 
-Dispatchr.registerStore(ApplicationStore);
-Dispatchr.registerStore(TimeStore);
+Context.registerStore(ApplicationStore);
+Context.registerStore(TimeStore);
 
-var dispatcher = new Dispatchr({});
+var context = new Context();
 bootstrapDebug('rehydrating dispatcher');
-dispatcher.rehydrate(App.Dispatcher);
+context.rehydrate(App.Context);
 
 bootstrapDebug('dispatching BOOTSTRAP action');
-dispatcher.dispatch('BOOTSTRAP', {}, function () {
-    var app = Application({dispatcher: dispatcher}),
+context.getActionContext().executeAction(navigateAction, {}, function () {
+    var app = Application({context: context.getComponentContext()}),
         mountNode = document.getElementById('app');
 
     bootstrapDebug('React Rendering');

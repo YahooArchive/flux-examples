@@ -4,11 +4,12 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-var React = require('react/addons');
+var React = require('react/addons'),
+    updateTime = require('../actions/updateTime');
 
 var Timestamp = React.createClass({
     getInitialState: function () {
-        this.store = this.props.dispatcher.getStore('TimeStore');
+        this.store = this.props.context.getStore('TimeStore');
         return this.store.getState();
     },
     componentDidMount: function() {
@@ -19,7 +20,7 @@ var Timestamp = React.createClass({
         });
     },
     onReset: function (event) {
-        this.props.dispatcher.dispatch('RESET_TIMER');
+        this.props.context.executeAction(updateTime);
     },
     render: function() {
         return (
