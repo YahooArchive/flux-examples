@@ -2,6 +2,8 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
+'use strict';
+
 var util = require('util'),
     BaseStore = require('../../common/lib/BaseStore'),
     debug = require('debug')('Example:MessageStore'),
