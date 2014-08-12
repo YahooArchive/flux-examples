@@ -4,7 +4,7 @@
  */
 var util = require('util'),
     EventEmitter = require('events').EventEmitter,
-    debug = require('debug')('TimeStore');
+    debug = require('debug')('Example:TimeStore');
 
 function TimeStore(dispatcher) {
     this.time = new Date();
