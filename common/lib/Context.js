@@ -1,10 +1,11 @@
 var Dispatcher = require('dispatchr')(),
-    Router = require('routr'),
-    routes = require('../configs/routes');
+    Router = require('routr');
 
-function Context() {
+function Context(options) {
+    options = options || {};
     this.dispatcher = new Dispatcher({});
-    this.router = new Router(routes);
+    this.router = new Router(options.routes);
+    this.fetcher = options.fetcher || null;
     this.actionContext = this.getActionContext();
     this.componentContext = this.getComponentContext();
 }
@@ -33,8 +34,9 @@ Context.prototype.getActionContext = function () {
         executeAction: function (actionController, payload, done) {
             actionController.call(self.actionContext, payload, done);
         },
+        fetcher: self.fetcher,
         getStore: self.dispatcher.getStore.bind(self.dispatcher),
-        router: this.router
+        router: self.router
     }
 };
 

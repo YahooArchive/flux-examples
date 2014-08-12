@@ -5,7 +5,7 @@
 var util = require('util'),
     EventEmitter = require('events').EventEmitter,
     TimeStore = require('./TimeStore'),
-    debug = require('debug')('ApplicationStore');
+    debug = require('debug')('Example:ApplicationStore');
 
 function ApplicationStore(dispatcher) {
     this.currentPageName = null;

@@ -6,10 +6,14 @@ require('node-jsx').install({ extension: '.jsx' });
 var http = require('http'),
     express = require('express'),
     expressState = require('express-state'),
-    navigateAction = require('flux-router-component').navigateAction,
-    debug = require('debug')('flux-example:server'),
+    debug = require('debug')('Example'),
     React = require('react/addons'),
-    Application = require('./app');
+    Application = require('./app'),
+    showChat = require('./actions/showChat'),
+    Fetcher = require('fetchr'),
+    fetcher = new Fetcher();
+
+fetcher.addFetcher(require('./fetchers/message'));
 
 var app = express();
 expressState.extend(app);
@@ -18,14 +22,15 @@ app.set('views', __dirname + '/templates');
 app.set('view engine', 'jade');
 
 app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '/css'));
 
 app.use(function (req, res, next) {
-    var application = new Application();
+    var application = new Application({
+        fetcher: fetcher
+    });
 
-    debug('Executing navigate action');
-    application.context.getActionContext().executeAction(navigateAction, {
-        path: req.url
-    }, function (err) {
+    debug('Executing showChat action');
+    application.context.getActionContext().executeAction(showChat, {}, function (err) {
         if (err) {
             if (err.status && err.status === 404) {
                 next();

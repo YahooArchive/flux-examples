@@ -3,19 +3,24 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var Context = require('./lib/Context'),
-    ApplicationStore = require('./stores/ApplicationStore'),
-    TimeStore = require('./stores/TimeStore'),
-    Application = require('./components/Application.jsx'),
+var Context = require('../common/lib/Context'),
+    MessageStore = require('./stores/MessageStore'),
+    ThreadStore = require('./stores/ThreadStore'),
+    Application = require('./components/ChatApp.jsx'),
     debug = require('debug'),
-    bootstrapDebug = debug('ExampleApplication');
+    bootstrapDebug = debug('Example');
 
-Context.registerStore(ApplicationStore);
-Context.registerStore(TimeStore);
+Context.registerStore(MessageStore);
+Context.registerStore(ThreadStore);
 
-function App(initialState) {
+function App(options) {
+    options = options || {};
+    var fetcher = options.fetcher,
+        initialState = options.initialState;
     debug('Creating context');
-    this.context = new Context();
+    this.context = new Context({
+        fetcher: fetcher
+    });
     if (initialState) {
         bootstrapDebug('rehydrating context');
         this.context.rehydrate(initialState);
@@ -27,6 +32,6 @@ App.prototype.getComponent = function () {
     var appComponent = Application({context: this.context.getComponentContext()});
     debug('Rendering Application component');
     return appComponent;
-}
+};
 
 module.exports = App;

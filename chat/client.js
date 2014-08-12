@@ -6,7 +6,9 @@
 'use strict';
 var React = require('react/addons'),
     debug = require('debug'),
-    bootstrapDebug = debug('Example:bootstrap'),
+    bootstrapDebug = debug('Example'),
+    Fetcher = require('fetchr'),
+    fetcher = new Fetcher(),
     Application = require('./app'),
     dehydratedState = App && App.Context; // Sent from the server
 
@@ -14,7 +16,10 @@ window.React = React; // For chrome dev tool support
 debug.enable('*');
 
 bootstrapDebug('rehydrating app');
-var application = new Application(dehydratedState);
+var application = new Application({
+    fetcher: fetcher,
+    initialState: dehydratedState
+});
 
 var app = application.getComponent(),
     mountNode = document.getElementById('app');
