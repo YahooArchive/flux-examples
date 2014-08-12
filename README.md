@@ -13,3 +13,5 @@ cd <folder>
 webpack
 node server.js
 ```
+
+Open http://localhost:3000
