@@ -8,6 +8,7 @@ var debug = require('debug')('Example:showChatAction'),
     ThreadStore = require('../stores/ThreadStore'),
     openThread = require('./openThread');
 
+// `this` is the action controller context with `dispatch`, `getStore`, and `executeAction` methods
 module.exports = function (payload, done) {
     debug('dispatching SHOW_CHAT_START');
     this.dispatch('SHOW_CHAT_START');
