@@ -5,13 +5,13 @@
 'use strict';
 
 var util = require('util'),
-    BaseStore = require('../../common/lib/BaseStore'),
+    BaseStore = require('dispatchr/utils/BaseStore'),
     debug = require('debug')('Example:MessageStore'),
     fetcher = require('fetchr'),
     ThreadStore = require('./ThreadStore');
 
-function MessageStore(context) {
-    this.context = context;
+function MessageStore(dispatcher) {
+    this.dispatcher = dispatcher;
     this.messages = {};
     this.sortedByDate = [];
 }
@@ -74,7 +74,7 @@ MessageStore.prototype.getAllForThread = function(threadID) {
 };
 
 MessageStore.prototype.getAllForCurrentThread = function() {
-    var currentThreadID = this.context.getStore(ThreadStore).getCurrentID();
+    var currentThreadID = this.dispatcher.getStore(ThreadStore).getCurrentID();
     return this.getAllForThread(currentThreadID);
 };
 

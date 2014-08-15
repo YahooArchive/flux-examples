@@ -16,7 +16,7 @@ Context.prototype.getComponentContext = function () {
     var self = this;
     return {
         executeAction: function (actionController, payload) {
-            actionController.call(self.actionContext, payload, function (err) {
+            actionController(self.actionContext, payload, function (err) {
                 if (err) {
                     console.error(err);
                 }
@@ -32,7 +32,7 @@ Context.prototype.getActionContext = function () {
     return {
         dispatch: self.dispatcher.dispatch.bind(self.dispatcher),
         executeAction: function (actionController, payload, done) {
-            actionController.call(self.actionContext, payload, done);
+            actionController(self.actionContext, payload, done);
         },
         fetcher: self.fetcher,
         getStore: self.dispatcher.getStore.bind(self.dispatcher),
