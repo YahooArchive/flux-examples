@@ -7,7 +7,10 @@
 var React = require('react/addons'),
     debug = require('debug'),
     bootstrapDebug = debug('Example'),
-    Fetcher = require('fetchr'),
+    fetchr = require('fetchr'),
+    Fetcher = fetchr({
+        pathPrefix: '/api'
+    }),
     fetcher = new Fetcher(),
     Application = require('./app'),
     dehydratedState = App && App.Context; // Sent from the server

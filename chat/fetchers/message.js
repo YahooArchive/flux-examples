@@ -66,15 +66,16 @@ var _messages = [
 module.exports = {
     name: 'message',
     //At least one of the CRUD methods is Required
-    read: function(resource, params, context, callback) {
+    read: function(req, resource, params, context, callback) {
         setTimeout(function () {
             callback(null, JSON.parse(JSON.stringify(_messages)));
         }, 10);
     },
-    create: function(resource, params, body, context, callback) {
+    create: function(req, resource, params, body, context, callback) {
         _messages.push({
             id: params.id,
             threadID: params.threadID,
+            threadName: params.threadName,
             authorName: params.authorName,
             text: params.text,
             timestamp: params.date

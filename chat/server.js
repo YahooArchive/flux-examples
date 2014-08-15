@@ -6,14 +6,15 @@ require('node-jsx').install({ extension: '.jsx' });
 var http = require('http'),
     express = require('express'),
     expressState = require('express-state'),
+    bodyParser = require('body-parser'),
     debug = require('debug')('Example'),
     React = require('react/addons'),
     Application = require('./app'),
     showChat = require('./actions/showChat'),
-    Fetcher = require('fetchr'),
-    fetcher = new Fetcher();
-
-fetcher.addFetcher(require('./fetchers/message'));
+    fetchr = require('fetchr'),
+    Fetcher = fetchr({
+        pathPrefix: '/api'
+    });
 
 var app = express();
 expressState.extend(app);
@@ -24,7 +25,15 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/build'));
 app.use(express.static(__dirname + '/css'));
 
+app.use(bodyParser.json());
+
+Fetcher.addFetcher(require('./fetchers/message'));
+app.use(Fetcher.middleware());
+
 app.use(function (req, res, next) {
+    var fetcher = new Fetcher({
+        req: req
+    });
     var application = new Application({
         fetcher: fetcher
     });
