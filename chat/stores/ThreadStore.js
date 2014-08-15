@@ -5,11 +5,11 @@
 'use strict';
 
 var util = require('util'),
-    BaseStore = require('../../common/lib/BaseStore'),
+    BaseStore = require('dispatchr/utils/BaseStore'),
     debug = require('debug')('Example:ThreadStore');
 
-function ThreadStore(context) {
-    this.context = context;
+function ThreadStore(dispatcher) {
+    this.dispatcher = dispatcher;
     this.currentID = null;
     this.threads = {};
 }
@@ -72,7 +72,7 @@ ThreadStore.prototype.getCurrent = function() {
 
 ThreadStore.prototype.receiveMessages = function (messages) {
     var self = this;
-    this.context.waitFor('MessageStore', function () {
+    this.dispatcher.waitFor('MessageStore', function () {
         messages.forEach(function(message) {
             var threadID = message.threadID;
             var thread = self.threads[threadID];

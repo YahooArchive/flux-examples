@@ -7,9 +7,8 @@
 var debug = require('debug')('Example:createMessageAction'),
     ThreadStore = require('../stores/ThreadStore');
 
-// `this` is the action controller context with `dispatch`, `getStore`, and `executeAction` methods
-module.exports = function (payload, done) {
-    var threadStore = this.getStore(ThreadStore),
+module.exports = function (context, payload, done) {
+    var threadStore = context.getStore(ThreadStore),
         timestamp = Date.now();
     var message = {
         id: 'm_' + timestamp,
@@ -20,7 +19,12 @@ module.exports = function (payload, done) {
         text: payload.text,
         isRead: true
     };
-    debug('dispatching RECEIVE_MESSAGES', [message]);
-    this.dispatch('RECEIVE_MESSAGES', [message]);
-    this.fetcher.create('message', message, this.context, done);
+    context.dispatch('RECEIVE_MESSAGES', [message]);
+    context.fetcher.create('message', message, {}, function (err) {
+        if (err) {
+            context.dispatch('RECEIVE_MESSAGES_FAILURE', [message]);
+            return;
+        }
+        context.dispatch('RECEIVE_MESSAGES_SUCCESS', [message]);
+    });
 };
