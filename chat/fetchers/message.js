@@ -78,7 +78,7 @@ module.exports = {
             threadName: params.threadName,
             authorName: params.authorName,
             text: params.text,
-            timestamp: params.date
+            timestamp: params.timestamp
         });
         setTimeout(function () {
             callback(null, _messages);
