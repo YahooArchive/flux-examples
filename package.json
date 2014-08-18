@@ -12,11 +12,11 @@
   "dependencies": {
     "body-parser": "^1.6.4",
     "debug": "^1.0.0",
-    "dispatchr": "^0.2.0",
+    "dispatchr": "^0.2.1",
     "express": "^4.3.2",
     "express-state": "^1.2.0",
     "fetchr": "git://github.com/yahoo/fetchr.git#createclass",
-    "flux-router-component": "^0.1.0",
+    "flux-router-component": "^0.2.0",
     "jade": "^1.3.1",
     "node-jsx": "^0.10.0",
     "react": "^0.11.1",
