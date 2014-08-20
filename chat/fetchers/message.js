@@ -65,13 +65,13 @@ var _messages = [
 
 module.exports = {
     name: 'message',
-    //At least one of the CRUD methods is Required
-    read: function(req, resource, params, context, callback) {
+    //At least one of the CRUD methods is required
+    read: function(req, resource, params, config, callback) {
         setTimeout(function () {
             callback(null, JSON.parse(JSON.stringify(_messages)));
         }, 10);
     },
-    create: function(req, resource, params, body, context, callback) {
+    create: function(req, resource, params, body, config, callback) {
         _messages.push({
             id: params.id,
             threadID: params.threadID,
@@ -84,7 +84,7 @@ module.exports = {
             callback(null, _messages);
         }, 10);
     }
-    //update: function(resource, params, body, context, callback) {},
-    //del: function(resource, params, context, callback) {}
+    //update: function(resource, params, body, config, callback) {},
+    //del: function(resource, params, config, callback) {}
 
 };
