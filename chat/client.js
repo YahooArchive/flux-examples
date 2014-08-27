@@ -23,6 +23,7 @@ var application = new Application({
     fetcher: fetcher,
     initialState: dehydratedState
 });
+window.context = application.context;
 
 var app = application.getComponent(),
     mountNode = document.getElementById('app');

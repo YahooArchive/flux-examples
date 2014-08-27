@@ -32,7 +32,7 @@ var MessageListItem = React.createClass({
             <li className="message-list-item">
                 <h5 className="message-author-name">{message.authorName}</h5>
                 <div className="message-time">
-          {(new Date(message.timestamp)).toLocaleTimeString()}
+                    {(new Date(message.timestamp)).toTimeString()}
                 </div>
                 <div className="message-text">{message.text}</div>
             </li>

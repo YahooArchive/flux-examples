@@ -41,7 +41,7 @@ var ThreadListItem = React.createClass({
             onClick={this._onClick}>
                 <h5 className="thread-name">{thread.name}</h5>
                 <div className="thread-time">
-          {(new Date(lastMessage.timestamp)).toLocaleTimeString()}
+                    {(new Date(lastMessage.timestamp)).toTimeString()}
                 </div>
                 <div className="thread-last-message">
           {lastMessage.text}
