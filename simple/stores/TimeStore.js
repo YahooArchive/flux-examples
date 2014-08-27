@@ -21,13 +21,17 @@ TimeStore.prototype.handleTimeChange = function (payload) {
 
 TimeStore.handlers = {
     'CHANGE_ROUTE': 'handleTimeChange',
-    'CHANGE_TIME': 'handleTimeChange'
+    'UPDATE_TIME': 'handleTimeChange'
 };
 
 TimeStore.prototype.getState = function () {
     return {
         time: this.time.toString()
     };
+};
+
+TimeStore.prototype.dehydrate = function () {
+    return this.getState();
 };
 
 TimeStore.prototype.rehydrate = function (state) {

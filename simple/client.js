@@ -15,6 +15,7 @@ debug.enable('*');
 
 bootstrapDebug('rehydrating app');
 var application = new Application(dehydratedState);
+window.context = application.context;
 
 var app = application.getComponent(),
     mountNode = document.getElementById('app');
