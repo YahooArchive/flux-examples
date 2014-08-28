@@ -57,6 +57,10 @@ ApplicationStore.prototype.getState = function () {
     };
 };
 
+ApplicationStore.prototype.dehydrate = function () {
+    return this.getState();
+};
+
 ApplicationStore.prototype.rehydrate = function (state) {
     this.currentPageName = state.currentPageName;
     this.currentPage = state.currentPage;
