@@ -20,7 +20,7 @@ TimeStore.prototype.handleTimeChange = function (payload) {
 };
 
 TimeStore.handlers = {
-    'CHANGE_ROUTE': 'handleTimeChange',
+    'CHANGE_ROUTE_START': 'handleTimeChange',
     'UPDATE_TIME': 'handleTimeChange'
 };
 
