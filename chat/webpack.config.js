@@ -18,7 +18,6 @@ module.exports = {
         ]
     },
     plugins: [
-        //new webpack.optimize.UglifyJsPlugin(),
-        new webpack.NormalModuleReplacementPlugin(/^fetchr$/, require.resolve('fetchr/libs/fetcher.client.js'))
+        //new webpack.optimize.UglifyJsPlugin()
     ]
 };
