@@ -24,7 +24,7 @@ app.use(express.static(__dirname + '/css'));
 
 app.use(bodyParser.json());
 
-Fetcher.addFetcher(require('./fetchers/message'));
+Fetcher.registerFetcher(require('./fetchers/message'));
 app.use(Application.config.xhrPath, Fetcher.middleware());
 
 app.use(function (req, res, next) {
