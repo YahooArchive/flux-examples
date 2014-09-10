@@ -11,10 +11,7 @@ var http = require('http'),
     React = require('react/addons'),
     Application = require('./app'),
     showChat = require('./actions/showChat'),
-    fetchr = require('fetchr'),
-    Fetcher = fetchr({
-        pathPrefix: '/api'
-    });
+    Fetcher = require('fetchr');
 
 var app = express();
 expressState.extend(app);
@@ -28,7 +25,7 @@ app.use(express.static(__dirname + '/css'));
 app.use(bodyParser.json());
 
 Fetcher.addFetcher(require('./fetchers/message'));
-app.use(Fetcher.middleware());
+app.use(Application.config.xhrPath, Fetcher.middleware());
 
 app.use(function (req, res, next) {
     var fetcher = new Fetcher({

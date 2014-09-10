@@ -35,3 +35,6 @@ App.prototype.getComponent = function () {
 };
 
 module.exports = App;
+module.exports.config = {
+    xhrPath: '/api'
+}

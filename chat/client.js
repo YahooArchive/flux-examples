@@ -7,12 +7,11 @@
 var React = require('react/addons'),
     debug = require('debug'),
     bootstrapDebug = debug('Example'),
-    fetchr = require('fetchr'),
-    Fetcher = fetchr({
-        pathPrefix: '/api'
-    }),
-    fetcher = new Fetcher(),
+    Fetcher = require('fetchr'),
     Application = require('./app'),
+    fetcher = new Fetcher({
+        xhrPath: Application.config.xhrPath
+    }),
     dehydratedState = App && App.Context; // Sent from the server
 
 window.React = React; // For chrome dev tool support
