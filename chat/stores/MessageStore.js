@@ -7,7 +7,6 @@
 var util = require('util'),
     BaseStore = require('dispatchr/utils/BaseStore'),
     debug = require('debug')('Example:MessageStore'),
-    fetcher = require('fetchr'),
     ThreadStore = require('./ThreadStore');
 
 function MessageStore(dispatcher) {
