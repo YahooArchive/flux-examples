@@ -4,14 +4,16 @@ Example isomorphic Flux applications using [dispatchr](https://github.com/yahoo/
 
 The server-side rendered React components and store instances get dehydrated and sent to the client using [express-state](https://github.com/yahoo/express-state). The client.js (compiled by [webpack](https://github.com/webpack/webpack)) then bootstraps and rehydrates the dispatchr instance and the stores to same state as what they were on the server.
 
+There are multiple examples in this repo.
+
 Usage
 -----
 
 ```
 npm install
-cd <folder>
-webpack
-node server.js
+cd chat / cd routing
+npm install
+npm start
 ```
 
 Open http://localhost:3000

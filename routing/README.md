@@ -5,8 +5,7 @@ Usage
 
 ```
 npm install
-webpack
-node server.js
+npm start
 ```
 
 Open http://localhost:3000
