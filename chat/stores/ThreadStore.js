@@ -24,6 +24,7 @@ util.inherits(ThreadStore, BaseStore);
 
 ThreadStore.prototype.openThread = function (payload) {
     this.currentID = payload.threadID;
+    this.threads[this.currentID].lastMessage.isRead = true;
     this.emitChange();
 };
 
