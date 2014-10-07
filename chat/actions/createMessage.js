@@ -19,12 +19,16 @@ module.exports = function (context, payload, done) {
         text: payload.text,
         isRead: true
     };
+    debug('dispatching RECEIVE_MESSAGES', message);
     context.dispatch('RECEIVE_MESSAGES', [message]);
     context.fetcher.create('message', message, {}, function (err) {
         if (err) {
+            debug('dispatching RECEIVE_MESSAGES_FAILURE', message);
             context.dispatch('RECEIVE_MESSAGES_FAILURE', [message]);
             return;
         }
+        debug('dispatching RECEIVE_MESSAGES_SUCCESS', message);
         context.dispatch('RECEIVE_MESSAGES_SUCCESS', [message]);
+        done();
     });
 };
