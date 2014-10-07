@@ -20,7 +20,7 @@ var React = require('react');
 var MessageStore = require('../stores/MessageStore');
 var ThreadListItem = require('../components/ThreadListItem.jsx');
 var ThreadStore = require('../stores/ThreadStore');
-//var UnreadThreadStore = require('../stores/UnreadThreadStore');
+var UnreadThreadStore = require('../stores/UnreadThreadStore');
 
 var ThreadSection = React.createClass({
 
@@ -28,7 +28,7 @@ var ThreadSection = React.createClass({
         var context = this.props.context;
         this.ThreadStore = context.getStore(ThreadStore);
         this.MessageStore = context.getStore(MessageStore);
-//        this.UnreadThreadStore = context.getStore(UndreadThreadStore);
+        this.UnreadThreadStore = context.getStore(UnreadThreadStore);
         return this.getStateFromStores();
     },
 
@@ -36,18 +36,18 @@ var ThreadSection = React.createClass({
         return {
             threads: this.ThreadStore.getAllChrono(),
             currentThreadID: this.ThreadStore.getCurrentID(),
-            unreadCount: 0 //this.UnreadThreadStore.getCount()
+            unreadCount: this.UnreadThreadStore.getCount()
         };
     },
 
     componentDidMount: function() {
         this.ThreadStore.addChangeListener(this._onChange);
-//    this.UnreadThreadStore.addChangeListener(this._onChange);
+        this.UnreadThreadStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         this.ThreadStore.removeChangeListener(this._onChange);
-//    this.UnreadThreadStore.removeChangeListener(this._onChange);
+        this.UnreadThreadStore.removeChangeListener(this._onChange);
     },
 
     render: function() {
