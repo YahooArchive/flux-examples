@@ -6,12 +6,14 @@
 var Context = require('../common/lib/Context'),
     MessageStore = require('./stores/MessageStore'),
     ThreadStore = require('./stores/ThreadStore'),
+    UnreadThreadStore = require('./stores/UnreadThreadStore'),
     Application = require('./components/ChatApp.jsx'),
     debug = require('debug'),
     bootstrapDebug = debug('Example');
 
 Context.registerStore(MessageStore);
 Context.registerStore(ThreadStore);
+Context.registerStore(UnreadThreadStore);
 
 function App(options) {
     options = options || {};
