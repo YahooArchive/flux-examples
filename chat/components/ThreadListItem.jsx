@@ -44,7 +44,7 @@ var ThreadListItem = React.createClass({
                     {(new Date(lastMessage.timestamp)).toTimeString()}
                 </div>
                 <div className="thread-last-message">
-          {lastMessage.text}
+                    {lastMessage.text}
                 </div>
             </li>
             );
