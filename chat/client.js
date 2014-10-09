@@ -4,7 +4,7 @@
  */
 /*global App, document, window */
 'use strict';
-var React = require('react/addons'),
+var React = require('react'),
     debug = require('debug'),
     bootstrapDebug = debug('Example'),
     Fetcher = require('fetchr'),
