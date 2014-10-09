@@ -4,7 +4,7 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-var React = require('react/addons'),
+var React = require('react'),
     Nav = require('./Nav.jsx'),
     Home = require('./Home.jsx'),
     About = require('./About.jsx'),
