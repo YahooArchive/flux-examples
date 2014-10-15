@@ -85,6 +85,6 @@ module.exports = {
         }, 10);
     }
     //update: function(resource, params, body, config, callback) {},
-    //del: function(resource, params, config, callback) {}
+    //delete: function(resource, params, config, callback) {}
 
 };
