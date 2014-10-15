@@ -5,10 +5,6 @@
   "description": "Example application",
   "main": "server.js",
   "author": "Michael Ridgway <mridgway@yahoo-inc.com>",
-  "scripts": {
-    "build": "webpack",
-    "start": "npm run build && node"
-  },
   "dependencies": {
     "body-parser": "^1.6.4",
     "debug": "^2.0.0",
