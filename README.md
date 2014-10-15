@@ -6,8 +6,8 @@ The server-side rendered React components and store instances get dehydrated and
 
 There are multiple examples in this repo:
 
-[Chat](/yahoo/flux-examples/tree/master/chat) - Port of [Facebook's Flux chat example](https://github.com/facebook/flux/tree/master/examples/flux-chat)
-[Routing](/yahoo/flux-examples/tree/master/routing) - Simple isomorphic routing in flux flow
+* [Chat](https://github.com/yahoo/flux-examples/tree/cleanup/chat) - Port of [Facebook's Flux chat example](https://github.com/facebook/flux/tree/master/examples/flux-chat)
+* [Routing](https://github.com/yahoo/flux-examples/tree/cleanup/routing) - Simple isomorphic routing in flux flow
 
 Usage
 -----
