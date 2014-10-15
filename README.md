@@ -23,6 +23,11 @@ Open http://localhost:3000
 
 For more information on what's going on, you can use `DEBUG=* node` to see full debug output on the server.
 
+What's Next
+-----------
+
+We have a ton of ideas for where to go with this to eventually have a full suite of tools to create isomorphic Flux applications. We have some things in mind already, so see what we're up to by looking at our [issues](https://github.com/yahoo/flux-examples/issues).
+
 # License
 
 Unless otherwise specified, this software is free to use under the Yahoo! Inc. BSD license.
