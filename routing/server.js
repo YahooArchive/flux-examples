@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
 
     debug('Executing navigate action');
     application.context.getActionContext().executeAction(navigateAction, {
-        path: req.url
+        path: req.path
     }, function (err) {
         if (err) {
             if (err.status && err.status === 404) {
