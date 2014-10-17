@@ -25,7 +25,7 @@ function ApplicationStore(dispatcher) {
 
 ApplicationStore.storeName = 'ApplicationStore';
 ApplicationStore.handlers = {
-    'CHANGE_ROUTE_START': 'handleNavigate'
+    'CHANGE_ROUTE_SUCCESS': 'handleNavigate'
 };
 
 util.inherits(ApplicationStore, EventEmitter);
