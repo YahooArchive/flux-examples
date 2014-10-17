@@ -31,9 +31,9 @@ var Nav = React.createClass({
                 );
             });
         return (
-            <div className="pure-menu pure-menu-open pure-menu-horizontal">
+            <ul className="pure-menu pure-menu-open pure-menu-horizontal">
                 {linkHTML}
-            </div>
+            </ul>
         );
     }
 });
