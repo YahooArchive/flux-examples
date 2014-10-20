@@ -6,6 +6,6 @@
   "main": "server.js",
   "author": "Michael Ridgway <mridgway@yahoo-inc.com>",
   "scripts": {
-    "build": "webpack"
+    "build": "../node_modules/.bin/webpack"
   }
 }
