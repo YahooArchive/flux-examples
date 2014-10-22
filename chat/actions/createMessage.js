@@ -25,6 +25,7 @@ module.exports = function (context, payload, done) {
         if (err) {
             debug('dispatching RECEIVE_MESSAGES_FAILURE', message);
             context.dispatch('RECEIVE_MESSAGES_FAILURE', [message]);
+            done();
             return;
         }
         debug('dispatching RECEIVE_MESSAGES_SUCCESS', message);
