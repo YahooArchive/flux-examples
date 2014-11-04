@@ -3,27 +3,27 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 require('node-jsx').install({ extension: '.jsx' });
-var http = require('http'),
-    express = require('express'),
-    expressState = require('express-state'),
-    navigateAction = require('flux-router-component').navigateAction,
-    debug = require('debug')('Example'),
-    React = require('react'),
-    Application = require('./app');
+var http = require('http');
+var express = require('express');
+var expressState = require('express-state');
+var navigateAction = require('flux-router-component').navigateAction;
+var debug = require('debug')('Example');
+var React = require('react');
+var app = require('./app');
 
-var app = express();
-expressState.extend(app);
-app.set('state namespace', 'App');
-app.set('views', __dirname + '/templates');
-app.set('view engine', 'jade');
+var server = express();
+expressState.extend(server);
+server.set('state namespace', 'App');
+server.set('views', __dirname + '/templates');
+server.set('view engine', 'jade');
 
-app.use(express.static(__dirname + '/build'));
+server.use(express.static(__dirname + '/build'));
 
-app.use(function (req, res, next) {
-    var application = new Application();
+server.use(function (req, res, next) {
+    var context = app.createContext();
 
     debug('Executing navigate action');
-    application.context.getActionContext().executeAction(navigateAction, {
+    context.getActionContext().executeAction(navigateAction, {
         path: req.path
     }, function (err) {
         if (err) {
@@ -35,9 +35,11 @@ app.use(function (req, res, next) {
             return;
         }
         debug('Rendering Application component');
-        var html = React.renderComponentToString(application.getComponent());
+        var html = React.renderToString(app.getAppComponent()({
+            context: context.getComponentContext()
+        }));
         debug('Exposing context state');
-        res.expose(application.context.dehydrate(), 'Context');
+        res.expose(app.dehydrate(context), 'App');
         debug('Rendering application into layout');
         res.render('layout', {
             html: html
@@ -52,5 +54,5 @@ app.use(function (req, res, next) {
 });
 
 var port = process.env.PORT || 3000;
-http.createServer(app).listen(port);
+server.listen(port);
 console.log('Listening on port ' + port);

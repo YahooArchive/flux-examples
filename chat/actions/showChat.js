@@ -11,7 +11,7 @@ var debug = require('debug')('Example:showChatAction'),
 module.exports = function (context, payload, done) {
     context.dispatch('SHOW_CHAT_START');
     debug('fetching messages');
-    context.fetcher.read('message', {}, {}, function (err, messages) {
+    context.service.read('message', {}, {}, function (err, messages) {
         context.dispatch('RECEIVE_MESSAGES', messages);
 
         var threadStore = context.getStore(ThreadStore);

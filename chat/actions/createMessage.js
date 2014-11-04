@@ -21,7 +21,7 @@ module.exports = function (context, payload, done) {
     };
     debug('dispatching RECEIVE_MESSAGES', message);
     context.dispatch('RECEIVE_MESSAGES', [message]);
-    context.fetcher.create('message', message, {}, function (err) {
+    context.service.create('message', message, {}, function (err) {
         if (err) {
             debug('dispatching RECEIVE_MESSAGES_FAILURE', message);
             context.dispatch('RECEIVE_MESSAGES_FAILURE', [message]);

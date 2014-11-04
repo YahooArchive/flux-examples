@@ -3,33 +3,19 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var Context = require('../common/lib/Context'),
-    ApplicationStore = require('./stores/ApplicationStore'),
-    TimeStore = require('./stores/TimeStore'),
-    Application = require('./components/Application.jsx'),
-    debug = require('debug'),
-    bootstrapDebug = debug('Example'),
-    routes = require('./configs/routes');
+var React = require('react');
+var FluxibleApp = require('fluxible-app');
+var routrPlugin = require('fluxible-plugin-routr');
 
-Context.registerStore(ApplicationStore);
-Context.registerStore(TimeStore);
+var app = new FluxibleApp({
+    appComponent: React.createFactory(require('./components/Application.jsx'))
+});
 
-function App(initialState) {
-    debug('Creating context');
-    this.context = new Context({
-        routes: routes
-    });
-    if (initialState) {
-        bootstrapDebug('rehydrating context');
-        this.context.rehydrate(initialState);
-    }
-}
+app.plug(routrPlugin({
+    routes: require('./configs/routes')
+}));
 
-App.prototype.getComponent = function () {
-    debug('Creating Application component');
-    var appComponent = Application({context: this.context.getComponentContext()});
-    debug('Rendering Application component');
-    return appComponent;
-};
+app.registerStore(require('./stores/ApplicationStore'));
+app.registerStore(require('./stores/TimeStore'));
 
-module.exports = App;
+module.exports = app;

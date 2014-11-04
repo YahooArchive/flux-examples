@@ -24,7 +24,7 @@ var Timestamp = React.createClass({
     },
     render: function() {
         return (
-            <em onClick={this.onReset} style={{'font-size': '.8em'}}>{this.state.time}</em>
+            <em onClick={this.onReset} style={{fontSize: '.8em'}}>{this.state.time}</em>
         );
     }
 });
