@@ -2,10 +2,9 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-var util = require('util'),
-    EventEmitter = require('events').EventEmitter,
-    TimeStore = require('./TimeStore'),
-    debug = require('debug')('Example:ApplicationStore');
+var util = require('util');
+var BaseStore = require('fluxible-app/utils/BaseStore');
+var debug = require('debug')('Example:ApplicationStore');
 
 function ApplicationStore(dispatcher) {
     this.currentPageName = null;
@@ -28,7 +27,7 @@ ApplicationStore.handlers = {
     'CHANGE_ROUTE_SUCCESS': 'handleNavigate'
 };
 
-util.inherits(ApplicationStore, EventEmitter);
+util.inherits(ApplicationStore, BaseStore);
 
 ApplicationStore.prototype.handleNavigate = function (route) {
     var pageName = route.config.page,

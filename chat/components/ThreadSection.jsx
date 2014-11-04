@@ -21,33 +21,26 @@ var MessageStore = require('../stores/MessageStore');
 var ThreadListItem = require('../components/ThreadListItem.jsx');
 var ThreadStore = require('../stores/ThreadStore');
 var UnreadThreadStore = require('../stores/UnreadThreadStore');
+var StoreMixin = require('fluxible-app').StoreMixin;
 
 var ThreadSection = React.createClass({
+    mixins: [StoreMixin],
+    statics: {
+        storeListeners: {
+            _onChange: [ThreadStore, MessageStore, UnreadThreadStore]
+        }
+    },
 
     getInitialState: function() {
-        var context = this.props.context;
-        this.ThreadStore = context.getStore(ThreadStore);
-        this.MessageStore = context.getStore(MessageStore);
-        this.UnreadThreadStore = context.getStore(UnreadThreadStore);
         return this.getStateFromStores();
     },
 
     getStateFromStores: function () {
         return {
-            threads: this.ThreadStore.getAllChrono(),
-            currentThreadID: this.ThreadStore.getCurrentID(),
-            unreadCount: this.UnreadThreadStore.getCount()
+            threads: this.getStore(ThreadStore).getAllChrono(),
+            currentThreadID: this.getStore(ThreadStore).getCurrentID(),
+            unreadCount: this.getStore(UnreadThreadStore).getCount()
         };
-    },
-
-    componentDidMount: function() {
-        this.ThreadStore.addChangeListener(this._onChange);
-        this.UnreadThreadStore.addChangeListener(this._onChange);
-    },
-
-    componentWillUnmount: function() {
-        this.ThreadStore.removeChangeListener(this._onChange);
-        this.UnreadThreadStore.removeChangeListener(this._onChange);
     },
 
     render: function() {

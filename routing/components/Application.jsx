@@ -4,31 +4,27 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-var React = require('react'),
-    Nav = require('./Nav.jsx'),
-    Home = require('./Home.jsx'),
-    About = require('./About.jsx'),
-    Timestamp = require('./Timestamp.jsx'),
-    RouterMixin = require('flux-router-component').RouterMixin;
+var React = require('react');
+var Nav = require('./Nav.jsx');
+var Home = require('./Home.jsx');
+var About = require('./About.jsx');
+var Timestamp = require('./Timestamp.jsx');
+var ApplicationStore = require('../stores/ApplicationStore');
+var RouterMixin = require('flux-router-component').RouterMixin;
+var StoreMixin = require('fluxible-app').StoreMixin;
 
 var Application = React.createClass({
-    mixins: [RouterMixin],
+    mixins: [RouterMixin, StoreMixin],
+    statics: {
+        storeListeners: [ApplicationStore]
+    },
+
     getInitialState: function () {
-        this.store = this.props.context.getStore('ApplicationStore');
-        return this.store.getState();
+        return this.getStore(ApplicationStore).getState();
     },
-    componentDidMount: function () {
-        var self = this;
-        self._changeEventListener = function () {
-            var state = self.store.getState();
-            self.setState(state);
-        };
-        self.store.on('change', self._changeEventListener);
-    },
-    componentWillUnmount: function () {
-        var self = this;
-        self.store.removeListener('change', self._changeEventListener);
-        self._changeEventListener = null;
+    onChange: function () {
+        var state = this.getStore(ApplicationStore).getState();
+        this.setState(state);
     },
     render: function () {
         return (

@@ -2,9 +2,9 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-var util = require('util'),
-    EventEmitter = require('events').EventEmitter,
-    debug = require('debug')('Example:TimeStore');
+var util = require('util');
+var BaseStore = require('fluxible-app/utils/BaseStore');
+var debug = require('debug')('Example:TimeStore');
 
 function TimeStore(dispatcher) {
     this.time = new Date();
@@ -12,7 +12,7 @@ function TimeStore(dispatcher) {
 
 TimeStore.storeName = 'TimeStore';
 
-util.inherits(TimeStore, EventEmitter);
+util.inherits(TimeStore, BaseStore);
 
 TimeStore.prototype.handleTimeChange = function (payload) {
     this.time = new Date();

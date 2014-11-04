@@ -14,11 +14,11 @@
     "fluxible-app": "^0.1.0",
     "fluxible-plugin-fetchr": "^0.1.0",
     "fluxible-plugin-routr": "^0.1.0",
-    "node-jsx": "^0.11.0",
-    "react": "^0.11.0"
+    "node-jsx": "^0.12.0",
+    "react": "^0.12.0"
   },
   "devDependencies": {
-    "jsx-loader": "^0.11.0",
+    "jsx-loader": "^0.12.0",
     "webpack": "^1.4.12"
   }
 }
