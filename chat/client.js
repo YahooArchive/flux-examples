@@ -4,30 +4,27 @@
  */
 /*global App, document, window */
 'use strict';
-var React = require('react'),
-    debug = require('debug'),
-    bootstrapDebug = debug('Example'),
-    Fetcher = require('fetchr'),
-    Application = require('./app'),
-    fetcher = new Fetcher({
-        xhrPath: Application.config.xhrPath
-    }),
-    dehydratedState = App && App.Context; // Sent from the server
+var React = require('react');
+var debug = require('debug');
+var bootstrapDebug = debug('Example');
+var app = require('./app');
+var dehydratedState = window.App; // Sent from the server
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
 
 bootstrapDebug('rehydrating app');
-var application = new Application({
-    fetcher: fetcher,
-    initialState: dehydratedState
-});
-window.context = application.context;
+app.rehydrate(dehydratedState, function (err, context) {
+    if (err) {
+        throw err;
+    }
+    window.context = context;
+    var mountNode = document.getElementById('app');
 
-var app = application.getComponent(),
-    mountNode = document.getElementById('app');
-
-bootstrapDebug('React Rendering');
-React.renderComponent(app, mountNode, function () {
-    bootstrapDebug('React Rendered');
+    bootstrapDebug('React Rendering');
+    React.render(app.getAppComponent()({
+        context: context.getComponentContext()
+    }), mountNode, function () {
+        bootstrapDebug('React Rendered');
+    });
 });

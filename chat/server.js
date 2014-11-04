@@ -3,40 +3,37 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 require('node-jsx').install({ extension: '.jsx' });
-var http = require('http'),
-    express = require('express'),
-    expressState = require('express-state'),
-    bodyParser = require('body-parser'),
-    debug = require('debug')('Example'),
-    React = require('react'),
-    Application = require('./app'),
-    showChat = require('./actions/showChat'),
-    Fetcher = require('fetchr');
+var http = require('http');
+var express = require('express');
+var expressState = require('express-state');
+var bodyParser = require('body-parser');
+var debug = require('debug')('Example');
+var React = require('react');
+var app = require('./app');
+var showChat = require('./actions/showChat');
 
-var app = express();
-expressState.extend(app);
-app.set('state namespace', 'App');
-app.set('views', __dirname + '/templates');
-app.set('view engine', 'jade');
+var server = express();
+expressState.extend(server);
+server.set('state namespace', 'App');
+server.set('views', __dirname + '/templates');
+server.set('view engine', 'jade');
+server.use(express.static(__dirname + '/build'));
+server.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/build'));
-app.use(express.static(__dirname + '/css'));
+// Get access to the fetchr plugin instance
+var fetchrPlugin = app.getPlugin('FetchrPlugin');
+// Register our messages REST service
+fetchrPlugin.registerService(require('./services/message'));
+// Set up the fetchr middleware
+server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
-app.use(bodyParser.json());
-
-Fetcher.registerFetcher(require('./fetchers/message'));
-app.use(Application.config.xhrPath, Fetcher.middleware());
-
-app.use(function (req, res, next) {
-    var fetcher = new Fetcher({
-        req: req
-    });
-    var application = new Application({
-        fetcher: fetcher
+server.use(function (req, res, next) {
+    var context = app.createContext({
+        req: req // The fetchr plugin depends on this
     });
 
     debug('Executing showChat action');
-    application.context.getActionContext().executeAction(showChat, {}, function (err) {
+    context.getActionContext().executeAction(showChat, {}, function (err) {
         if (err) {
             if (err.status && err.status === 404) {
                 next();
@@ -46,9 +43,11 @@ app.use(function (req, res, next) {
             return;
         }
         debug('Rendering Application component');
-        var html = React.renderComponentToString(application.getComponent());
+        var html = React.renderToString(app.getAppComponent()({
+            context: context.getComponentContext()
+        }));
         debug('Exposing context state');
-        res.expose(application.context.dehydrate(), 'Context');
+        res.expose(app.dehydrate(context), 'App');
         debug('Rendering application into layout');
         res.render('layout', {
             html: html
@@ -63,5 +62,5 @@ app.use(function (req, res, next) {
 });
 
 var port = process.env.PORT || 3000;
-http.createServer(app).listen(port);
+server.listen(port);
 console.log('Listening on port ' + port);

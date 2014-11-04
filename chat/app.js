@@ -3,40 +3,20 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var Context = require('../common/lib/Context'),
-    MessageStore = require('./stores/MessageStore'),
-    ThreadStore = require('./stores/ThreadStore'),
-    UnreadThreadStore = require('./stores/UnreadThreadStore'),
-    Application = require('./components/ChatApp.jsx'),
-    debug = require('debug'),
-    bootstrapDebug = debug('Example');
+var React = require('react');
+var FluxibleApp = require('fluxible-app');
+var fetchrPlugin = require('fluxible-plugin-fetchr');
 
-Context.registerStore(MessageStore);
-Context.registerStore(ThreadStore);
-Context.registerStore(UnreadThreadStore);
+var app = new FluxibleApp({
+    appComponent: React.createFactory(require('./components/ChatApp.jsx'))
+});
 
-function App(options) {
-    options = options || {};
-    var fetcher = options.fetcher,
-        initialState = options.initialState;
-    debug('Creating context');
-    this.context = new Context({
-        fetcher: fetcher
-    });
-    if (initialState) {
-        bootstrapDebug('rehydrating context');
-        this.context.rehydrate(initialState);
-    }
-}
-
-App.prototype.getComponent = function () {
-    debug('Creating Application component');
-    var appComponent = Application({context: this.context.getComponentContext()});
-    debug('Rendering Application component');
-    return appComponent;
-};
-
-module.exports = App;
-module.exports.config = {
+app.plug(fetchrPlugin({
     xhrPath: '/api'
-}
+}));
+
+app.registerStore(require('./stores/MessageStore'));
+app.registerStore(require('./stores/ThreadStore'));
+app.registerStore(require('./stores/UnreadThreadStore'));
+
+module.exports = app;

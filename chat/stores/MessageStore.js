@@ -5,7 +5,7 @@
 'use strict';
 
 var util = require('util'),
-    BaseStore = require('dispatchr/utils/BaseStore'),
+    BaseStore = require('fluxible-app/utils/BaseStore'),
     debug = require('debug')('Example:MessageStore'),
     ThreadStore = require('./ThreadStore');
 
