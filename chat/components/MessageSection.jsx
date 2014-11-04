@@ -21,6 +21,7 @@ var MessageListItem = require('./MessageListItem.jsx');
 var MessageStore = require('../stores/MessageStore');
 var React = require('react');
 var ThreadStore = require('../stores/ThreadStore');
+var StoreMixin = require('fluxible-app').StoreMixin;
 
 function getMessageListItem(message) {
     return (
@@ -32,30 +33,26 @@ function getMessageListItem(message) {
 }
 
 var MessageSection = React.createClass({
+    mixins: [StoreMixin],
+    statics: {
+        storeListeners: {
+            _onChange: [ThreadStore, MessageStore]
+        }
+    },
 
     getInitialState: function() {
-        var context = this.props.context;
-        this.ThreadStore = context.getStore(ThreadStore);
-        this.MessageStore = context.getStore(MessageStore);
         return this.getStateFromStores();
     },
 
     getStateFromStores: function () {
         return {
-            messages: this.MessageStore.getAllForCurrentThread(),
-            thread: this.ThreadStore.getCurrent()
+            messages: this.getStore(MessageStore).getAllForCurrentThread(),
+            thread: this.getStore(ThreadStore).getCurrent()
         };
     },
 
     componentDidMount: function() {
         this._scrollToBottom();
-        this.MessageStore.addChangeListener(this._onChange);
-        this.ThreadStore.addChangeListener(this._onChange);
-    },
-
-    componentWillUnmount: function() {
-        this.MessageStore.removeChangeListener(this._onChange);
-        this.ThreadStore.removeChangeListener(this._onChange);
     },
 
     render: function() {
@@ -64,7 +61,7 @@ var MessageSection = React.createClass({
             <div className="message-section">
                 <h3 className="message-thread-heading">{this.state.thread.name}</h3>
                 <ul className="message-list" ref="messageList">
-          {messageListItems}
+                    {messageListItems}
                 </ul>
                 <MessageComposer context={this.props.context} />
             </div>

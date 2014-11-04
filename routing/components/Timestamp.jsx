@@ -4,20 +4,22 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 
-var React = require('react'),
-    updateTime = require('../actions/updateTime');
+var React = require('react');
+var updateTime = require('../actions/updateTime');
+var TimeStore = require('../stores/TimeStore');
+var StoreMixin = require('fluxible-app').StoreMixin;
 
 var Timestamp = React.createClass({
-    getInitialState: function () {
-        this.store = this.props.context.getStore('TimeStore');
-        return this.store.getState();
+    mixins: [StoreMixin],
+    statics: {
+        storeListeners: [TimeStore]
     },
-    componentDidMount: function() {
-        var self = this;
-        this.store.on('change', function () {
-            var state = self.store.getState();
-            self.setState(state);
-        });
+    getInitialState: function () {
+        return this.getStore(TimeStore).getState();
+    },
+    onChange: function () {
+        var state = this.getStore(TimeStore).getState();
+        this.setState(state);
     },
     onReset: function (event) {
         this.props.context.executeAction(updateTime);
