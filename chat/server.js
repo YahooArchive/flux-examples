@@ -11,6 +11,7 @@ var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
 var showChat = require('./actions/showChat');
+var HeadComponent = React.createFactory(require('./components/Head.jsx'));
 
 var server = express();
 expressState.extend(server);
@@ -43,21 +44,24 @@ server.use(function (req, res, next) {
             return;
         }
         debug('Rendering Application component');
+        var head = React.renderToStaticMarkup(HeadComponent());
         var html = React.renderToString(app.getAppComponent()({
             context: context.getComponentContext()
         }));
         debug('Exposing context state');
         res.expose(app.dehydrate(context), 'App');
         debug('Rendering application into layout');
-        res.render('layout', {
-            html: html
-        }, function (err, markup) {
-            if (err) {
-                next(err);
-            }
-            debug('Sending markup');
-            res.send(markup);
-        });
+
+        debug('Sending markup');
+        res.write('<html>');
+        res.write(head);
+        res.write('<body>');
+        res.write('<div id="app">' + html + '</div>');
+        res.write('</body>')
+        res.write('<script>' + res.locals.state + '</script>');
+        res.write('<script src="/js/client.js" defer></script>');
+        res.write('</html>');
+        res.end();
     });
 });
 
