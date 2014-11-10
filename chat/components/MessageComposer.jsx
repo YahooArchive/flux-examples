@@ -30,13 +30,13 @@ var MessageComposer = React.createClass({
     render: function() {
         return (
             <textarea
-            className="message-composer"
-            name="message"
-            value={this.state.text}
-            onChange={this._onChange}
-            onKeyDown={this._onKeyDown}
+                className="message-composer"
+                name="message"
+                value={this.state.text}
+                onChange={this._onChange}
+                onKeyDown={this._onKeyDown}
             />
-            );
+        );
     },
 
     _onChange: function(event, value) {

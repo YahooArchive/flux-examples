@@ -26,10 +26,10 @@ var StoreMixin = require('fluxible-app').StoreMixin;
 function getMessageListItem(message) {
     return (
         <MessageListItem
-        key={message.id}
-        message={message}
+            key={message.id}
+            message={message}
         />
-        );
+    );
 }
 
 var MessageSection = React.createClass({
@@ -65,7 +65,7 @@ var MessageSection = React.createClass({
                 </ul>
                 <MessageComposer context={this.props.context} />
             </div>
-            );
+        );
     },
 
     componentDidUpdate: function() {
