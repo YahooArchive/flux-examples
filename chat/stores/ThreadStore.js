@@ -71,6 +71,18 @@ ThreadStore.prototype.getCurrent = function() {
     return this.get(this.getCurrentID());
 };
 
+ThreadStore.prototype.createMessage = function(details) {
+    return {
+        id: 'm_' + details.timestamp,
+        threadID: this.getCurrentID(),
+        threadName: this.getCurrentThreadName(),
+        authorName: details.authorName,
+        timestamp: details.timestamp,
+        text: details.text,
+        isRead: details.isRead
+    };
+};
+
 ThreadStore.prototype.receiveMessages = function (messages) {
     var self = this;
     this.dispatcher.waitFor('MessageStore', function () {
