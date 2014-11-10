@@ -45,6 +45,9 @@ var MessageComposer = React.createClass({
 
     _onKeyDown: function(event) {
         if (event.keyCode === ENTER_KEY_CODE) {
+            event.preventDefault();
+            event.stopPropagation();
+
             var text = this.state.text.trim();
             if (text) {
                 this.props.context.executeAction(createMessage, {
