@@ -13,7 +13,7 @@
     "flux-router-component": "^0.4.x",
     "fluxible-app": "^0.1.0",
     "fluxible-plugin-fetchr": "^0.1.0",
-    "fluxible-plugin-routr": "^0.1.0",
+    "fluxible-plugin-routr": "^0.2.0",
     "node-jsx": "^0.12.0",
     "react": "^0.12.0"
   },
