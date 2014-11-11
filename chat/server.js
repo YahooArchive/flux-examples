@@ -16,8 +16,6 @@ var HeadComponent = React.createFactory(require('./components/Head.jsx'));
 var server = express();
 expressState.extend(server);
 server.set('state namespace', 'App');
-server.set('views', __dirname + '/templates');
-server.set('view engine', 'jade');
 server.use(express.static(__dirname + '/build'));
 server.use(bodyParser.json());
 
