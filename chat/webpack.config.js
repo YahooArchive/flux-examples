@@ -6,6 +6,9 @@
 var webpack = require('webpack');
 
 module.exports = {
+    resolve: {
+        extensions: ['', '.js', '.jsx']
+    },
     entry: "./client.js",
     output: {
         path: __dirname+'/build/js',
