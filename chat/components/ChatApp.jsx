@@ -28,7 +28,7 @@ var ChatApp = React.createClass({
                 <ThreadSection context={this.props.context} />
                 <MessageSection context={this.props.context} />
             </div>
-            );
+        );
     }
 
 });

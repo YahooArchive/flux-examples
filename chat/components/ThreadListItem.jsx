@@ -34,11 +34,12 @@ var ThreadListItem = React.createClass({
         var lastMessage = thread.lastMessage;
         return (
             <li
-            className={cx({
-                'thread-list-item': true,
-                'active': thread.id === this.props.currentThreadID
-            })}
-            onClick={this._onClick}>
+                className={cx({
+                    'thread-list-item': true,
+                    'active': thread.id === this.props.currentThreadID
+                })}
+                onClick={this._onClick}>
+
                 <h5 className="thread-name">{thread.name}</h5>
                 <div className="thread-time">
                     {(new Date(lastMessage.timestamp)).toTimeString()}
@@ -47,7 +48,7 @@ var ThreadListItem = React.createClass({
                     {lastMessage.text}
                 </div>
             </li>
-            );
+        );
     },
 
     _onClick: function() {

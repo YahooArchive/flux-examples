@@ -30,13 +30,13 @@ var MessageComposer = React.createClass({
     render: function() {
         return (
             <textarea
-            className="message-composer"
-            name="message"
-            value={this.state.text}
-            onChange={this._onChange}
-            onKeyDown={this._onKeyDown}
+                className="message-composer"
+                name="message"
+                value={this.state.text}
+                onChange={this._onChange}
+                onKeyDown={this._onKeyDown}
             />
-            );
+        );
     },
 
     _onChange: function(event, value) {
@@ -45,6 +45,9 @@ var MessageComposer = React.createClass({
 
     _onKeyDown: function(event) {
         if (event.keyCode === ENTER_KEY_CODE) {
+            event.preventDefault();
+            event.stopPropagation();
+
             var text = this.state.text.trim();
             if (text) {
                 this.props.context.executeAction(createMessage, {
