@@ -38,7 +38,7 @@ var ThreadListItem = React.createClass({
                     'thread-list-item': true,
                     'active': thread.id === this.props.currentThreadID
                 })}
-                onClick={this._onClick} >
+                onClick={this._onClick}>
 
                 <h5 className="thread-name">{thread.name}</h5>
                 <div className="thread-time">
