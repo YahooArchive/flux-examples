@@ -36,9 +36,9 @@ UnreadThreadStore.prototype.getCount = function () {
     var threads = this.dispatcher.getStore(ThreadStore).getAll();
     var unreadCount = 0;
     for (var id in threads) {
-      if (!threads[id].lastMessage.isRead) {
-        unreadCount++;
-      }
+        if (!threads[id].lastMessage.isRead) {
+            unreadCount++;
+        }
     }
     return unreadCount;
 };

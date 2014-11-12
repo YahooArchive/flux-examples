@@ -65,7 +65,7 @@ var _messages = [
 
 module.exports = {
     name: 'message',
-    //At least one of the CRUD methods is required
+    // at least one of the CRUD methods is required
     read: function(req, resource, params, config, callback) {
         setTimeout(function () {
             callback(null, JSON.parse(JSON.stringify(_messages)));
@@ -84,7 +84,7 @@ module.exports = {
             callback(null, _messages);
         }, 10);
     }
-    //update: function(resource, params, body, config, callback) {},
-    //delete: function(resource, params, config, callback) {}
+    // update: function(resource, params, body, config, callback) {},
+    // delete: function(resource, params, config, callback) {}
 
 };

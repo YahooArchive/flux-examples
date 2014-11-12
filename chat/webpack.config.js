@@ -9,18 +9,18 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
-    entry: "./client.js",
+    entry: './client.js',
     output: {
         path: __dirname+'/build/js',
-        filename: "client.js"
+        filename: 'client.js'
     },
     module: {
         loaders: [
-            { test: /\.css$/, loader: "style!css" },
+            { test: /\.css$/, loader: 'style!css' },
             { test: /\.jsx$/, loader: 'jsx-loader' }
         ]
     },
     plugins: [
-        //new webpack.optimize.UglifyJsPlugin()
+        // new webpack.optimize.UglifyJsPlugin()
     ]
 };
