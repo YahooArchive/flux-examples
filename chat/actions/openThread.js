@@ -3,9 +3,8 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-
-var debug = require('debug')('Example:openThreadAction'),
-    ThreadStore = require('../stores/ThreadStore');
+var debug = require('debug')('Example:openThreadAction');
+var ThreadStore = require('../stores/ThreadStore');
 
 module.exports = function (context, payload, done) {
     debug('dispatching OPEN_THREAD', payload);

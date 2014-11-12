@@ -3,11 +3,10 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-
-var util = require('util'),
-    BaseStore = require('fluxible-app/utils/BaseStore'),
-    debug = require('debug')('Example:UnreadThreadStore'),
-    ThreadStore = require('./ThreadStore');
+var util = require('util');
+var BaseStore = require('fluxible-app/utils/BaseStore');
+var debug = require('debug')('Example:UnreadThreadStore');
+var ThreadStore = require('./ThreadStore');
 
 function UnreadThreadStore(dispatcher) {
     this.dispatcher = dispatcher;
@@ -23,13 +22,11 @@ UnreadThreadStore.handlers = {
 util.inherits(UnreadThreadStore, BaseStore);
 
 UnreadThreadStore.prototype.receiveMessages = function (messages) {
-    var self = this;
-    self.emitChange();
+    this.emitChange();
 };
 
 UnreadThreadStore.prototype.openThread = function (payload) {
-    var self = this;
-    self.emitChange();
+    this.emitChange();
 };
 
 UnreadThreadStore.prototype.getCount = function () {

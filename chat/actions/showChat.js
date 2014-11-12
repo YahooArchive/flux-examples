@@ -3,10 +3,9 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-
-var debug = require('debug')('Example:showChatAction'),
-    ThreadStore = require('../stores/ThreadStore'),
-    openThread = require('./openThread');
+var debug = require('debug')('Example:showChatAction');
+var ThreadStore = require('../stores/ThreadStore');
+var openThread = require('./openThread');
 
 module.exports = function (context, payload, done) {
     context.dispatch('SHOW_CHAT_START');

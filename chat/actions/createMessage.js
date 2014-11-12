@@ -3,9 +3,8 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-
-var debug = require('debug')('Example:createMessageAction'),
-    ThreadStore = require('../stores/ThreadStore');
+var debug = require('debug')('Example:createMessageAction');
+var ThreadStore = require('../stores/ThreadStore');
 
 module.exports = function (context, payload, done) {
     var threadStore = context.getStore(ThreadStore);

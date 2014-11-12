@@ -3,11 +3,10 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-
-var util = require('util'),
-    BaseStore = require('fluxible-app/utils/BaseStore'),
-    debug = require('debug')('Example:MessageStore'),
-    ThreadStore = require('./ThreadStore');
+var util = require('util');
+var BaseStore = require('fluxible-app/utils/BaseStore');
+var debug = require('debug')('Example:MessageStore');
+var ThreadStore = require('./ThreadStore');
 
 function MessageStore(dispatcher) {
     this.dispatcher = dispatcher;
@@ -61,8 +60,8 @@ MessageStore.prototype.get = function (id) {
 };
 
 MessageStore.prototype.getAllForThread = function(threadID) {
-    var self = this,
-        threadMessages = [];
+    var self = this;
+    var threadMessages = [];
     self.sortedByDate.forEach(function (key) {
         var message = self.messages[key];
         if (message.threadID === threadID) {
