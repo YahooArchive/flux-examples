@@ -2,6 +2,7 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
+'use strict';
 var util = require('util');
 var BaseStore = require('fluxible-app/utils/BaseStore');
 var debug = require('debug')('Example:ApplicationStore');
@@ -30,8 +31,8 @@ ApplicationStore.handlers = {
 util.inherits(ApplicationStore, BaseStore);
 
 ApplicationStore.prototype.handleNavigate = function (route) {
-    var pageName = route.config.page,
-        page = this.pages[pageName];
+    var pageName = route.config.page;
+    var page = this.pages[pageName];
 
     if (pageName === this.getCurrentPageName()) {
         return;

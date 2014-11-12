@@ -3,10 +3,9 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-
-var util = require('util'),
-    BaseStore = require('fluxible-app/utils/BaseStore'),
-    debug = require('debug')('Example:ThreadStore');
+var util = require('util');
+var BaseStore = require('fluxible-app/utils/BaseStore');
+var debug = require('debug')('Example:ThreadStore');
 
 function ThreadStore(dispatcher) {
     this.dispatcher = dispatcher;
@@ -40,8 +39,8 @@ ThreadStore.prototype.getAll = function() {
 };
 
 ThreadStore.prototype.getAllChrono = function() {
-    var self = this,
-        orderedThreads = [];
+    var self = this;
+    var orderedThreads = [];
 
     Object.keys(this.threads).forEach(function (key) {
         var thread = self.threads[key];
