@@ -15,7 +15,8 @@
     "fluxible-plugin-fetchr": "^0.1.0",
     "fluxible-plugin-routr": "^0.2.0",
     "node-jsx": "^0.12.0",
-    "react": "^0.12.0"
+    "react": "^0.12.0",
+    "serve-favicon": "^2.1.6"
   },
   "devDependencies": {
     "jsx-loader": "^0.12.0",

@@ -4,8 +4,8 @@
  */
 'use strict';
 require('node-jsx').install({ extension: '.jsx' });
-var http = require('http');
 var express = require('express');
+var favicon = require('serve-favicon');
 var expressState = require('express-state');
 var navigateAction = require('flux-router-component').navigateAction;
 var debug = require('debug')('Example');
@@ -16,8 +16,8 @@ var HeadComponent = React.createFactory(require('./components/Head.jsx'));
 var server = express();
 expressState.extend(server);
 server.set('state namespace', 'App');
-
-server.use(express.static(__dirname + '/build'));
+server.use(favicon(__dirname + '/../favicon.ico'));
+server.use('/public', express.static(__dirname + '/build'));
 
 server.use(function (req, res, next) {
     var context = app.createContext();
@@ -49,9 +49,9 @@ server.use(function (req, res, next) {
         res.write(head);
         res.write('<body>');
         res.write('<div id="app">' + html + '</div>');
-        res.write('</body>')
+        res.write('</body>');
         res.write('<script>' + res.locals.state + '</script>');
-        res.write('<script src="/js/client.js" defer></script>');
+        res.write('<script src="/public/js/client.js" defer></script>');
         res.write('</html>');
         res.end();
     });
