@@ -13,7 +13,7 @@ module.exports = {
     // at least one of the CRUD methods is required
     read: function (req, resource, params, config, callback) {
 
-        callback(null, JSON.parse(JSON.stringify(_todos)));
+        callback(null, _todos.concat());
     },
     create: function (req, resource, params, body, config, callback) {
 
