@@ -10,7 +10,6 @@ var _todos = [];
 
 module.exports = {
     name: 'todo',
-    // at least one of the CRUD methods is required
     read: function (req, resource, params, config, callback) {
 
         callback(null, _todos.concat());

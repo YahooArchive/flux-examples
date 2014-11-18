@@ -6,12 +6,6 @@
 var React = require('react/addons');
 
 
-/**
- * React class to handle the rendering of the HTML head section
- *
- * @class Head
- * @constructor
- */
 var Component = React.createClass({
     render: function() {
 
