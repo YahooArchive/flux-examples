@@ -6,13 +6,11 @@
 
 
 module.exports = function (context, payload, done) {
-    var todo = payload;
+    context.dispatch('DELETE_TODO_START', payload);
 
-    context.dispatch('DELETE_TODO', todo);
-
-    context.service.delete('todo', todo, {}, function (err, todos) {
+    context.service.delete('todo', payload, {}, function (err, todos) {
         if (err) {
-            context.dispatch('DELETE_TODO_FAILURE', todo);
+            context.dispatch('DELETE_TODO_FAILURE', payload);
             done();
             return;
         }

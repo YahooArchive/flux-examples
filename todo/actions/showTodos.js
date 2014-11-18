@@ -6,8 +6,15 @@
 
 
 module.exports = function (context, payload, done) {
+    context.dispatch('RECEIVE_TODOS_START', payload);
+
     context.service.read('todo', {}, {}, function (err, todos) {
-        context.dispatch('RECEIVE_TODOS', todos);
+        if (err) {
+            context.dispatch('RECEIVE_TODOS_FAILURE', payload);
+            done();
+            return;
+        }
+        context.dispatch('RECEIVE_TODOS_SUCCESS', todos);
         done();
     });
 };

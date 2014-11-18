@@ -6,7 +6,7 @@
 
 
 module.exports = function (context, payload, done) {
-    context.dispatch('TOGGLE_ALL_TODO', payload);
+    context.dispatch('TOGGLE_ALL_TODO_START', payload);
 
     context.service.update('todo.toggleAll', payload, {}, function (err, todos) {
         if (err) {

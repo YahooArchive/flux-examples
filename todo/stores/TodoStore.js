@@ -9,7 +9,7 @@ var createStore = require('fluxible-app/utils/createStore');
 module.exports = createStore({
     storeName: 'TodoStore',
     handlers: {
-        'RECEIVE_TODOS': 'receiveTodos',
+        'RECEIVE_TODOS_SUCCESS': 'receiveTodos',
         'CREATE_TODO_SUCCESS': 'receiveTodos',
         'UPDATE_TODO_SUCCESS': 'receiveTodos',
         'DELETE_TODO_SUCCESS': 'receiveTodos',

@@ -6,13 +6,11 @@
 
 
 module.exports = function (context, payload, done) {
-    var todo = payload;
+    context.dispatch('UPDATE_TODO_START', payload);
 
-    context.dispatch('UPDATE_TODO', todo);
-
-    context.service.update('todo', todo, {}, function (err, todos) {
+    context.service.update('todo', payload, {}, function (err, todos) {
         if (err) {
-            context.dispatch('UPDATE_TODO_FAILURE', todo);
+            context.dispatch('UPDATE_TODO_FAILURE', payload);
             done();
             return;
         }

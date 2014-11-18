@@ -13,7 +13,7 @@ module.exports = function (context, payload, done) {
         text: payload.text
     });
 
-    context.dispatch('CREATE_TODO', todo);
+    context.dispatch('CREATE_TODO_START', todo);
 
     context.service.create('todo', todo, {}, function (err, todos) {
         if (err) {
