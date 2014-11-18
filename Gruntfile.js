@@ -4,7 +4,8 @@ module.exports = function (grunt) {
         copy: {
             todo: {
                 files: [{
-                    expand: true, cwd: 'todo/assets/todomvc-common/',
+                    expand: true,
+                    cwd: 'todo/assets/todomvc-common/',
                     src: ['*.*'],
                     dest: 'todo/build/'
                 }]
