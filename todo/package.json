@@ -1,0 +1,12 @@
+{
+  "name": "flux-example-todo",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Example application",
+  "main": "server.js",
+  "author": "Reza Akhavan <jedireza@yahoo-inc.com>",
+  "scripts": {
+    "dev": "../node_modules/.bin/grunt todo --gruntfile ../Gruntfile.js",
+    "build": "../node_modules/.bin/webpack"
+  }
+}
