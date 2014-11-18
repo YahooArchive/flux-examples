@@ -49,15 +49,7 @@ module.exports = {
 
         _todos = _todos.filter(function (todo, index) {
 
-            var keepItem = true;
-            for (var i = 0 ; i < params.ids.length ; i++) {
-                if (params.ids[i] === todo.id) {
-                    keepItem = false;
-                    break;
-                }
-            }
-
-            return keepItem;
+            return params.ids.indexOf(todo.id) === -1;
         });
 
         callback(null, _todos);
