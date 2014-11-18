@@ -9,24 +9,17 @@ var createStore = require('fluxible-app/utils/createStore');
 module.exports = createStore({
     storeName: 'TodoStore',
     handlers: {
-        'RECEIVE_TODOS_SUCCESS': 'receiveTodos',
-        'CREATE_TODO_SUCCESS': 'receiveTodos',
-        'UPDATE_TODO_SUCCESS': 'receiveTodos',
-        'DELETE_TODO_SUCCESS': 'receiveTodos',
-        'TOGGLE_ALL_TODO_SUCCESS': 'receiveTodos'
+        'RECEIVE_TODOS_SUCCESS': '_receiveTodos',
+        'CREATE_TODO_SUCCESS': '_receiveTodos',
+        'UPDATE_TODO_SUCCESS': '_receiveTodos',
+        'DELETE_TODO_SUCCESS': '_receiveTodos',
+        'TOGGLE_ALL_TODO_SUCCESS': '_receiveTodos'
     },
     initialize: function () {
         this.todos = [];
     },
-    receiveTodos: function (todos) {
+    _receiveTodos: function (todos) {
         this.todos = todos;
-        this.emitChange();
-    },
-    updateTodo: function (todo) {
-        this.emitChange();
-    },
-    receiveNewTodo: function (todo) {
-        this.todos.push(todo);
         this.emitChange();
     },
     getAll: function () {
