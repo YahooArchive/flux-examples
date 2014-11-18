@@ -8,7 +8,6 @@ var React = require('react');
 
 var Component = React.createClass({
     render: function() {
-
         return (
             <head>
                 <meta charSet="utf-8" />

@@ -16,29 +16,23 @@ module.exports = createStore({
         'TOGGLE_ALL_TODO_SUCCESS': 'receiveTodos'
     },
     initialize: function () {
-
         this.todos = [];
     },
     receiveTodos: function (todos) {
-
         this.todos = todos;
         this.emitChange();
     },
     updateTodo: function (todo) {
-
         this.emitChange();
     },
     receiveNewTodo: function (todo) {
-
         this.todos.push(todo);
         this.emitChange();
     },
     getAll: function () {
-
         return this.todos;
     },
     createTodo: function(details) {
-
         return {
             id: 'td_' + details.timestamp,
             editing: false,
@@ -47,13 +41,11 @@ module.exports = createStore({
         };
     },
     dehydrate: function () {
-
         return {
             todos: this.todos
         };
     },
     rehydrate: function (state) {
-
         this.todos = state.todos;
     }
 });

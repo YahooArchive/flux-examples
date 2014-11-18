@@ -8,7 +8,6 @@ var React = require('react/addons');
 
 var Component = React.createClass({
     render: function() {
-
         var nowShowing = this.props.nowShowing;
         var onFilterChange = this.props.onFilterChange;
         var activeTodoLabel = 'item' + (this.props.count > 1 ? 's' : '');

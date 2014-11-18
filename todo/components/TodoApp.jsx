@@ -25,22 +25,18 @@ var Component = React.createClass({
         }
     },
     getInitialState: function () {
-
         return this.getState();
     },
     getState: function () {
-
         return {
             nowShowing: this.state && this.state.nowShowing || 'ALL_TODOS',
             items: this.getStore(TodoStore).getAll()
         };
     },
     _onChange: function() {
-
         this.setState(this.getState());
     },
     handleNewTodoKeyDown: function (event) {
-
         if (event.which !== ENTER_KEY) {
             return;
         }
@@ -57,17 +53,13 @@ var Component = React.createClass({
         }
     },
     changeFilter: function (filter, event) {
-
         this.setState({ nowShowing: filter });
         event.preventDefault();
     },
     clearCompleted: function () {
-
         var ids = this.state.items.filter(function (todo) {
-
             return todo.completed;
         }).map(function (todo) {
-
             return todo.id;
         });
 
@@ -76,14 +68,12 @@ var Component = React.createClass({
         });
     },
     toggleAll: function (event) {
-
         var checked = event.target.checked;
         this.props.context.executeAction(toggleAll, {
             checked: checked
         });
     },
     toggle: function (todo) {
-
         this.props.context.executeAction(updateTodo, {
             id: todo.id,
             completed: !todo.completed,
@@ -91,21 +81,17 @@ var Component = React.createClass({
         });
     },
     destroy: function (todo) {
-
         this.props.context.executeAction(deleteTodo, {
             ids: [todo.id]
         });
     },
     edit: function (todo, callback) {
-
         // refer TodoItem.handleEdit for the reasoning behind callback
         this.setState({ editing: todo.id }, function () {
-
             callback();
         });
     },
     save: function (todo, completed, text) {
-
         this.props.context.executeAction(updateTodo, {
             id: todo.id,
             completed: completed,
@@ -115,17 +101,14 @@ var Component = React.createClass({
         this.setState({ editing: null });
     },
     cancel: function () {
-
         this.setState({ editing: null });
     },
     render: function() {
-
         var todos = this.state.items;
         var main;
         var footer;
 
         var shownTodos = todos.filter(function (todo) {
-
             switch(this.state.nowShowing) {
                 case 'ACTIVE_TODOS':
                     return !todo.completed;
@@ -137,7 +120,6 @@ var Component = React.createClass({
         }, this);
 
         var todoItems = shownTodos.map(function (todo) {
-
             return (
                 <TodoItem
                     key={todo.id}

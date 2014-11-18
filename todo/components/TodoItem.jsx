@@ -12,11 +12,9 @@ var ENTER_KEY = 13;
 
 var Component = React.createClass({
     getInitialState: function () {
-
         return { editText: this.props.todo.text };
     },
     handleSubmit: function (event) {
-
         var completed = this.props.todo.completed;
         var text = this.state.editText.trim();
 
@@ -29,9 +27,7 @@ var Component = React.createClass({
         }
     },
     handleEdit: function () {
-
         this.props.onEdit(function () {
-
             var node = this.refs.editField.getDOMNode();
             node.focus();
             node.setSelectionRange(node.value.length, node.value.length);
@@ -40,7 +36,6 @@ var Component = React.createClass({
         this.setState({ editText: this.props.todo.text });
     },
     handleKeyDown: function (event) {
-
         if (event.which === ESCAPE_KEY) {
             this.setState({ editText: this.props.todo.text });
             this.props.onCancel(event);
@@ -50,11 +45,9 @@ var Component = React.createClass({
         }
     },
     handleChange: function (event) {
-
         this.setState({ editText: event.target.value });
     },
     render: function () {
-
         var classSet = React.addons.classSet({
             completed: this.props.todo.completed,
             editing: this.props.editing

@@ -7,7 +7,6 @@ var express = require('express');
 var favicon = require('serve-favicon');
 var expressState = require('express-state');
 var bodyParser = require('body-parser');
-var debug = require('debug')('Todo');
 var React = require('react');
 var app = require('./app');
 var showTodos = require('./actions/showTodos');
@@ -33,14 +32,11 @@ server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
 // Every other request gets the app bootstrap
 server.use(function (req, res, next) {
-
     var context = app.createContext({
         req: req // The fetchr plugin depends on this
     });
 
-    debug('Executing showTodos');
     context.executeAction(showTodos, {}, function (err) {
-
         if (err) {
             if (err.status && err.status === 404) {
                 return next();
@@ -50,16 +46,13 @@ server.use(function (req, res, next) {
             }
         }
 
-        debug('Rendering application component');
         var head = React.renderToStaticMarkup(HeadComponent());
         var html = React.renderToString(app.getAppComponent()({
             context: context.getComponentContext()
         }));
 
-        debug('Exposing context state');
         res.expose(app.dehydrate(context), 'App');
 
-        debug('Sending markup');
         res.write('<html>');
         res.write(head);
         res.write('<body>');
