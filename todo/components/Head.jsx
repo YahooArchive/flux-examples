@@ -14,6 +14,7 @@ var Component = React.createClass({
                 <title>{this.props.title}</title>
                 <meta name="viewport" content="width=device-width, user-scalable=no" />
                 <link rel="stylesheet" href="/public/base.css" />
+                <link rel="stylesheet" href="/public/styles.css" />
             </head>
         );
     }

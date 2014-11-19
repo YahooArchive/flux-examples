@@ -50,7 +50,9 @@ var Component = React.createClass({
     render: function () {
         var classSet = React.addons.classSet({
             completed: this.props.todo.completed,
-            editing: this.props.editing
+            editing: this.props.editing,
+            pending: this.props.todo.pending,
+            failure: this.props.todo.failure
         });
 
         return (
@@ -61,11 +63,16 @@ var Component = React.createClass({
                         type="checkbox"
                         checked={this.props.todo.completed}
                         onChange={this.props.onToggle}
+                        disabled={this.props.todo.failure}
                     />
                     <label onDoubleClick={this.handleEdit}>
                         {this.props.todo.text}
                     </label>
-                    <button className="destroy" onClick={this.props.onDestroy} />
+                    <button
+                        className="destroy"
+                        onClick={this.props.onDestroy}
+                        disabled={this.props.todo.failure}
+                    />
                 </div>
                 <input
                     ref="editField"

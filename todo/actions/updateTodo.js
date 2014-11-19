@@ -6,16 +6,19 @@
 
 
 module.exports = function (context, payload, done) {
-    context.dispatch('UPDATE_TODO_START', payload);
+    var todo = payload;
+    todo.pending = true;
 
-    context.service.update('todo', payload, {}, function (err, todos) {
+    context.dispatch('UPDATE_TODO_START', todo);
+
+    context.service.update('todo', todo, {}, function (err, theTodo) {
         if (err) {
-            context.dispatch('UPDATE_TODO_FAILURE', payload);
+            context.dispatch('UPDATE_TODO_FAILURE', todo);
             done();
             return;
         }
 
-        context.dispatch('UPDATE_TODO_SUCCESS', todos);
+        context.dispatch('UPDATE_TODO_SUCCESS', theTodo);
         done();
     });
 };

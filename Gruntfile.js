@@ -8,6 +8,11 @@ module.exports = function (grunt) {
                     cwd: 'todo/assets/todomvc-common/',
                     src: ['*.*'],
                     dest: 'todo/build/'
+                }, {
+                    expand: true,
+                    cwd: 'todo/assets/',
+                    src: ['styles.css'],
+                    dest: 'todo/build/'
                 }]
             }
         },

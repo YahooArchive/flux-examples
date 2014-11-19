@@ -8,21 +8,22 @@ var TodoStore = require('../stores/TodoStore');
 
 module.exports = function (context, payload, done) {
     var todoStore = context.getStore(TodoStore);
-    var todo = todoStore.createTodo({
+    var newTodo = todoStore.createTodo({
         timestamp: Date.now(),
         text: payload.text
     });
 
-    context.dispatch('CREATE_TODO_START', todo);
+    context.dispatch('CREATE_TODO_START', newTodo);
 
-    context.service.create('todo', todo, {}, function (err, todos) {
+    context.service.create('todo', newTodo, {}, function (err, todo) {
         if (err) {
-            context.dispatch('CREATE_TODO_FAILURE', todo);
+            console.log('YOYOO', arguments);
+            context.dispatch('CREATE_TODO_FAILURE', newTodo);
             done();
             return;
         }
 
-        context.dispatch('CREATE_TODO_SUCCESS', todos);
+        context.dispatch('CREATE_TODO_SUCCESS', todo);
         done();
     });
 };
