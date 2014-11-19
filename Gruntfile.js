@@ -53,7 +53,6 @@ module.exports = function (grunt) {
 
 
     grunt.registerTask('default', 'Log some stuff.', function() {
-
         grunt.log.error('Please specify a target.');
         grunt.log.error('Available options: chat, todo, routing');
     });
