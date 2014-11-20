@@ -14,7 +14,6 @@ var UnreadThreadStore = createStore({
         'OPEN_THREAD': 'openThread'
     },
     initialize: function (dispatcher) {
-        // this.dispatcher = dispatcher;
         this.messages = {};
     },
     receiveMessages: function (messages) {

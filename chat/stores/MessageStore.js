@@ -14,7 +14,6 @@ var MessageStore = createStore({
         'OPEN_THREAD': 'openThread'
     },
     initialize: function (dispatcher) {
-        // this.dispatcher = dispatcher;
         this.messages = {};
         this.sortedByDate = [];
     },

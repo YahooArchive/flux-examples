@@ -13,7 +13,6 @@ var ThreadStore = createStore({
         'OPEN_THREAD': 'openThread'
     },
     initialize: function (dispatcher) {
-        // this.dispatcher = dispatcher;
         this.currentID = null;
         this.threads = {};
     },
