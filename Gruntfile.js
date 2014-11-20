@@ -1,5 +1,4 @@
 module.exports = function (grunt) {
-
     grunt.initConfig({
         copy: {
             todo: {
