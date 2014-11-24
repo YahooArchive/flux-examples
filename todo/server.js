@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var React = require('react');
 var app = require('./app');
 var showTodos = require('./actions/showTodos');
-var HeadComponent = React.createFactory(require('./components/Head.jsx'));
+var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
 
 
 var server = express();
@@ -46,27 +46,17 @@ server.use(function (req, res, next) {
             }
         }
 
-        var head = React.renderToStaticMarkup(HeadComponent());
-        var html = React.renderToString(app.getAppComponent()({
-            context: context.getComponentContext()
-        }));
-
         res.expose(app.dehydrate(context), 'App');
 
-        res.write('<html>');
-        res.write(head);
-        res.write('<body>');
-        res.write('<section id="todoapp">'+ html +'</section>');
-        res.write('<footer id="info">');
-        res.write('<p>Double-click to edit a todo</p>');
-        res.write('<p>Some assets from <a href="http://todomvc.com">TodoMVC</a></p>');
-        res.write('<p>Some code inspried by <a href="http://todomvc.com/examples/react/">TodoMVC React (Pete Hunt)</a></p>');
-        res.write('<p>Showing off <a href="http://fluxible.io">Fluxible</a></p>');
-        res.write('</footer>');
-        res.write('</body>');
-        res.write('<script>' + res.locals.state + '</script>');
-        res.write('<script src="/public/js/client.js" defer></script>');
-        res.write('</html>');
+        var AppComponent = app.getAppComponent();
+        var html = React.renderToStaticMarkup(HtmlComponent({
+            state: res.locals.state,
+            markup: React.renderToString(AppComponent({
+                context: context.getComponentContext()
+            }))
+        }));
+
+        res.write(html);
         res.end();
     });
 });

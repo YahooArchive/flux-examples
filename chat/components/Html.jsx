@@ -8,10 +8,10 @@ var React = require('react');
 /**
  * React class to handle the rendering of the HTML head section
  *
- * @class Head
+ * @class Html
  * @constructor
  */
-var Head = React.createClass({
+var Html = React.createClass({
     /**
      * Refer to React documentation render
      *
@@ -20,14 +20,21 @@ var Head = React.createClass({
      */
     render: function() {
         return (
+            <html>
             <head>
                 <meta charSet="utf-8" />
                 <title>{this.props.title}</title>
                 <meta name="viewport" content="width=device-width, user-scalable=no" />
-                <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css" />
+                <link rel="stylesheet" href="https://rawgit.com/facebook/flux/master/examples/flux-chat/css/chatapp.css" />
             </head>
+            <body>
+                <div id="app" dangerouslySetInnerHTML={{__html: this.props.markup}}></div>
+            </body>
+            <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
+            <script src="/public/js/client.js" defer></script>
+            </html>
         );
     }
 });
 
-module.exports = Head;
+module.exports = Html;
