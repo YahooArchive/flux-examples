@@ -11,7 +11,7 @@ var navigateAction = require('flux-router-component').navigateAction;
 var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
-var HeadComponent = React.createFactory(require('./components/Head.jsx'));
+var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
 
 var server = express();
 expressState.extend(server);
@@ -34,25 +34,21 @@ server.use(function (req, res, next) {
             }
             return;
         }
-        debug('Rendering Application component');
-        var head = React.renderToStaticMarkup(HeadComponent());
-        var html = React.renderToString(app.getAppComponent()({
-            context: context.getComponentContext()
-        }));
+
         debug('Exposing context state');
         res.expose(app.dehydrate(context), 'App');
-        debug('Rendering application into layout');
 
+        debug('Rendering Application component into html');
+        var AppComponent = app.getAppComponent();
+        var html = React.renderToStaticMarkup(HtmlComponent({
+            state: res.locals.state,
+            markup: React.renderToString(AppComponent({
+                context: context.getComponentContext()
+            }))
+        }));
 
         debug('Sending markup');
-        res.write('<html>');
-        res.write(head);
-        res.write('<body>');
-        res.write('<div id="app">' + html + '</div>');
-        res.write('</body>');
-        res.write('<script>' + res.locals.state + '</script>');
-        res.write('<script src="/public/js/client.js" defer></script>');
-        res.write('</html>');
+        res.write(html);
         res.end();
     });
 });
