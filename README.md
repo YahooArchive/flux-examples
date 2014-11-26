@@ -1,4 +1,7 @@
-#flux-examples [![Dependency Status](https://david-dm.org/yahoo/flux-examples.svg)](https://david-dm.org/yahoo/flux-examples)
+#flux-examples
+
+[![Dependency Status](https://david-dm.org/yahoo/flux-examples.svg)](https://david-dm.org/yahoo/flux-examples)
+[![devDependency Status](https://david-dm.org/yahoo/flux-examples/dev-status.svg)](https://david-dm.org/yahoo/flux-examples#info=devDependencies)
 
 Example isomorphic [Flux](http://facebook.github.io/react/docs/flux-overview.html) applications using [fluxible-app](https://github.com/yahoo/fluxible-app), [fluxible-plugin-routr](https://github.com/yahoo/fluxible-plugin-routr), and [fluxible-plugin-fetchr](https://github.com/yahoo/fluxible-plugin-fetchr).
 
