@@ -11,6 +11,7 @@ There are multiple examples in this repo:
 
 * [Chat](https://github.com/yahoo/flux-examples/tree/master/chat) - Port of [Facebook's Flux chat example](https://github.com/facebook/flux/tree/master/examples/flux-chat)
 * [Routing](https://github.com/yahoo/flux-examples/tree/master/routing) - Simple isomorphic routing in flux flow
+* [To Do](https://github.com/yahoo/flux-examples/tree/master/todo) - Port of [ToDo MVC](https://github.com/tastejs/todomvc)
 
 Usage
 -----
