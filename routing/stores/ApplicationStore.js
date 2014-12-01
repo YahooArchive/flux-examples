@@ -15,16 +15,7 @@ var ApplicationStore = createStore({
         this.currentPageName = null;
         this.currentPage = null;
         this.currentRoute = null;
-        this.pages = {
-            home: {
-                text: 'Home',
-                route: 'home'
-            },
-            about: {
-                text: 'About',
-                route: 'about'
-            }
-        };
+        this.pages = require('../configs/routes');
     },
     handleNavigate: function (route) {
         var pageName = route.config.page;
@@ -34,7 +25,7 @@ var ApplicationStore = createStore({
             return;
         }
 
-        this.currentPageName = pageName;
+        this.currentPageName = route.name;
         this.currentPage = page;
         this.currentRoute = route;
         this.emit('change');
