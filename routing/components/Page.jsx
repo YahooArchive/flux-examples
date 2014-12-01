@@ -10,14 +10,14 @@ var StoreMixin = require('fluxible-app').StoreMixin;
 var Page = React.createClass({
     mixins: [StoreMixin],
     statics: {
-      storeListeners: [PageStore]
+        storeListeners: [PageStore]
     },
     getInitialState: function () {
-      return this.getStore(PageStore).getState();
+        return this.getStore(PageStore).getState();
     },
     onChange: function () {
-      var state = this.getStore(PageStore).getState();
-      this.setState(state);
+        var state = this.getStore(PageStore).getState();
+        this.setState(state);
     },
     render: function() {
         return (

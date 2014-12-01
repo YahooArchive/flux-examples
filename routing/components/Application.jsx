@@ -27,20 +27,20 @@ var Application = React.createClass({
         this.setState(state);
     },
     render: function () {
-      var output='';
-      //choose the right page based on the route
-      switch(this.state.currentPageName){
-        case 'home':
-          output=<Home/>
-          break;
-        case 'about':
-          output=<About/>
-          break;
-        case 'page':
-          output=  <Page context={this.props.context}/>
-          break;
-      }
-      //render content
+        var output = '';
+        //choose the right page based on the route
+        switch (this.state.currentPageName) {
+            case 'home':
+                output = <Home/>;
+                break;
+            case 'about':
+                output = <About/>;
+                break;
+            case 'page':
+                output = <Page context={this.props.context}/>;
+                break;
+        }
+        //render content
         return (
             <div>
                 <Nav selected={this.state.currentPageName} links={this.state.pages} context={this.props.context}/>
