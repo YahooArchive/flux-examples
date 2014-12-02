@@ -4,6 +4,7 @@
  */
 'use strict';
 var React = require('react');
+var PageStore = require('../stores/PageStore');
 
 
 var Component = React.createClass({
@@ -12,7 +13,7 @@ var Component = React.createClass({
             <html>
             <head>
                 <meta charSet="utf-8" />
-                <title>{this.props.title}</title>
+                <title>{this.props.context.getStore(PageStore).getPageTitle()}</title>
                 <meta name="viewport" content="width=device-width, user-scalable=no" />
                 <link rel="stylesheet" href="/public/base.css" />
                 <link rel="stylesheet" href="/public/styles.css" />
