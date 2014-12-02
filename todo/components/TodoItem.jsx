@@ -65,7 +65,7 @@ var Component = React.createClass({
                         onChange={this.props.onToggle}
                         disabled={this.props.todo.failure}
                     />
-                    <label onDoubleClick={this.handleEdit}>
+                    <label onDoubleClick={this.props.todo.failure ? undefined : this.handleEdit}>
                         {this.props.todo.text}
                     </label>
                     <button
