@@ -42,6 +42,7 @@ server.use(function (req, res, next) {
         var AppComponent = app.getAppComponent();
         var html = React.renderToStaticMarkup(HtmlComponent({
             state: res.locals.state,
+            context: context.getComponentContext(),
             markup: React.renderToString(AppComponent({
                 context: context.getComponentContext()
             }))

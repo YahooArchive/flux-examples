@@ -4,6 +4,7 @@
  */
 'use strict';
 var React = require('react');
+var ApplicationStore = require('../stores/ApplicationStore');
 
 /**
  * React class to handle the rendering of the HTML head section
@@ -23,7 +24,7 @@ var Html = React.createClass({
             <html>
             <head>
                 <meta charSet="utf-8" />
-                <title>{this.props.title}</title>
+                <title>{this.props.context.getStore(ApplicationStore).getPageTitle()}</title>
                 <meta name="viewport" content="width=device-width, user-scalable=no" />
                 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css" />
             </head>
