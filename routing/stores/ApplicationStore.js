@@ -33,7 +33,7 @@ var ApplicationStore = createStore({
         this.emit('change');
     },
     updatePageTitle: function (title) {
-        this.pageTitle = title;
+        this.pageTitle = title.pageTitle;
         this.emitChange();
     },
     getCurrentPageName: function () {
