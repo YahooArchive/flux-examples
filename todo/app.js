@@ -18,6 +18,7 @@ app.plug(fetchrPlugin({
 
 
 app.registerStore(require('./stores/TodoStore'));
+app.registerStore(require('./stores/PageStore'));
 
 
 module.exports = app;
