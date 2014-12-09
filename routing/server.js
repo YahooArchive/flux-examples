@@ -6,7 +6,7 @@
 require('node-jsx').install({ extension: '.jsx' });
 var express = require('express');
 var favicon = require('serve-favicon');
-var expressState = require('express-state');
+var serialize = require('serialize-javascript');
 var navigateAction = require('flux-router-component').navigateAction;
 var debug = require('debug')('Example');
 var React = require('react');
@@ -14,7 +14,6 @@ var app = require('./app');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
 
 var server = express();
-expressState.extend(server);
 server.set('state namespace', 'App');
 server.use(favicon(__dirname + '/../favicon.ico'));
 server.use('/public', express.static(__dirname + '/build'));
@@ -36,12 +35,12 @@ server.use(function (req, res, next) {
         }
 
         debug('Exposing context state');
-        res.expose(app.dehydrate(context), 'App');
+        var exposed = 'window.App=' + serialize(app.dehydrate(context), 'App');
 
         debug('Rendering Application component into html');
         var AppComponent = app.getAppComponent();
         var html = React.renderToStaticMarkup(HtmlComponent({
-            state: res.locals.state,
+            state: exposed,
             context: context.getComponentContext(),
             markup: React.renderToString(AppComponent({
                 context: context.getComponentContext()
