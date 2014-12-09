@@ -7,6 +7,8 @@ var express = require('express');
 var favicon = require('serve-favicon');
 var expressState = require('express-state');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var csrf = require('csurf');
 var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
@@ -18,7 +20,9 @@ expressState.extend(server);
 server.set('state namespace', 'App');
 server.use(favicon(__dirname + '/../favicon.ico'));
 server.use('/public', express.static(__dirname + '/build'));
+server.use(cookieParser());
 server.use(bodyParser.json());
+server.use(csrf({cookie: true}));
 
 // Get access to the fetchr plugin instance
 var fetchrPlugin = app.getPlugin('FetchrPlugin');
@@ -29,7 +33,10 @@ server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
 server.use(function (req, res, next) {
     var context = app.createContext({
-        req: req // The fetchr plugin depends on this
+        req: req, // The fetchr plugin depends on this
+        xhrContext: {
+            _csrf: req.csrfToken() // Make sure all XHR requests have the CSRF token
+        }
     });
 
     debug('Executing showChat action');
