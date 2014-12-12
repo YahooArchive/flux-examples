@@ -52,7 +52,7 @@ server.use(function (req, res, next) {
             }
         }
 
-        var exposed = 'window.App=' + serialize(app.dehydrate(context));
+        var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         var AppComponent = app.getAppComponent();
         var html = React.renderToStaticMarkup(HtmlComponent({

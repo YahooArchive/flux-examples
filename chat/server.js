@@ -50,7 +50,7 @@ server.use(function (req, res, next) {
         }
 
         debug('Exposing context state');
-        var exposed = 'window.App=' + serialize(app.dehydrate(context));
+        var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         debug('Rendering Application component into html');
         var AppComponent = app.getAppComponent();
