@@ -5,7 +5,7 @@
 require('node-jsx').install({ extension: '.jsx' });
 var express = require('express');
 var favicon = require('serve-favicon');
-var expressState = require('express-state');
+var serialize = require('serialize-javascript');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var csrf = require('csurf');
@@ -16,7 +16,6 @@ var showChat = require('./actions/showChat');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
 
 var server = express();
-expressState.extend(server);
 server.set('state namespace', 'App');
 server.use(favicon(__dirname + '/../favicon.ico'));
 server.use('/public', express.static(__dirname + '/build'));
@@ -51,12 +50,12 @@ server.use(function (req, res, next) {
         }
 
         debug('Exposing context state');
-        res.expose(app.dehydrate(context), 'App');
+        var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         debug('Rendering Application component into html');
         var AppComponent = app.getAppComponent();
         var html = React.renderToStaticMarkup(HtmlComponent({
-            state: res.locals.state,
+            state: exposed,
             markup: React.renderToString(AppComponent({
                 context: context.getComponentContext()
             }))
