@@ -4,7 +4,6 @@
  */
 'use strict';
 var debug = require('debug')('Example:openThreadAction');
-var ThreadStore = require('../stores/ThreadStore');
 
 module.exports = function (context, payload, done) {
     debug('dispatching OPEN_THREAD', payload);
