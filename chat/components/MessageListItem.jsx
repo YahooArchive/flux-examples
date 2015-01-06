@@ -20,7 +20,7 @@ var ReactPropTypes = React.PropTypes;
 
 var MessageListItem = React.createClass({
 
-    props: {
+    propTypes: {
         message: ReactPropTypes.object
     },
 
