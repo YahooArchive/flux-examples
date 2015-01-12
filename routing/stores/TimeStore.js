@@ -13,7 +13,7 @@ var TimeStore = createStore({
     },
     handleTimeChange: function (payload) {
         this.time = new Date();
-        this.emit('change');
+        this.emitChange();
     },
     handlers: {
         'CHANGE_ROUTE_START': 'handleTimeChange',
