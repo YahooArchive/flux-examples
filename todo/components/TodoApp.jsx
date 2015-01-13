@@ -4,7 +4,7 @@
  */
 'use strict';
 var React = require('react');
-var StoreMixin = require('fluxible-app').StoreMixin;
+var StoreMixin = require('fluxible').StoreMixin;
 var TodoStore = require('../stores/TodoStore');
 var TodoItem = require('./TodoItem');
 var Footer = require('./Footer');
