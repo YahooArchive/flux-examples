@@ -19,7 +19,7 @@ var MessageListItem = require('./MessageListItem.jsx');
 var MessageStore = require('../stores/MessageStore');
 var React = require('react');
 var ThreadStore = require('../stores/ThreadStore');
-var StoreMixin = require('fluxible-app').StoreMixin;
+var StoreMixin = require('fluxible').StoreMixin;
 
 function getMessageListItem(message) {
     return (
