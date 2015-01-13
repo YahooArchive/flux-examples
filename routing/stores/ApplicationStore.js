@@ -3,7 +3,7 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var createStore = require('fluxible-app/utils/createStore');
+var createStore = require('fluxible/utils/createStore');
 var routesConfig= require('../configs/routes')
 
 var ApplicationStore = createStore({

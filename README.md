@@ -3,7 +3,7 @@
 [![Dependency Status](https://david-dm.org/yahoo/flux-examples.svg)](https://david-dm.org/yahoo/flux-examples)
 [![devDependency Status](https://david-dm.org/yahoo/flux-examples/dev-status.svg)](https://david-dm.org/yahoo/flux-examples#info=devDependencies)
 
-Example isomorphic [Flux](http://facebook.github.io/react/docs/flux-overview.html) applications using [fluxible-app](https://github.com/yahoo/fluxible-app), [fluxible-plugin-routr](https://github.com/yahoo/fluxible-plugin-routr), and [fluxible-plugin-fetchr](https://github.com/yahoo/fluxible-plugin-fetchr).
+Example isomorphic [Flux](http://facebook.github.io/react/docs/flux-overview.html) applications using [fluxible](https://github.com/yahoo/fluxible), [fluxible-plugin-routr](https://github.com/yahoo/fluxible-plugin-routr), and [fluxible-plugin-fetchr](https://github.com/yahoo/fluxible-plugin-fetchr).
 
 The server-side rendered React components and store instances get dehydrated and sent to the client using [express-state](https://github.com/yahoo/express-state). The client.js (compiled by [webpack](https://github.com/webpack/webpack)) then bootstraps and rehydrates the dispatcher instance and the stores to same state as what they were on the server.
 

@@ -4,10 +4,10 @@
  */
 'use strict';
 var React = require('react');
-var FluxibleApp = require('fluxible-app');
+var Fluxible = require('fluxible');
 var routrPlugin = require('fluxible-plugin-routr');
 
-var app = new FluxibleApp({
+var app = new Fluxible({
     appComponent: React.createFactory(require('./components/Application.jsx'))
 });
 

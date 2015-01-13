@@ -4,11 +4,11 @@
  */
 'use strict';
 var React = require('react');
-var FluxibleApp = require('fluxible-app');
+var Fluxible = require('fluxible');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
 
 
-var app = new FluxibleApp({
+var app = new Fluxible({
     appComponent: React.createFactory(require('./components/TodoApp.jsx'))
 });
 
