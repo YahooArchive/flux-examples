@@ -16,7 +16,6 @@
 'use strict';
 var React = require('react');
 var cx = require('react/lib/cx');
-var openThread = require('../actions/openThread');
 
 var ReactPropTypes = React.PropTypes;
 
@@ -36,7 +35,7 @@ var ThreadListItem = React.createClass({
                     'thread-list-item': true,
                     'active': thread.id === this.props.currentThreadID
                 })}
-                onClick={this._onClick}>
+                >
 
                 <h5 className="thread-name">{thread.name}</h5>
                 <div className="thread-time">
@@ -48,13 +47,6 @@ var ThreadListItem = React.createClass({
             </li>
         );
     },
-
-    _onClick: function() {
-        this.props.context.executeAction(openThread, {
-            threadID: this.props.thread.id
-        });
-    }
-
 });
 
 module.exports = ThreadListItem;

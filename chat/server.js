@@ -12,8 +12,8 @@ var csrf = require('csurf');
 var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
-var showChat = require('./actions/showChat');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
+var navigateAction = require('flux-router-component').navigateAction;
 
 var server = express();
 server.set('state namespace', 'App');
@@ -39,7 +39,8 @@ server.use(function (req, res, next) {
     });
 
     debug('Executing showChat action');
-    context.getActionContext().executeAction(showChat, {}, function (err) {
+    context.getActionContext().executeAction(navigateAction, { url: req.url }, function (err) {
+
         if (err) {
             if (err.status && err.status === 404) {
                 next();
