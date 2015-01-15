@@ -21,7 +21,6 @@ var ThreadStore = require('../stores/ThreadStore');
 var UnreadThreadStore = require('../stores/UnreadThreadStore');
 var StoreMixin = require('fluxible').StoreMixin;
 var NavLink = require('flux-router-component').NavLink;
-var RouterMixin = require('flux-router-component').RouterMixin;
 
 var ThreadSection = React.createClass({
     mixins: [StoreMixin],
