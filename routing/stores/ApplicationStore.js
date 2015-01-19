@@ -20,12 +20,12 @@ var ApplicationStore = createStore({
         this.pageTitle = '';
     },
     handleNavigate: function (route) {
-        var pageName = route.config.page;
-        var page = this.pages[pageName];
-
-        if (pageName === this.getCurrentPageName()) {
+        if (this.currentRoute && (this.currentRoute.url === route.url)) {
             return;
         }
+
+        var pageName = route.config.page;
+        var page = this.pages[pageName];
 
         this.currentPageName = pageName;
         this.currentPage = page;
