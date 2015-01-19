@@ -17,7 +17,6 @@ module.exports = function (context, payload, done) {
 
     context.service.create('todo', newTodo, {}, function (err, todo) {
         if (err) {
-            console.log('YOYOO', arguments);
             context.dispatch('CREATE_TODO_FAILURE', newTodo);
             done();
             return;
