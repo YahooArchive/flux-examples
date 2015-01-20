@@ -30,7 +30,7 @@ var ApplicationStore = createStore({
         this.currentPageName = pageName;
         this.currentPage = page;
         this.currentRoute = route;
-        this.emit('change');
+        this.emitChange();
     },
     updatePageTitle: function (title) {
         this.pageTitle = title.pageTitle;
