@@ -1,42 +1,35 @@
 /**
- * Copyright 2014, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
+* Copyright 2014, Yahoo! Inc.
+* Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+*/
 'use strict';
 var debug = require('debug')('Example:showChatAction');
-var ThreadStore = require('../stores/ThreadStore');
 var MessageStore = require('../stores/MessageStore');
-var openThread = require('./openThread');
+var openThread = require('../actions/openThread');
 
-module.exports = function (context, payload, done) {
-    context.dispatch('SHOW_CHAT_START');
+function fetchMessages(context, done) {
 
-    var messageStore = context.getStore(MessageStore);
-
-    if (Object.keys(messageStore.getAll()).length === 0) {
     debug('fetching messages');
     context.service.read('message', {}, {}, function (err, messages) {
         context.dispatch('RECEIVE_MESSAGES', messages);
+        context.executeAction(openThread, {}, function() {
+            context.dispatch('SHOW_CHAT_END');
+            done();
+        })
+    });
 
-        var threadStore = context.getStore(ThreadStore);
-        if (!threadStore.getCurrentID()) {
-            debug('opening most recent thread');
-            var allChrono = threadStore.getAllChrono();
-            context.executeAction(openThread, {
-                threadID: allChrono[allChrono.length - 1].id
-            }, function () {
-                context.dispatch('SHOW_CHAT_END');
-                done();
-            });
-            return;
-        }
+}
+
+module.exports = function (context, payload, done) {
+
+    context.dispatch('SHOW_CHAT_START');
+    var messageStore = context.getStore(MessageStore);
+
+    if (Object.keys(messageStore.getAll()).length === 0) {
+        fetchMessages(context,done);
+    } else {
         debug('dispatching SHOW_CHAT_END');
         context.dispatch('SHOW_CHAT_END');
         done();
-    });
-  } else {
-            debug('dispatching SHOW_CHAT_END');
-            context.dispatch('SHOW_CHAT_END');
-            done();
-  }
+    }
 };
