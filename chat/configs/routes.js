@@ -1,4 +1,5 @@
 var showChat = require('../actions/showChat');
+var openThread = require('../actions/openThread');
 
 module.exports = {
     home: {
@@ -13,8 +14,9 @@ module.exports = {
         method: 'get',
         action: function (context, payload, done) {
             context.executeAction(showChat, {}, function() {
-                context.dispatch('OPEN_THREAD', { threadID: payload.params.id });
-                done();
+                context.executeAction(openThread, { threadID: payload.params.id }, function() {
+                    done();
+                })
             });
         }
     }
