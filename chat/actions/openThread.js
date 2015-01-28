@@ -8,7 +8,6 @@ var ThreadStore = require('../stores/ThreadStore');
 
 
 module.exports = function (context, payload, done) {
-
     debug('dispatching OPEN_THREAD', payload);
 
     /* If thread Id isn't provided make it the latest thread.
