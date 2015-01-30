@@ -3,7 +3,6 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var React = require('react');
 var FluxibleApp = require('fluxible-app');
 
 var app = new FluxibleApp({
