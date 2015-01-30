@@ -1,0 +1,12 @@
+{
+  "name": "flux-example-routing",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Example application",
+  "main": "server.js",
+  "author": "Michael Ridgway <mridgway@yahoo-inc.com>",
+  "scripts": {
+    "dev": "../node_modules/.bin/nodemon --ignore build/ -e js server & ../node_modules/.bin/webpack --watch",
+    "build": "../node_modules/.bin/webpack"
+  }
+}
