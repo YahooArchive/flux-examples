@@ -9,9 +9,10 @@ The server-side rendered React components and store instances get dehydrated and
 
 There are multiple examples in this repo:
 
-* [Chat](https://github.com/yahoo/flux-examples/tree/master/chat) - Port of [Facebook's Flux chat example](https://github.com/facebook/flux/tree/master/examples/flux-chat)
-* [Routing](https://github.com/yahoo/flux-examples/tree/master/routing) - Simple isomorphic routing in flux flow
-* [To Do](https://github.com/yahoo/flux-examples/tree/master/todo) - Port of [ToDo MVC](https://github.com/tastejs/todomvc)
+* [Chat](https://github.com/yahoo/flux-examples/tree/master/chat) - Port of [Facebook's Flux chat example](https://github.com/facebook/flux/tree/master/examples/flux-chat).
+* [Fluxible Routing](https://github.com/yahoo/flux-examples/tree/master/fluxible-router) - Simple isomorphic routing using [Fluxible](http://fluxible.io).
+* [React Routing](https://github.com/yahoo/flux-examples/tree/master/react-router) - Isomorphic routing using [react-router](https://github.com/rackt/react-router).
+* [To Do](https://github.com/yahoo/flux-examples/tree/master/todo) - Port of [ToDo MVC](https://github.com/tastejs/todomvc).
 
 Usage
 -----
