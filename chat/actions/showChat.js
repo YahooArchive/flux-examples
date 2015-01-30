@@ -8,7 +8,6 @@ var MessageStore = require('../stores/MessageStore');
 var openThread = require('../actions/openThread');
 
 function fetchMessages(context, payload, done) {
-
     debug('fetching messages');
     context.service.read('message', {}, {}, function (err, messages) {
         context.dispatch('RECEIVE_MESSAGES', messages);
@@ -21,7 +20,6 @@ function fetchMessages(context, payload, done) {
 }
 
 module.exports = function (context, payload, done) {
-
     context.dispatch('SHOW_CHAT_START');
     var messageStore = context.getStore(MessageStore);
 
