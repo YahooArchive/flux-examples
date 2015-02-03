@@ -41,7 +41,7 @@ var Component = React.createClass({
             this.props.onCancel(event);
         }
         else if (event.which === ENTER_KEY) {
-            this.handleSubmit(event);
+            this.refs.editField.getDOMNode().blur();
         }
     },
     handleChange: function (event) {
