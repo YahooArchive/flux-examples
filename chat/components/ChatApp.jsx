@@ -17,9 +17,22 @@
 var MessageSection = require('./MessageSection.jsx');
 var React = require('react');
 var ThreadSection = require('./ThreadSection.jsx');
+var ApplicationStore = require('../stores/ApplicationStore');
+var RouterMixin = require('flux-router-component').RouterMixin;
+var StoreMixin = require('fluxible').StoreMixin;
 
 var ChatApp = React.createClass({
-
+    mixins: [RouterMixin, StoreMixin],
+    statics: {
+        storeListeners: [ApplicationStore]
+    },
+    getInitialState: function () {
+        return this.getStore(ApplicationStore).getState();
+    },
+    onChange: function () {
+        var state = this.getStore(ApplicationStore).getState();
+        this.setState(state);
+    },
     render: function() {
         return (
             <div className="chatapp">
