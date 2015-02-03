@@ -6,7 +6,6 @@
   "main": "server.js",
   "author": "Michael Ridgway <mridgway@yahoo-inc.com>",
   "scripts": {
-    "dev": "../node_modules/.bin/nodemon --ignore build/ -e js server & ../node_modules/.bin/webpack --watch",
-    "build": "../node_modules/.bin/webpack"
+    "dev": "grunt --gruntfile ../Gruntfile.js --taskName fluxible-router"
   }
 }
