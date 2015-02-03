@@ -3,9 +3,9 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var FluxibleApp = require('fluxible-app');
+var Fluxible = require('fluxible');
 
-var app = new FluxibleApp({
+var app = new Fluxible({
     appComponent: require('./components/Routes.jsx')
 });
 

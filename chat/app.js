@@ -4,10 +4,10 @@
  */
 'use strict';
 var React = require('react');
-var FluxibleApp = require('fluxible');
+var Fluxible = require('fluxible');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
 
-var app = new FluxibleApp({
+var app = new Fluxible({
     appComponent: React.createFactory(require('./components/ChatApp.jsx'))
 });
 

@@ -7,7 +7,7 @@ var React = require('react');
 var Nav = require('./Nav.jsx');
 var Timestamp = require('./Timestamp.jsx');
 var ApplicationStore = require('../stores/ApplicationStore');
-var StoreMixin = require('fluxible-app').StoreMixin;
+var StoreMixin = require('fluxible').StoreMixin;
 var RouteHandler = require('react-router').RouteHandler;
 
 var Application = React.createClass({
