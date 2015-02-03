@@ -3,7 +3,7 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var createStore = require('fluxible-app/utils/createStore');
+var createStore = require('fluxible/utils/createStore');
 
 var ApplicationStore = createStore({
     storeName: 'ApplicationStore',
@@ -15,11 +15,12 @@ var ApplicationStore = createStore({
         this.currentRoute = null;
     },
     handleNavigate: function (route) {
-        var pageName = route.config.page;
-
         if (pageName === this.getCurrentPageName()) {
             return;
         }
+
+        var pageName = route.config.page;
+        var page = this.pages[pageName];
 
         this.currentPageName = pageName;
         this.currentPage = page;

@@ -6,7 +6,7 @@
 var React = require('react');
 var updateTime = require('../actions/updateTime');
 var TimeStore = require('../stores/TimeStore');
-var StoreMixin = require('fluxible-app').StoreMixin;
+var StoreMixin = require('fluxible').StoreMixin;
 
 var Timestamp = React.createClass({
     mixins: [StoreMixin],
