@@ -20,8 +20,7 @@ Usage
 ```
 npm install
 cd <folder>
-npm run build
-npm start
+npm run dev
 ```
 
 Open http://localhost:3000

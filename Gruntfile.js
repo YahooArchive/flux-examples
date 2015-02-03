@@ -1,5 +1,12 @@
 module.exports = function (grunt) {
     grunt.initConfig({
+        clean: ['./' + grunt.option('taskName') + '/build'],
+        concurrent: {
+            dev: ['nodemon:dev', 'webpack:dev'],
+            options: {
+                logConcurrentOutput: true
+            }
+        },
         copy: {
             todo: {
                 files: [{
@@ -15,14 +22,23 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        nodemon: {
+            dev: {
+                script: './' + grunt.option('taskName') + '/server.js',
+                options: {
+                    ignore: ['build/**'],
+                    ext: 'js,jsx'
+                }
+            }
+        },
         webpack: {
-            todo: {
+            dev: {
                 resolve: {
                     extensions: ['', '.js', '.jsx']
                 },
-                entry: './todo/client.js',
+                entry: './' + grunt.option('taskName') + '/client.js',
                 output: {
-                    path: './todo/build/js',
+                    path: './' + grunt.option('taskName') + '/build/js',
                     filename: 'client.js'
                 },
                 module: {
@@ -31,31 +47,23 @@ module.exports = function (grunt) {
                         { test: /\.jsx$/, loader: 'jsx-loader' }
                     ]
                 },
-                watch: true
+                stats: {
+                    colors: true
+                },
+                devtool: 'source-map',
+                watch: true,
+                keepalive: true
             }
-        },
-        nodemon: {
-            todo: {
-                script: './todo/server.js',
-                options: {
-                    ignore: ['build/**'],
-                    ext: 'js,jsx'
-                }
-            }
-        },
+        }
     });
 
 
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-webpack');
     grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-webpack');
 
-
-    grunt.registerTask('default', 'Log some stuff.', function() {
-        grunt.log.error('Please specify a target.');
-        grunt.log.error('Available options: chat, todo, routing');
-    });
-
-
-    grunt.registerTask('todo', ['copy:todo', 'webpack:todo', 'nodemon:todo']);
+    grunt.registerTask('default', ['clean', 'concurrent:dev']);
+    grunt.registerTask('todo', ['clean', 'copy:todo', 'concurrent:dev']);
 };
