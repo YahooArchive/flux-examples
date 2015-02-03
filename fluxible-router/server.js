@@ -22,7 +22,7 @@ server.use(function (req, res, next) {
     var context = app.createContext();
 
     debug('Executing navigate action');
-    context.getActionContext().executeAction(navigateAction, {
+    context.executeAction(navigateAction, {
         url: req.url
     }, function (err) {
         if (err) {
