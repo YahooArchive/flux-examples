@@ -19,7 +19,7 @@ var MessageListItem = require('./MessageListItem.jsx');
 var MessageStore = require('../stores/MessageStore');
 var React = require('react');
 var ThreadStore = require('../stores/ThreadStore');
-var StoreMixin = require('fluxible').StoreMixin;
+var FluxibleMixin = require('fluxible').Mixin;
 
 function getMessageListItem(message) {
     return (
@@ -31,7 +31,7 @@ function getMessageListItem(message) {
 }
 
 var MessageSection = React.createClass({
-    mixins: [StoreMixin],
+    mixins: [FluxibleMixin],
     statics: {
         storeListeners: {
             _onChange: [ThreadStore, MessageStore]
@@ -61,7 +61,7 @@ var MessageSection = React.createClass({
                 <ul className="message-list" ref="messageList">
                     {messageListItems}
                 </ul>
-                <MessageComposer context={this.props.context} />
+                <MessageComposer />
             </div>
         );
     },

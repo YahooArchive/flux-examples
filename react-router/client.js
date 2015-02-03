@@ -11,6 +11,7 @@ var app = require('./app');
 var dehydratedState = window.App; // Sent from the server
 var Router = require('react-router');
 var HistoryLocation = Router.HistoryLocation;
+var navigateAction = require('./actions/navigate');
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
@@ -26,10 +27,12 @@ app.rehydrate(dehydratedState, function (err, context) {
     bootstrapDebug('React Rendering');
 
     Router.run(app.getAppComponent(), HistoryLocation, function (Handler, state) {
-        React.render(Handler({
-            context: context.getComponentContext()
-        }), mountNode, function () {
-            bootstrapDebug('React Rendered');
+        context.executeAction(navigateAction, state, function () {
+            React.withContext(context.getComponentContext(), function () {
+                React.render(React.createFactory(Handler)(), mountNode, function () {
+                    bootstrapDebug('React Rendered');
+                });
+            });
         });
     });
 });

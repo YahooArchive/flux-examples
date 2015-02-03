@@ -13,10 +13,10 @@ var TimeStore = createStore({
     },
     handleTimeChange: function (payload) {
         this.time = new Date();
-        this.emit('change');
+        this.emitChange();
     },
     handlers: {
-        'CHANGE_ROUTE_START': 'handleTimeChange',
+        'CHANGE_ROUTE': 'handleTimeChange',
         'UPDATE_TIME': 'handleTimeChange'
     },
     getState: function () {
@@ -25,7 +25,9 @@ var TimeStore = createStore({
         };
     },
     dehydrate: function () {
-        return this.getState();
+        return {
+            time: this.getState()
+        };
     },
     rehydrate: function (state) {
         this.time = new Date(state.time);

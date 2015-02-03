@@ -7,11 +7,11 @@ var React = require('react');
 var Nav = require('./Nav.jsx');
 var Timestamp = require('./Timestamp.jsx');
 var ApplicationStore = require('../stores/ApplicationStore');
-var StoreMixin = require('fluxible').StoreMixin;
+var FluxibleMixin = require('fluxible').Mixin;
 var RouteHandler = require('react-router').RouteHandler;
 
 var Application = React.createClass({
-    mixins: [StoreMixin],
+    mixins: [FluxibleMixin],
     statics: {
         storeListeners: [ApplicationStore]
     },
@@ -28,7 +28,7 @@ var Application = React.createClass({
             <div>
                 <Nav />
                     <RouteHandler />
-                <Timestamp context={this.props.context}/>
+                <Timestamp />
             </div>
         );
     }

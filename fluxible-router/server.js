@@ -14,7 +14,6 @@ var app = require('./app');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
 
 var server = express();
-server.set('state namespace', 'App');
 server.use(favicon(__dirname + '/../favicon.ico'));
 server.use('/public', express.static(__dirname + '/build'));
 
@@ -39,17 +38,17 @@ server.use(function (req, res, next) {
 
         debug('Rendering Application component into html');
         var AppComponent = app.getAppComponent();
-        var html = React.renderToStaticMarkup(HtmlComponent({
-            state: exposed,
-            context: context.getComponentContext(),
-            markup: React.renderToString(AppComponent({
-                context: context.getComponentContext()
-            }))
-        }));
 
-        debug('Sending markup');
-        res.write(html);
-        res.end();
+        React.withContext(context.getComponentContext(), function () {
+            var html = React.renderToStaticMarkup(HtmlComponent({
+                state: exposed,
+                markup: React.renderToString(AppComponent())
+            }));
+
+            debug('Sending markup');
+            res.write(html);
+            res.end();
+        });
     });
 });
 

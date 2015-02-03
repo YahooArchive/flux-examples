@@ -11,10 +11,10 @@ var Page = require('./Page.jsx');
 var Timestamp = require('./Timestamp.jsx');
 var ApplicationStore = require('../stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
-var StoreMixin = require('fluxible').StoreMixin;
+var FluxibleMixin = require('fluxible').Mixin;
 
 var Application = React.createClass({
-    mixins: [RouterMixin, StoreMixin],
+    mixins: [RouterMixin, FluxibleMixin],
     statics: {
         storeListeners: [ApplicationStore]
     },
@@ -43,9 +43,9 @@ var Application = React.createClass({
         //render content
         return (
             <div>
-                <Nav selected={this.state.currentPageName} links={this.state.pages} context={this.props.context}/>
+                <Nav selected={this.state.currentPageName} links={this.state.pages} />
                 {output}
-                <Timestamp context={this.props.context}/>
+                <Timestamp />
             </div>
         );
     },

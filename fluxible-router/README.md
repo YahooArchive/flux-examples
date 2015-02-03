@@ -7,17 +7,6 @@ This shows routing on the client and the server with [Fluxible](http://fluxible.
 Make sure you run `npm install` from the root of flux-examples. Then change directories to routing (`cd routing`) and run:
 
 ```bash
-$ npm run build
-$ npm start
-```
-
-Open http://localhost:3000
-
-## Dev Mode
-
-Again, make sure you run `npm install` from the root of flux-examples. Then change directories to routing (`cd routing`) and run:
-
-```bash
 $ npm run dev
 ```
 

@@ -19,11 +19,11 @@ var MessageStore = require('../stores/MessageStore');
 var ThreadListItem = require('../components/ThreadListItem.jsx');
 var ThreadStore = require('../stores/ThreadStore');
 var UnreadThreadStore = require('../stores/UnreadThreadStore');
-var StoreMixin = require('fluxible').StoreMixin;
+var FluxibleMixin = require('fluxible').Mixin;
 var NavLink = require('flux-router-component').NavLink;
 
 var ThreadSection = React.createClass({
-    mixins: [StoreMixin],
+    mixins: [FluxibleMixin],
     statics: {
         storeListeners: {
             _onChange: [ThreadStore, MessageStore, UnreadThreadStore]
@@ -45,12 +45,11 @@ var ThreadSection = React.createClass({
     render: function() {
         var threadListItems = this.state.threads.map(function(thread) {
             return (
-                <NavLink href={"/thread/" + thread.id} context={this.props.context} key={thread.id} >
+                <NavLink href={"/thread/" + thread.id} key={thread.id} >
                     <ThreadListItem
                         key={thread.id}
                         thread={thread}
                         currentThreadID={this.state.currentThreadID}
-                        context={this.props.context}
                     />
                 </NavLink>
             );
