@@ -19,10 +19,10 @@ var React = require('react');
 var ThreadSection = require('./ThreadSection.jsx');
 var ApplicationStore = require('../stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
-var StoreMixin = require('fluxible').StoreMixin;
+var FluxibleMixin = require('fluxible').Mixin;
 
 var ChatApp = React.createClass({
-    mixins: [RouterMixin, StoreMixin],
+    mixins: [RouterMixin, FluxibleMixin],
     statics: {
         storeListeners: [ApplicationStore]
     },
@@ -36,8 +36,8 @@ var ChatApp = React.createClass({
     render: function() {
         return (
             <div className="chatapp">
-                <ThreadSection context={this.props.context} />
-                <MessageSection context={this.props.context} />
+                <ThreadSection />
+                <MessageSection />
             </div>
         );
     }

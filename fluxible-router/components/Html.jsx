@@ -5,6 +5,7 @@
 'use strict';
 var React = require('react');
 var ApplicationStore = require('../stores/ApplicationStore');
+var FluxibleMixin = require('fluxible').Mixin;
 
 /**
  * React class to handle the rendering of the HTML head section
@@ -13,6 +14,7 @@ var ApplicationStore = require('../stores/ApplicationStore');
  * @constructor
  */
 var Html = React.createClass({
+    mixins: [FluxibleMixin],
     /**
      * Refer to React documentation render
      *
@@ -24,7 +26,7 @@ var Html = React.createClass({
             <html>
             <head>
                 <meta charSet="utf-8" />
-                <title>{this.props.context.getStore(ApplicationStore).getPageTitle()}</title>
+                <title>{this.getStore(ApplicationStore).getPageTitle()}</title>
                 <meta name="viewport" content="width=device-width, user-scalable=no" />
                 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css" />
             </head>

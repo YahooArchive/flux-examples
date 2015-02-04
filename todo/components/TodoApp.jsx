@@ -4,7 +4,7 @@
  */
 'use strict';
 var React = require('react');
-var StoreMixin = require('fluxible').StoreMixin;
+var FluxibleMixin = require('fluxible').Mixin;
 var TodoStore = require('../stores/TodoStore');
 var TodoItem = require('./TodoItem');
 var Footer = require('./Footer');
@@ -18,7 +18,7 @@ var ENTER_KEY = 13;
 
 
 var Component = React.createClass({
-    mixins: [StoreMixin],
+    mixins: [FluxibleMixin],
     statics: {
         storeListeners: {
             _onChange: [TodoStore]
@@ -46,7 +46,7 @@ var Component = React.createClass({
         var text = this.refs.newField.getDOMNode().value.trim();
 
         if (text) {
-            this.props.context.executeAction(createTodo, {
+            this.executeAction(createTodo, {
                 text: text
             });
             this.refs.newField.getDOMNode().value = '';
@@ -63,25 +63,25 @@ var Component = React.createClass({
             return todo.id;
         });
 
-        this.props.context.executeAction(deleteTodo, {
+        this.executeAction(deleteTodo, {
             ids: ids
         });
     },
     toggleAll: function (event) {
         var checked = event.target.checked;
-        this.props.context.executeAction(toggleAll, {
+        this.executeAction(toggleAll, {
             checked: checked
         });
     },
     toggle: function (todo) {
-        this.props.context.executeAction(updateTodo, {
+        this.executeAction(updateTodo, {
             id: todo.id,
             completed: !todo.completed,
             text: todo.text
         });
     },
     destroy: function (todo) {
-        this.props.context.executeAction(deleteTodo, {
+        this.executeAction(deleteTodo, {
             ids: [todo.id]
         });
     },
@@ -92,7 +92,7 @@ var Component = React.createClass({
         });
     },
     save: function (todo, completed, text) {
-        this.props.context.executeAction(updateTodo, {
+        this.executeAction(updateTodo, {
             id: todo.id,
             completed: completed,
             text: text

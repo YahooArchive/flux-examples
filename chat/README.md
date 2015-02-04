@@ -9,17 +9,6 @@ This shows the full Flux flow from server to client as well as XHR posts for cre
 Make sure you run `npm install` from the root of flux-examples. Then change directories to chat (`cd chat`) and run:
 
 ```bash
-$ npm run build
-$ npm start
-```
-
-Open http://localhost:3000
-
-## Dev Mode
-
-Again, make sure you run `npm install` from the root of flux-examples. Then change directories to chat (`cd chat`) and run:
-
-```bash
 $ npm run dev
 ```
 

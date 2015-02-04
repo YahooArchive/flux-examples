@@ -6,10 +6,10 @@
 var React = require('react');
 var updateTime = require('../actions/updateTime');
 var TimeStore = require('../stores/TimeStore');
-var StoreMixin = require('fluxible').StoreMixin;
+var FluxibleMixin = require('fluxible').Mixin;
 
 var Timestamp = React.createClass({
-    mixins: [StoreMixin],
+    mixins: [FluxibleMixin],
     statics: {
         storeListeners: [TimeStore]
     },
@@ -21,7 +21,7 @@ var Timestamp = React.createClass({
         this.setState(state);
     },
     onReset: function (event) {
-        this.props.context.executeAction(updateTime);
+        this.executeAction(updateTime);
     },
     render: function() {
         return (
