@@ -45,7 +45,7 @@ var ThreadSection = React.createClass({
     render: function() {
         var threadListItems = this.state.threads.map(function(thread) {
             return (
-                <NavLink href={"/thread/" + thread.id} key={thread.id} >
+                <NavLink href={"/thread/" + thread.id} key={thread.id}>
                     <ThreadListItem
                         key={thread.id}
                         thread={thread}
