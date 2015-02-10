@@ -14,6 +14,11 @@ There are multiple examples in this repo:
 * [React Routing](https://github.com/yahoo/flux-examples/tree/master/react-router) - Isomorphic routing using [react-router](https://github.com/rackt/react-router).
 * [To Do](https://github.com/yahoo/flux-examples/tree/master/todo) - Port of [ToDo MVC](https://github.com/tastejs/todomvc).
 
+Alternatively, for a fully featured application you can check out the [fluxible.io](http://fluxible.io) docs website repository for more integration examples:
+
+* https://github.com/yahoo/fluxible.io
+
+
 Usage
 -----
 
@@ -27,10 +32,6 @@ Open http://localhost:3000
 
 For more information on what's going on, you can use `DEBUG=* node` to see full debug output on the server.
 
-What's Next
------------
-
-We have a ton of ideas for where to go with this to eventually have a full suite of tools to create isomorphic Flux applications. We have some things in mind already, so see what we're up to by looking at our [issues](https://github.com/yahoo/flux-examples/issues).
 
 # License
 
