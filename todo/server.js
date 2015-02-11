@@ -61,8 +61,7 @@ server.use(function (req, res, next) {
                 markup: React.renderToString(AppComponent())
             }));
 
-            res.write(html);
-            res.end();
+            res.send(html);
         });
     });
 });
