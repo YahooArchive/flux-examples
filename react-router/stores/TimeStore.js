@@ -26,7 +26,7 @@ var TimeStore = createStore({
     },
     dehydrate: function () {
         return {
-            time: this.getState()
+            time: this.time.toString()
         };
     },
     rehydrate: function (state) {
