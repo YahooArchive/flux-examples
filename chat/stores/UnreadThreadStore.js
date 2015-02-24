@@ -13,7 +13,7 @@ var UnreadThreadStore = createStore({
         'RECEIVE_MESSAGES': 'receiveMessages',
         'OPEN_THREAD': 'openThread'
     },
-    initialize: function (dispatcher) {
+    initialize: function () {
         this.messages = {};
     },
     receiveMessages: function (messages) {

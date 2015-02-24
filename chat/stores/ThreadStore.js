@@ -12,7 +12,7 @@ var ThreadStore = createStore({
         'RECEIVE_MESSAGES': 'receiveMessages',
         'OPEN_THREAD': 'openThread'
     },
-    initialize: function (dispatcher) {
+    initialize: function () {
         this.currentID = null;
         this.threads = {};
     },

@@ -10,7 +10,7 @@ var PageStore = createStore({
     handlers: {
         'UPDATE_PAGE_TITLE': 'updatePageTitle'
     },
-    initialize: function (dispatcher) {
+    initialize: function () {
         this.pageTitle = '';
     },
     updatePageTitle: function (title) {
