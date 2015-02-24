@@ -18,7 +18,7 @@ module.exports = createStore({
         'DELETE_TODO_SUCCESS': '_receiveTodos',
         'TOGGLE_ALL_TODO_SUCCESS': '_receiveTodos'
     },
-    initialize: function () {
+    initialize: function (dispatcher) {
         this.todos = [];
     },
     _receiveTodos: function (todos) {

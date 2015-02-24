@@ -8,7 +8,7 @@ var createStore = require('fluxible/utils/createStore');
 
 var TimeStore = createStore({
     storeName: 'TimeStore',
-    initialize: function () {
+    initialize: function (dispatcher) {
         this.time = new Date();
     },
     handleTimeChange: function (payload) {

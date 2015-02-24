@@ -7,7 +7,7 @@ var createStore = require('fluxible/utils/createStore');
 
 var PageStore = createStore({
     storeName: 'PageStore',
-    initialize: function (dispatcher) {
+    initialize: function () {
         this.content = 'initial content...';
     },
     handleContentChange: function (payload) {

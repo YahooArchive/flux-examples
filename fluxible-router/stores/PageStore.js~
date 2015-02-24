@@ -5,32 +5,29 @@
 'use strict';
 var createStore = require('fluxible/utils/createStore');
 
-
-var TimeStore = createStore({
-    storeName: 'TimeStore',
-    initialize: function () {
-        this.time = new Date();
+var PageStore = createStore({
+    storeName: 'PageStore',
+    initialize: function (dispatcher) {
+        this.content = 'initial content...';
     },
-    handleTimeChange: function (payload) {
-        this.time = new Date();
+    handleContentChange: function (payload) {
+        this.content = 'content for page with id '+payload.id;
         this.emitChange();
     },
     handlers: {
-        'CHANGE_ROUTE_START': 'handleTimeChange',
-        'UPDATE_TIME': 'handleTimeChange'
+        'LOAD_PAGE': 'handleContentChange'
     },
     getState: function () {
         return {
-            time: this.time.toString()
+            content: this.content
         };
     },
     dehydrate: function () {
         return this.getState();
     },
     rehydrate: function (state) {
-        this.time = new Date(state.time);
+        this.content = state.content;
     }
 });
 
-
-module.exports = TimeStore;
+module.exports = PageStore;
