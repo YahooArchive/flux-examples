@@ -5,7 +5,6 @@
 'use strict';
 var React = require('react/addons');
 
-
 var Component = React.createClass({
     render: function() {
         var nowShowing = this.props.nowShowing;
