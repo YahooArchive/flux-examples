@@ -2,7 +2,7 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-require('node-jsx').install({ extension: '.jsx' });
+require('babel/register');
 var express = require('express');
 var favicon = require('serve-favicon');
 var serialize = require('serialize-javascript');
