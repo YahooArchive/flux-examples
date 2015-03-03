@@ -55,14 +55,14 @@ server.use(function (req, res, next) {
         var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         var AppComponent = app.getAppComponent();
-        React.withContext(context.getComponentContext(), function () {
-            var html = React.renderToStaticMarkup(HtmlComponent({
-                state: exposed,
-                markup: React.renderToString(AppComponent())
-            }));
+        var componentContext = context.getComponentContext();
+        var html = React.renderToStaticMarkup(HtmlComponent({
+            state: exposed,
+            markup: React.renderToString(AppComponent({context:componentContext})),
+            context: componentContext
+        }));
 
-            res.send(html);
-        });
+        res.send(html);
     });
 });
 

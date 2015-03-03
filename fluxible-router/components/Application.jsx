@@ -18,7 +18,6 @@ var Application = React.createClass({
     statics: {
         storeListeners: [ApplicationStore]
     },
-
     getInitialState: function () {
         return this.getStore(ApplicationStore).getState();
     },
