@@ -27,15 +27,14 @@ server.use(function (req, res, next) {
             var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
             debug('Rendering Application component into html');
-            React.withContext(context.getComponentContext(), function () {
-                var html = React.renderToStaticMarkup(HtmlComponent({
-                    state: exposed,
-                    markup: React.renderToString(React.createFactory(Handler)())
-                }));
+            var Component = React.createFactory(Handler);
+            var html = React.renderToStaticMarkup(HtmlComponent({
+                state: exposed,
+                markup: React.renderToString(Component({context:context.getComponentContext()}))
+            }));
 
-                debug('Sending markup');
-                res.send(html);
-            });
+            debug('Sending markup');
+            res.send(html);
         });
     });
 });

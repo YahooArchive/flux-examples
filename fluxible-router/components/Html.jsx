@@ -15,6 +15,7 @@ var FluxibleMixin = require('fluxible').Mixin;
  */
 var Html = React.createClass({
     mixins: [FluxibleMixin],
+
     /**
      * Refer to React documentation render
      *

@@ -39,15 +39,14 @@ server.use(function (req, res, next) {
         debug('Rendering Application component into html');
         var AppComponent = app.getAppComponent();
 
-        React.withContext(context.getComponentContext(), function () {
-            var html = React.renderToStaticMarkup(HtmlComponent({
-                state: exposed,
-                markup: React.renderToString(AppComponent())
-            }));
+        var html = React.renderToStaticMarkup(HtmlComponent({
+            state: exposed,
+            markup: React.renderToString(AppComponent({context:context.getComponentContext()})),
+            context: context.getComponentContext()
+        }));
 
-            debug('Sending markup');
-            res.send(html);
-        });
+        debug('Sending markup');
+        res.send(html);
     });
 });
 
