@@ -10,7 +10,7 @@ var ApplicationStore = createStore({
     handlers: {
         'CHANGE_ROUTE_SUCCESS' : 'handleNavigate'
     },
-    initialize: function (dispatcher) {
+    initialize: function () {
         this.currentRoute = null;
     },
     handleNavigate: function (route) {
