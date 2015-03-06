@@ -20,14 +20,20 @@ var Nav = React.createClass({
             linkHTML = Object.keys(links).map(function (name) {
                 var className = '',
                     link = links[name];
-                if (selected === name) {
-                    className = 'pure-menu-selected';
+
+                //print only link with label
+                if(link.label) {
+                    if (selected === name) {
+                        className = 'pure-menu-selected';
+                    }
+
+                    return (
+                        <li className={className} key={link.path}>
+                            <NavLink routeName={link.page}>{link.label}</NavLink>
+                        </li>
+                    );
                 }
-                return (
-                    <li className={className} key={link.path}>
-                        <NavLink routeName={link.page}>{link.label}</NavLink>
-                    </li>
-                );
+
             });
         return (
             <ul className="pure-menu pure-menu-open pure-menu-horizontal">
