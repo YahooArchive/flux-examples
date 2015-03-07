@@ -16,7 +16,7 @@ var TimeStore = createStore({
         this.emitChange();
     },
     handlers: {
-        'CHANGE_ROUTE_START': 'handleTimeChange',
+        'NAVIGATE_START': 'handleTimeChange',
         'UPDATE_TIME': 'handleTimeChange'
     },
     getState: function () {

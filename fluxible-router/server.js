@@ -7,7 +7,7 @@ require('babel/register');
 var express = require('express');
 var favicon = require('serve-favicon');
 var serialize = require('serialize-javascript');
-var navigateAction = require('flux-router-component').navigateAction;
+var navigateAction = require('fluxible-router').navigateAction;
 var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');

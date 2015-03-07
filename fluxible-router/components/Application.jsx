@@ -10,8 +10,8 @@ var About = require('./About.jsx');
 var Page = require('./Page.jsx');
 var Timestamp = require('./Timestamp.jsx');
 var ApplicationStore = require('../stores/ApplicationStore');
-var RouterMixin = require('flux-router-component').RouterMixin;
 var FluxibleMixin = require('fluxible').FluxibleMixin;
+var RouterMixin = require('fluxible-router').RouterMixin;
 
 var Application = React.createClass({
     mixins: [RouterMixin, FluxibleMixin],
@@ -25,36 +25,23 @@ var Application = React.createClass({
         var state = this.getStore(ApplicationStore).getState();
         this.setState(state);
     },
-    render: function () {
-        var output = '';
-        //choose the right page based on the route
-        switch (this.state.currentPageName) {
-            case 'home':
-                output = <Home/>;
-                break;
-            case 'about':
-                output = <About/>;
-                break;
-            case 'page':
-                output = <Page context={this.props.context}/>;
-                break;
-        }
-        //render content
-        return (
-            <div>
-                <Nav selected={this.state.currentPageName} links={this.state.pages} />
-                {output}
-                <Timestamp />
-            </div>
-        );
-    },
-
     componentDidUpdate: function(prevProps, prevState) {
         var newState = this.state;
         if (newState.pageTitle === prevState.pageTitle) {
             return;
         }
         document.title = newState.pageTitle;
+    },
+    render: function () {
+        var Handler = this.state.currentRoute.get('handler');
+        //render content
+        return (
+            <div>
+                <Nav />
+                <Handler />
+                <Timestamp />
+            </div>
+        );
     }
 });
 
