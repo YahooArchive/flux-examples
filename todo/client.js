@@ -23,7 +23,7 @@ app.rehydrate(dehydratedState, function (err, context) {
     var mountNode = document.getElementById('todoapp');
 
     React.render(
-        app.getAppComponent()({
+        app.getComponent()({
           context:context.getComponentContext()
         }),
         mountNode

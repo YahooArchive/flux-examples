@@ -9,7 +9,7 @@ var fetchrPlugin = require('fluxible-plugin-fetchr');
 var routrPlugin = require('fluxible-plugin-routr');
 
 var app = new Fluxible({
-    appComponent: React.createFactory(require('./components/ChatApp.jsx'))
+    component: React.createFactory(require('./components/ChatApp.jsx'))
 });
 
 app.plug(fetchrPlugin({

@@ -34,7 +34,7 @@ app.rehydrate(dehydratedState, function (err, context) {
     window.context = context;
 
     var firstRender = true;
-    Router.run(app.getAppComponent(), HistoryLocation, function (Handler, state) {
+    Router.run(app.getComponent(), HistoryLocation, function (Handler, state) {
         if (firstRender) {
             // Don't call the action on the first render on top of the server rehydration
             // Otherwise there is a race condition where the action gets executed before
