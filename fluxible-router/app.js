@@ -8,7 +8,7 @@ var Fluxible = require('fluxible');
 var routrPlugin = require('fluxible-plugin-routr');
 
 var app = new Fluxible({
-    appComponent: React.createFactory(require('./components/Application.jsx'))
+    component: React.createFactory(require('./components/Application.jsx'))
 });
 
 app.plug(routrPlugin({

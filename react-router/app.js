@@ -6,7 +6,7 @@
 var Fluxible = require('fluxible');
 
 var app = new Fluxible({
-    appComponent: require('./components/Routes.jsx')
+    component: require('./components/Routes.jsx')
 });
 
 app.registerStore(require('./stores/ApplicationStore'));

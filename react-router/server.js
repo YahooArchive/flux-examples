@@ -21,7 +21,7 @@ server.use(function (req, res, next) {
     var context = app.createContext();
 
     debug('Executing navigate action');
-    Router.run(app.getAppComponent(), req.path, function (Handler, state) {
+    Router.run(app.getComponent(), req.path, function (Handler, state) {
         context.executeAction(navigateAction, state, function () {
             debug('Exposing context state');
             var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
