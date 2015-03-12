@@ -16,7 +16,7 @@
 'use strict';
 var React = require('react');
 var createMessage = require('../actions/createMessage');
-var FluxibleMixin = require('fluxible').Mixin;
+var FluxibleMixin = require('fluxible').FluxibleMixin;
 var ENTER_KEY_CODE = 13;
 
 var MessageComposer = React.createClass({

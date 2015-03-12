@@ -4,7 +4,7 @@
  */
 'use strict';
 var React = require('react');
-var FluxibleMixin = require('fluxible').Mixin;
+var FluxibleMixin = require('fluxible').FluxibleMixin;
 var TodoStore = require('../stores/TodoStore');
 var TodoItem = require('./TodoItem');
 var Footer = require('./Footer');
