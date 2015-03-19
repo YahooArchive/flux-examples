@@ -3,7 +3,8 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var React = require('react/addons');
+var React = require('react');
+var classNames = require('classnames');
 
 
 var ESCAPE_KEY = 27;
@@ -48,7 +49,7 @@ var Component = React.createClass({
         this.setState({ editText: event.target.value });
     },
     render: function () {
-        var classSet = React.addons.classSet({
+        var classSet = classNames({
             completed: this.props.todo.completed,
             editing: this.props.editing,
             pending: this.props.todo.pending,

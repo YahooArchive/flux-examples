@@ -3,14 +3,13 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var React = require('react/addons');
+var React = require('react');
 
 var Component = React.createClass({
     render: function() {
         var nowShowing = this.props.nowShowing;
         var onFilterChange = this.props.onFilterChange;
         var activeTodoLabel = 'item' + (this.props.count > 1 ? 's' : '');
-        var cx = React.addons.classSet;
         var clearButton;
 
         if (this.props.completedCount > 0) {
@@ -34,7 +33,7 @@ var Component = React.createClass({
                         <a
                             href="#"
                             onClick={onFilterChange.bind(null, 'ALL_TODOS')}
-                            className={cx({ selected: nowShowing === 'ALL_TODOS' })}>
+                            className={nowShowing === 'ALL_TODOS' ? 'selected' : ''}>
 
                             All
                         </a>
@@ -44,7 +43,7 @@ var Component = React.createClass({
                         <a
                             href="#"
                             onClick={onFilterChange.bind(null, 'ACTIVE_TODOS')}
-                            className={cx({ selected: nowShowing === 'ACTIVE_TODOS' })}>
+                            className={nowShowing === 'ACTIVE_TODOS' ? 'selected' : ''}>
 
                             Active
                         </a>
@@ -54,7 +53,7 @@ var Component = React.createClass({
                         <a
                             href="#"
                             onClick={onFilterChange.bind(null, 'COMPLETED_TODOS')}
-                            className={cx({ selected: nowShowing === 'COMPLETED_TODOS' })}>
+                            className={nowShowing === 'COMPLETED_TODOS' ? 'selected' : ''}>
 
                             Completed
                         </a>

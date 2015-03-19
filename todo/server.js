@@ -58,7 +58,7 @@ server.use(function (req, res, next) {
         var componentContext = context.getComponentContext();
         var html = React.renderToStaticMarkup(HtmlComponent({
             state: exposed,
-            markup: React.renderToString(Component({context:componentContext})),
+            markup: React.renderToString(context.createElement()),
             context: componentContext
         }));
 

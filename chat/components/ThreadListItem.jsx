@@ -15,7 +15,7 @@
  */
 'use strict';
 var React = require('react');
-var cx = require('react/lib/cx');
+var classNames = require('classnames');
 
 var ReactPropTypes = React.PropTypes;
 
@@ -29,14 +29,12 @@ var ThreadListItem = React.createClass({
     render: function() {
         var thread = this.props.thread;
         var lastMessage = thread.lastMessage;
+        var classSet = classNames({
+            'thread-list-item': true,
+            'active': thread.id === this.props.currentThreadID
+        });
         return (
-            <li
-                className={cx({
-                    'thread-list-item': true,
-                    'active': thread.id === this.props.currentThreadID
-                })}
-                >
-
+            <li className={classSet}>
                 <h5 className="thread-name">{thread.name}</h5>
                 <div className="thread-time">
                     {(new Date(lastMessage.timestamp)).toTimeString()}

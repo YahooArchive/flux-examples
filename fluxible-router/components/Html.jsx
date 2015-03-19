@@ -5,7 +5,7 @@
 'use strict';
 var React = require('react');
 var ApplicationStore = require('../stores/ApplicationStore');
-var FluxibleMixin = require('fluxible').Mixin;
+var FluxibleMixin = require('fluxible').FluxibleMixin;
 
 /**
  * React class to handle the rendering of the HTML head section
