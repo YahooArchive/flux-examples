@@ -57,13 +57,13 @@ var ThreadStore = createStore({
     },
     createMessage: function(details) {
         return {
-            id: 'm_' + details.timestamp,
+            id: String('m_' + details.timestamp),
             threadID: this.getCurrentID(),
-            threadName: this.getCurrentThreadName(),
-            authorName: details.authorName,
-            timestamp: details.timestamp,
-            text: details.text,
-            isRead: details.isRead
+            threadName: String(this.getCurrentThreadName()),
+            authorName: String(details.authorName),
+            timestamp: parseInt(details.timestamp, 10),
+            text: String(details.text),
+            isRead: !!details.isRead
         };
     },
     receiveMessages: function (messages) {
