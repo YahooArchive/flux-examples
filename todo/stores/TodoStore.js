@@ -70,10 +70,10 @@ module.exports = createStore({
     },
     createTodo: function(details) {
         return {
-            id: 'td_' + details.timestamp,
+            id: String('td_' + details.timestamp),
             editing: false,
             completed: false,
-            text: details.text,
+            text: String(details.text),
             pending: true
         };
     },
