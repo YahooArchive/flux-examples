@@ -24,8 +24,7 @@ Usage
 
 ```
 npm install
-cd <folder>
-npm run dev
+grunt --taskName <task directory name>
 ```
 
 Open http://localhost:3000
