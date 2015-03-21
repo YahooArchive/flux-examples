@@ -1,7 +1,5 @@
 # routing with react-router
 
-*** React-Router has not been updated to React 0.13 yet. Therefore this example requires a separate `npm install` from this directory.***
-
 This shows routing on the client and the server with [react-router](https://github.com/rackt/react-router). Navigation uses history pushes on the client but browser refresh will render the current page correctly on the server.
 
 ## Usage
