@@ -20,7 +20,7 @@ var ThreadListItem = require('../components/ThreadListItem.jsx');
 var ThreadStore = require('../stores/ThreadStore');
 var UnreadThreadStore = require('../stores/UnreadThreadStore');
 var FluxibleMixin = require('fluxible').FluxibleMixin;
-var NavLink = require('flux-router-component').NavLink;
+var NavLink = require('fluxible-router').NavLink;
 
 var ThreadSection = React.createClass({
     mixins: [FluxibleMixin],
@@ -49,7 +49,6 @@ var ThreadSection = React.createClass({
                     <ThreadListItem
                         key={thread.id}
                         thread={thread}
-                        currentThreadID={this.state.currentThreadID}
                     />
                 </NavLink>
             );

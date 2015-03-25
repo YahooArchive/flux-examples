@@ -13,7 +13,7 @@ var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
-var navigateAction = require('flux-router-component').navigateAction;
+var navigateAction = require('fluxible-router').navigateAction;
 
 var server = express();
 server.set('state namespace', 'App');
