@@ -2,36 +2,36 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-'use strict';
-var createStore = require('fluxible/addons').createStore;
+import {BaseStore} from 'fluxible/addons';
 
-var ApplicationStore = createStore({
-    storeName: 'ApplicationStore',
-    handlers: {
-        'UPDATE_PAGE_TITLE'    : 'updatePageTitle'
-    },
-    initialize: function () {
+class ApplicationStore extends BaseStore {
+    constructor(dispatcher) {
+        super(dispatcher);
         this.pageTitle = '';
-    },
-    updatePageTitle: function (payload) {
+    }
+    updatePageTitle(payload) {
         this.pageTitle = payload.pageTitle;
         this.emitChange();
-    },
-    getPageTitle: function () {
+    }
+    getPageTitle() {
         return this.pageTitle;
-    },
-    getState: function () {
+    }
+    getState() {
         return {
             pageTitle: this.pageTitle
         };
-    },
-    dehydrate: function () {
+    }
+    dehydrate() {
         return this.getState();
-    },
-    rehydrate: function (state) {
+    }
+    rehydrate(state) {
         this.pageTitle = state.pageTitle;
     }
-});
+}
 
+ApplicationStore.storeName = 'ApplicationStore'; // PR open in dispatchr to remove this need
+ApplicationStore.handlers = {
+    'UPDATE_PAGE_TITLE'    : 'updatePageTitle'
+};
 
-module.exports = ApplicationStore;
+export default ApplicationStore;

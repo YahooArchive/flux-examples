@@ -2,12 +2,11 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-'use strict';
-var React = require('react');
-var NavLink = require('fluxible-router').NavLink;
+import React from 'react';
+import {NavLink} from 'fluxible-router';
 
-var Nav = React.createClass({
-    render: function() {
+class Nav extends React.Component {
+    render() {
         return (
             <ul className="pure-menu pure-menu-open pure-menu-horizontal">
                 <li><NavLink routeName="home" activeStyle={{backgroundColor: '#ccc'}}>Home</NavLink></li>
@@ -15,6 +14,6 @@ var Nav = React.createClass({
             </ul>
         );
     }
-});
+}
 
-module.exports = Nav;
+export default Nav;

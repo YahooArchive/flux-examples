@@ -1,4 +1,4 @@
-var RouteStore = require('fluxible-router').RouteStore;
-var routes = require('../configs/routes');
+import {RouteStore} from 'fluxible-router';
+import routes from '../configs/routes';
 
-module.exports = RouteStore.withStaticRoutes(routes);
+export default RouteStore.withStaticRoutes(routes);

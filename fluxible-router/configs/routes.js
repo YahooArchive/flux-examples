@@ -1,10 +1,10 @@
-module.exports = {
+export default {
     home: {
         path: '/',
         method: 'get',
-        handler: require('../components/Home.jsx'),
+        handler: require('../components/Home'),
         label: 'Home',
-        action: function (context, payload, done) {
+        action: (context, payload, done) => {
             context.dispatch('UPDATE_PAGE_TITLE', { pageTitle: 'Home | flux-examples | routing' });
             done();
         }
@@ -12,9 +12,9 @@ module.exports = {
     about: {
         path: '/about',
         method: 'get',
-        handler: require('../components/About.jsx'),
+        handler: require('../components/About'),
         label: 'About',
-        action: function (context, payload, done) {
+        action: (context, payload, done) => {
             context.dispatch('UPDATE_PAGE_TITLE', { pageTitle: 'About | flux-examples | routing' });
             done();
         }
@@ -22,10 +22,11 @@ module.exports = {
     dynamicpage: {
         path: '/page/:id',
         method: 'get',
-        handler: require('../components/Page.jsx'),
-        action: function (context, payload, done) {
-            context.dispatch('LOAD_PAGE', { id: payload.params.id });
-            context.dispatch('UPDATE_PAGE_TITLE', { pageTitle: payload.params.id + ' [Dynamic Page] | flux-examples | routing' });
+        handler: require('../components/Page'),
+        action: (context, payload, done) => {
+            var pageId = payload.get('params').get('id');
+            context.dispatch('LOAD_PAGE', { id: pageId });
+            context.dispatch('UPDATE_PAGE_TITLE', { pageTitle: pageId + ' [Dynamic Page] | flux-examples | routing' });
             done();
         }
     }
