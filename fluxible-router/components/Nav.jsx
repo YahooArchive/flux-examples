@@ -29,7 +29,7 @@ var Nav = React.createClass({
 
                     return (
                         <li className={className} key={link.path}>
-                            <NavLink routeName={link.page}>{link.label}</NavLink>
+                            <NavLink context={context} routeName={link.page}>{link.label}</NavLink>
                         </li>
                     );
                 }
