@@ -13,10 +13,11 @@
     "debug": "^2.0.0",
     "express": "^4.12.3",
     "express-state": "^1.2.0",
-    "react-router": "^0.13.0",
+    "fluxible": "^0.3.1",
     "fluxible-plugin-fetchr": "^0.2.3",
     "fluxible-router": "^1.0.0",
     "react": "0.13.x",
+    "react-router": "^0.13.0",
     "serialize-javascript": "^1.0.0",
     "serve-favicon": "^2.1.6"
   },

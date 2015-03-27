@@ -1,0 +1,11 @@
+{
+  "name": "flux-example-routing",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Example application",
+  "main": "server.js",
+  "author": "Michael Ridgway <mridgway@yahoo-inc.com>",
+  "scripts": {
+    "dev": "grunt --gruntfile ../Gruntfile.js --taskName fluxible-router"
+  }
+}

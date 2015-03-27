@@ -11,7 +11,7 @@ var navigateAction = require('fluxible-router').navigateAction;
 var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
-var HtmlComponent = React.createFactory(require('./components/Html.js'));
+var HtmlComponent = require('./components/Html.js');
 
 var server = express();
 server.use(favicon(__dirname + '/../favicon.ico'));
@@ -37,7 +37,7 @@ server.use(function (req, res, next) {
         var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         debug('Rendering Application component into html');
-        var html = React.renderToStaticMarkup(HtmlComponent({
+        var html = React.renderToStaticMarkup(React.createElement(HtmlComponent, {
             state: exposed,
             markup: React.renderToString(context.createElement()),
             context: context.getComponentContext()
