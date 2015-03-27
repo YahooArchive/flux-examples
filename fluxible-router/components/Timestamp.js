@@ -23,7 +23,7 @@ class Timestamp extends React.Component {
     }
     render() {
         return (
-            <em onClick={this.onReset} style={{fontSize: '.8em'}}>{this.state.time}</em>
+            <em onClick={this.onReset} style={{fontSize: '.8em'}}>foo</em>
         );
     }
 }

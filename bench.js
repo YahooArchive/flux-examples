@@ -34,7 +34,8 @@ Promise.all([ReactPromise, ReactShimPromise]).then(function () {
     global.ReactShim = ReactShim;
     global.context = context;
     global.contextShim = contextShim;
-    console.log(ReactShim.renderToString(contextShim.createElement()));
+    console.log(React.renderToStaticMarkup(context.createElement()));
+    console.log(ReactShim.renderToStaticMarkup(contextShim.createElement()));
 
     // add tests
     suite.add('React', function() {
