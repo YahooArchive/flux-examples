@@ -6,42 +6,29 @@ import React from 'react';
 import Nav from './Nav';
 import Timestamp from './Timestamp';
 import ApplicationStore from '../stores/ApplicationStore';
-import RouteHandler from './RouteHandler';
-import {FluxibleMixin} from 'fluxible';
-import {RouterComponent} from 'fluxible-router';
+import {connectToStores, provideContext} from 'fluxible/addons';
+import {handleHistory} from 'fluxible-router';
 
 class Application extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.state = context.getStore(ApplicationStore).getState();
-        this._changeListener = this._onStoreChange.bind(this);
     }
-    componentDidMount() {
-        this.context.getStore(ApplicationStore).addChangeListener(this._changeListener);
-    }
-    componentWillUnmount() {
-        this.context.getStore(ApplicationStore).removeChangeListener(this._changeListener);
-    }
-    _onStoreChange() {
-        this.setState(this.context.getStore(ApplicationStore).getState());
-    }
-    componentDidUpdate(prevProps, prevState) {
-        let newState = this.state;
-        if (newState.pageTitle === prevState.pageTitle) {
+    componentDidUpdate(prevProps) {
+        let newProps = this.props;
+        if (newProps.pageTitle === prevProps.pageTitle) {
             return;
         }
-        document.title = newState.pageTitle;
+        document.title = newProps.pageTitle;
     }
     render() {
+        var Handler = this.props.currentRoute.get('handler');
         //render content
         return (
-            <RouterComponent>
-                <div>
-                    <Nav />
-                    <RouteHandler />
-                    <Timestamp />
-                </div>
-            </RouterComponent>
+            <div>
+                <Nav />
+                <Handler />
+                <Timestamp />
+            </div>
         );
     }
 }
@@ -51,5 +38,12 @@ Application.contextTypes = {
     executeAction: React.PropTypes.func
 };
 
+Application = provideContext(
+    handleHistory(
+        connectToStores(Application, [ApplicationStore], {
+            ApplicationStore: (store) => { store.getState() }
+        }),
+        {enableScroll: false})
+);
 
 export default Application;

@@ -11,12 +11,13 @@ import TimeStore from './stores/TimeStore';
 import PageStore from './stores/PageStore';
 
 let app = new Fluxible({
-    component: Application
+    component: Application,
+    stores: [
+        RouteStore,
+        ApplicationStore,
+        TimeStore,
+        PageStore
+    ]
 });
-
-app.registerStore(RouteStore);
-app.registerStore(ApplicationStore);
-app.registerStore(TimeStore);
-app.registerStore(PageStore);
 
 export default app;

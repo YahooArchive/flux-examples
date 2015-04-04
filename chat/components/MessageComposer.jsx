@@ -16,12 +16,13 @@
 'use strict';
 var React = require('react');
 var createMessage = require('../actions/createMessage');
-var FluxibleMixin = require('fluxible').FluxibleMixin;
 var ENTER_KEY_CODE = 13;
 
 var MessageComposer = React.createClass({
 
-    mixins: [FluxibleMixin],
+    contextTypes: {
+        executeAction: React.PropTypes.func.isRequired
+    },
 
     getInitialState: function() {
         return {text: ''};
@@ -50,7 +51,7 @@ var MessageComposer = React.createClass({
 
             var text = this.state.text.trim();
             if (text) {
-                this.executeAction(createMessage, {
+                this.context.executeAction(createMessage, {
                     text: text
                 });
             }

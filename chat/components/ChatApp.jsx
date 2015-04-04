@@ -17,10 +17,10 @@
 var MessageSection = require('./MessageSection.jsx');
 var React = require('react');
 var ThreadSection = require('./ThreadSection.jsx');
-var RouterMixin = require('fluxible-router').RouterMixin;
+var provideContext = require('fluxible/addons/provideContext');
+var handleHistory = require('fluxible-router').handleHistory;
 
 var ChatApp = React.createClass({
-    mixins: [RouterMixin],
     render: function() {
         return (
             <div className="chatapp">
@@ -32,4 +32,4 @@ var ChatApp = React.createClass({
 
 });
 
-module.exports = ChatApp;
+module.exports = provideContext(handleHistory(ChatApp));
