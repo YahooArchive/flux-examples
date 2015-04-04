@@ -4,10 +4,10 @@
  */
 import React from 'react';
 
-class About extends React.Component {
+class Home extends React.Component {
     render() {
         return <p>Welcome to the site!</p>;
     }
 }
 
-export default About;
+export default Home;
