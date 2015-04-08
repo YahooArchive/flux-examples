@@ -54,7 +54,6 @@ server.use(function (req, res, next) {
 
         var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
-        var Component = app.getComponent();
         var componentContext = context.getComponentContext();
         var html = React.renderToStaticMarkup(HtmlComponent({
             state: exposed,
