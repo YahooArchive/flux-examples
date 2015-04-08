@@ -1,10 +1,10 @@
 require('babel/register');
 var Benchmark = require('benchmark');
 var Promise = require('bluebird');
-var React = require('./node_modules/react');
-var ReactShim = require('./fluxible-router-shim/node_modules/react');
+var React = require('./react/stock');
+var ReactOpt = require('./react/optimized');
 var navigateAction = require('fluxible-router').navigateAction;
-var context, contextShim;
+var context, contextOpt;
 
 var ReactPromise = new Promise (function (resolve) {
     var app = require('./fluxible-router/app');
@@ -17,32 +17,35 @@ var ReactPromise = new Promise (function (resolve) {
 });
 
 
-var ReactShimPromise = new Promise (function (resolve) {
-    var appShim = require('./fluxible-router-shim/app');
-    contextShim = appShim.createContext();
-    contextShim.executeAction(navigateAction, {
+var ReactOptPromise = new Promise (function (resolve) {
+    var appShim = require('./fluxible-router-optimized/app');
+    contextOpt = appShim.createContext();
+    contextOpt.executeAction(navigateAction, {
         url: '/'
     }, function (err) {
         resolve();
     });
 });
 
-Promise.all([ReactPromise, ReactShimPromise]).then(function () {
+Promise.all([ReactPromise, ReactOptPromise]).then(function () {
     var suite = new Benchmark.Suite();
     var output, outputShim;
     global.React = React;
-    global.ReactShim = ReactShim;
+    global.ReactOpt = ReactOpt;
     global.context = context;
-    global.contextShim = contextShim;
-    console.log(React.renderToStaticMarkup(context.createElement()));
-    console.log(ReactShim.renderToStaticMarkup(contextShim.createElement()));
+    global.contextOpt = contextOpt;
+    output = React.renderToStaticMarkup(context.createElement());
+    //outputShim = ReactOpt.renderToStaticMarkup(contextOpt.createElement());
+    if (output !== outputShim) {
+        throw new Error('Output not the same');
+    }
 
     // add tests
     suite.add('React', function() {
-        output = React.renderToString(context.createElement());
+        React.renderToString(context.createElement());
     })
-    .add('ReactShim', function() {
-        outputShim = ReactShim.renderToString(contextShim.createElement());
+    .add('ReactOpt', function() {
+        ReactOpt.renderToString(contextOpt.createElement());
     })
     // add listeners
     .on('error', function (e) {
@@ -52,9 +55,6 @@ Promise.all([ReactPromise, ReactShimPromise]).then(function () {
       console.log(String(event.target));
     })
     .on('complete', function() {
-        if (output !== outputShim) {
-            throw new Error('Output not the same');
-        }
         console.log('Fastest is ' + this.filter('fastest').pluck('name'));
     })
     // run async
