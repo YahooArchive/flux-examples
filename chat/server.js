@@ -39,7 +39,11 @@ server.use(function (req, res, next) {
     });
 
     debug('Executing showChat action');
-    context.executeAction(navigateAction, { url: req.url, type: 'pageload' }, function (err) {
+    context.executeAction(navigateAction, {
+        url: req.url,
+        type: 'pageload',
+        method: req.method // Not needed but required to add any non-GET routes
+	}, function (err) {
 
         if (err) {
             if (err.status && err.status === 404) {

@@ -22,7 +22,8 @@ server.use(function (req, res, next) {
 
     debug('Executing navigate action');
     context.executeAction(navigateAction, {
-        url: req.url
+        url: req.url,
+        method: req.method // Not needed but required to add any non-GET routes
     }, function (err) {
         if (err) {
             if (err.status && err.status === 404) {
