@@ -11,6 +11,7 @@ var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
+var FluxibleComponent = require('fluxible/addons/FluxibleComponent');
 var Router = require('react-router');
 
 var server = express();
@@ -30,7 +31,13 @@ server.use(function (req, res, next) {
             var Component = React.createFactory(Handler);
             var html = React.renderToStaticMarkup(HtmlComponent({
                 state: exposed,
-                markup: React.renderToString(Component({context:context.getComponentContext()}))
+                markup: React.renderToString(
+                    React.createElement(
+                        FluxibleComponent,
+                        { context: context.getComponentContext() },
+                        Component()
+                    )
+                )
             }));
 
             debug('Sending markup');

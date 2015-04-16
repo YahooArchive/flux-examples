@@ -12,6 +12,7 @@ var dehydratedState = window.App; // Sent from the server
 var Router = require('react-router');
 var HistoryLocation = Router.HistoryLocation;
 var navigateAction = require('./actions/navigate');
+var FluxibleComponent = require('fluxible/addons/FluxibleComponent');
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
@@ -22,9 +23,17 @@ function RenderApp(context, Handler){
     bootstrapDebug('React Rendering');
     var mountNode = document.getElementById('app');
     var Component = React.createFactory(Handler);
-    React.render(Component({context:context.getComponentContext()}), mountNode, function () {
-        bootstrapDebug('React Rendered');
-    });
+    React.render(
+        React.createElement(
+            FluxibleComponent,
+            { context: context.getComponentContext() },
+            Component()
+        ),
+        mountNode,
+        function () {
+            bootstrapDebug('React Rendered');
+        }
+    );
 }
 
 app.rehydrate(dehydratedState, function (err, context) {
