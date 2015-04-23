@@ -14,11 +14,9 @@ var updateTodo = require('../actions/updateTodo');
 var deleteTodo = require('../actions/deleteTodo');
 var toggleAll = require('../actions/toggleAll');
 
-
 var ENTER_KEY = 13;
 
-
-var Component = React.createClass({
+var TodoApp = React.createClass({
     contextTypes: {
         executeAction: React.PropTypes.func.isRequired
     },
@@ -176,17 +174,12 @@ var Component = React.createClass({
     }
 });
 
+TodoApp = connectToStores(TodoApp, [TodoStore], function (stores, props) {
+    return {
+        items: stores.TodoStore.getAll()
+    };
+});
 
-module.exports = provideContext(
-    connectToStores(
-        Component,
-        [TodoStore],
-        {
-            TodoStore: function (store) {
-                return {
-                    items: store.getAll()
-                };
-            }
-        }
-    )
-);
+TodoApp = provideContext(TodoApp);
+
+module.exports = TodoApp;

@@ -29,7 +29,12 @@ var ChatApp = React.createClass({
             </div>
         );
     }
-
 });
 
-module.exports = provideContext(handleHistory(ChatApp));
+// wrap with history handler
+ChatApp = handleHistory(ChatApp);
+
+// and wrap that with context
+ChatApp = provideContext(ChatApp);
+
+module.exports = ChatApp;

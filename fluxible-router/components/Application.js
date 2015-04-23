@@ -38,12 +38,14 @@ Application.contextTypes = {
     executeAction: React.PropTypes.func
 };
 
-Application = provideContext(
-    handleHistory(
-        connectToStores(Application, [ApplicationStore], {
-            ApplicationStore: (store) => { store.getState() }
-        }),
-        {enableScroll: false})
-);
+Application = connectToStores(Application, [ApplicationStore], function (stores, props) {
+    return {
+        ApplicationStore: stores.ApplicationStore.getState()
+    };
+});
+
+Application = handleHistory(Application, {enableScroll: false});
+
+Application = provideContext(Application);
 
 export default Application;

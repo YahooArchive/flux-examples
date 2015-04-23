@@ -21,11 +21,9 @@ server.use(function (req, res, next) {
     var context = app.createContext();
 
     debug('Executing navigate action');
-    context.executeAction(navigateAction, {
-        url: req.url
-    }, function (err) {
+    context.executeAction(navigateAction, { url: req.url }, function (err) {
         if (err) {
-            if (err.status && err.status === 404) {
+            if (err.statusCode && err.statusCode === 404) {
                 next();
             } else {
                 next(err);
