@@ -17,22 +17,10 @@
 var MessageSection = require('./MessageSection.jsx');
 var React = require('react');
 var ThreadSection = require('./ThreadSection.jsx');
-var ApplicationStore = require('../stores/ApplicationStore');
-var RouterMixin = require('flux-router-component').RouterMixin;
-var FluxibleMixin = require('fluxible').FluxibleMixin;
+var provideContext = require('fluxible/addons/provideContext');
+var handleHistory = require('fluxible-router').handleHistory;
 
 var ChatApp = React.createClass({
-    mixins: [RouterMixin, FluxibleMixin],
-    statics: {
-        storeListeners: [ApplicationStore]
-    },
-    getInitialState: function () {
-        return this.getStore(ApplicationStore).getState();
-    },
-    onChange: function () {
-        var state = this.getStore(ApplicationStore).getState();
-        this.setState(state);
-    },
     render: function() {
         return (
             <div className="chatapp">
@@ -41,7 +29,12 @@ var ChatApp = React.createClass({
             </div>
         );
     }
-
 });
+
+// wrap with history handler
+ChatApp = handleHistory(ChatApp);
+
+// and wrap that with context
+ChatApp = provideContext(ChatApp);
 
 module.exports = ChatApp;

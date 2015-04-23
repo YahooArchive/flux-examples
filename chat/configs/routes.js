@@ -13,8 +13,9 @@ module.exports = {
         path: '/thread/:id',
         method: 'get',
         action: function (context, payload, done) {
-            context.executeAction(showChat, { threadID: payload.params.id }, function() {
-                context.executeAction(openThread, { threadID: payload.params.id }, function() {
+            var threadID = payload.get('params').get('id');
+            context.executeAction(showChat, { threadID: threadID }, function() {
+                context.executeAction(openThread, { threadID: threadID }, function() {
                     done();
                 })
             });

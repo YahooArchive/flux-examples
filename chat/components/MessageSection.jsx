@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 'use strict';
+var React = require('react');
 var MessageComposer = require('./MessageComposer.jsx');
 var MessageListItem = require('./MessageListItem.jsx');
 var MessageStore = require('../stores/MessageStore');
-var React = require('react');
 var ThreadStore = require('../stores/ThreadStore');
-var FluxibleMixin = require('fluxible').FluxibleMixin;
+var connectToStores = require('fluxible/addons/connectToStores');
 
 function getMessageListItem(message) {
     return (
@@ -31,33 +31,16 @@ function getMessageListItem(message) {
 }
 
 var MessageSection = React.createClass({
-    mixins: [FluxibleMixin],
-    statics: {
-        storeListeners: {
-            _onChange: [ThreadStore, MessageStore]
-        }
-    },
-
-    getInitialState: function() {
-        return this.getStateFromStores();
-    },
-
-    getStateFromStores: function () {
-        return {
-            messages: this.getStore(MessageStore).getAllForCurrentThread(),
-            thread: this.getStore(ThreadStore).getCurrent()
-        };
-    },
 
     componentDidMount: function() {
         this._scrollToBottom();
     },
 
     render: function() {
-        var messageListItems = this.state.messages.map(getMessageListItem);
+        var messageListItems = this.props.messages.map(getMessageListItem);
         return (
             <div className="message-section">
-                <h3 className="message-thread-heading">{this.state.thread.name}</h3>
+                <h3 className="message-thread-heading">{this.props.thread.name}</h3>
                 <ul className="message-list" ref="messageList">
                     {messageListItems}
                 </ul>
@@ -84,4 +67,19 @@ var MessageSection = React.createClass({
 
 });
 
-module.exports = MessageSection;
+module.exports = connectToStores(
+    MessageSection,
+    [ThreadStore, MessageStore],
+    {
+        MessageStore: function (store) {
+            return {
+                messages: store.getAllForCurrentThread()
+            };
+        },
+        ThreadStore: function (store) {
+            return {
+                thread: store.getCurrent()
+            };
+        }
+    }
+);

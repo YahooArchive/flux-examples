@@ -2,21 +2,22 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-'use strict';
-var React = require('react');
-var Fluxible = require('fluxible');
-var routrPlugin = require('fluxible-plugin-routr');
+import React from 'react';
+import Fluxible from 'fluxible';
+import Application from './components/Application';
+import RouteStore from './stores/RouteStore';
+import ApplicationStore from './stores/ApplicationStore';
+import TimeStore from './stores/TimeStore';
+import PageStore from './stores/PageStore';
 
-var app = new Fluxible({
-    component: React.createFactory(require('./components/Application.jsx'))
+let app = new Fluxible({
+    component: Application,
+    stores: [
+        RouteStore,
+        ApplicationStore,
+        TimeStore,
+        PageStore
+    ]
 });
 
-app.plug(routrPlugin({
-    routes: require('./configs/routes')
-}));
-
-app.registerStore(require('./stores/ApplicationStore'));
-app.registerStore(require('./stores/TimeStore'));
-app.registerStore(require('./stores/PageStore'));
-
-module.exports = app;
+export default app;

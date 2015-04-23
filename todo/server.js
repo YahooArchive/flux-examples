@@ -44,7 +44,7 @@ server.use(function (req, res, next) {
 
     context.executeAction(showTodos, {}, function (err) {
         if (err) {
-            if (err.status && err.status === 404) {
+            if (err.statusCode && err.statusCode === 404) {
                 return next();
             }
             else {

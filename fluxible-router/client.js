@@ -3,12 +3,12 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 /*global App, document, window */
-'use strict';
-var React = require('react');
-var debug = require('debug');
-var bootstrapDebug = debug('Example');
-var app = require('./app');
-var dehydratedState = window.App; // Sent from the server
+import React from 'react';
+import debug from 'debug';
+import app from './app';
+
+const bootstrapDebug = debug('Example');
+const dehydratedState = window.App; // Sent from the server
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
@@ -19,11 +19,10 @@ app.rehydrate(dehydratedState, function (err, context) {
         throw err;
     }
     window.context = context;
-    var mountNode = document.getElementById('app');
+    const mountNode = document.getElementById('app');
 
     bootstrapDebug('React Rendering');
-    var Component = app.getComponent();
-    React.render(Component({context:context.getComponentContext()}), mountNode, function () {
+    React.render(context.createElement(), mountNode, () => {
         bootstrapDebug('React Rendered');
     });
 });

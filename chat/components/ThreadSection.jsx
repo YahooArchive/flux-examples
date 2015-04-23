@@ -19,45 +19,26 @@ var MessageStore = require('../stores/MessageStore');
 var ThreadListItem = require('../components/ThreadListItem.jsx');
 var ThreadStore = require('../stores/ThreadStore');
 var UnreadThreadStore = require('../stores/UnreadThreadStore');
-var FluxibleMixin = require('fluxible').FluxibleMixin;
-var NavLink = require('flux-router-component').NavLink;
+var connectToStores = require('fluxible/addons/connectToStores');
+var NavLink = require('fluxible-router').NavLink;
 
 var ThreadSection = React.createClass({
-    mixins: [FluxibleMixin],
-    statics: {
-        storeListeners: {
-            _onChange: [ThreadStore, MessageStore, UnreadThreadStore]
-        }
-    },
-
-    getInitialState: function() {
-        return this.getStateFromStores();
-    },
-
-    getStateFromStores: function () {
-        return {
-            threads: this.getStore(ThreadStore).getAllChrono(),
-            currentThreadID: this.getStore(ThreadStore).getCurrentID(),
-            unreadCount: this.getStore(UnreadThreadStore).getCount()
-        };
-    },
 
     render: function() {
-        var threadListItems = this.state.threads.map(function(thread) {
+        var threadListItems = this.props.threads.map(function(thread) {
             return (
                 <NavLink href={"/thread/" + thread.id} key={thread.id}>
                     <ThreadListItem
                         key={thread.id}
                         thread={thread}
-                        currentThreadID={this.state.currentThreadID}
                     />
                 </NavLink>
             );
         }, this);
         var unread =
-            this.state.unreadCount === 0 ?
+            this.props.unreadCount === 0 ?
                 null :
-                <span>Unread threads: {this.state.unreadCount}</span>;
+                <span>Unread threads: {this.props.unreadCount}</span>;
         return (
             <div className="thread-section">
                 <div className="thread-count">
@@ -79,4 +60,20 @@ var ThreadSection = React.createClass({
 
 });
 
-module.exports = ThreadSection;
+module.exports = connectToStores(
+    ThreadSection,
+    [ThreadStore, UnreadThreadStore],
+    {
+        ThreadStore: function (store) {
+            return {
+                threads: store.getAllChrono(),
+                currentThreadID: store.getCurrentID()
+            };
+        },
+        UnreadThreadStore: function (store) {
+            return {
+                unreadCount: store.getCount()
+            };
+        }
+    }
+);

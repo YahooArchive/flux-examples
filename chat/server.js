@@ -13,7 +13,7 @@ var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
-var navigateAction = require('flux-router-component').navigateAction;
+var navigateAction = require('fluxible-router').navigateAction;
 
 var server = express();
 server.set('state namespace', 'App');
@@ -42,7 +42,7 @@ server.use(function (req, res, next) {
     context.executeAction(navigateAction, { url: req.url, type: 'pageload' }, function (err) {
 
         if (err) {
-            if (err.status && err.status === 404) {
+            if (err.statusCode && err.statusCode === 404) {
                 next();
             } else {
                 next(err);

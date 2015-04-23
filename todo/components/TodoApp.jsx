@@ -4,7 +4,8 @@
  */
 'use strict';
 var React = require('react');
-var FluxibleMixin = require('fluxible').FluxibleMixin;
+var provideContext = require('fluxible/addons/provideContext');
+var connectToStores = require('fluxible/addons/connectToStores');
 var TodoStore = require('../stores/TodoStore');
 var TodoItem = require('./TodoItem');
 var Footer = require('./Footer');
@@ -13,28 +14,16 @@ var updateTodo = require('../actions/updateTodo');
 var deleteTodo = require('../actions/deleteTodo');
 var toggleAll = require('../actions/toggleAll');
 
-
 var ENTER_KEY = 13;
 
-
-var Component = React.createClass({
-    mixins: [FluxibleMixin],
-    statics: {
-        storeListeners: {
-            _onChange: [TodoStore]
-        }
+var TodoApp = React.createClass({
+    contextTypes: {
+        executeAction: React.PropTypes.func.isRequired
     },
     getInitialState: function () {
-        return this.getState();
-    },
-    getState: function () {
         return {
-            nowShowing: this.state && this.state.nowShowing || 'ALL_TODOS',
-            items: this.getStore(TodoStore).getAll()
+            nowShowing: 'ALL_TODOS'
         };
-    },
-    _onChange: function() {
-        this.setState(this.getState());
     },
     handleNewTodoKeyDown: function (event) {
         if (event.which !== ENTER_KEY) {
@@ -46,7 +35,7 @@ var Component = React.createClass({
         var text = this.refs.newField.getDOMNode().value.trim();
 
         if (text) {
-            this.executeAction(createTodo, {
+            this.context.executeAction(createTodo, {
                 text: text
             });
             this.refs.newField.getDOMNode().value = '';
@@ -57,31 +46,31 @@ var Component = React.createClass({
         event.preventDefault();
     },
     clearCompleted: function () {
-        var ids = this.state.items.filter(function (todo) {
+        var ids = this.props.items.filter(function (todo) {
             return todo.completed;
         }).map(function (todo) {
             return todo.id;
         });
 
-        this.executeAction(deleteTodo, {
+        this.context.executeAction(deleteTodo, {
             ids: ids
         });
     },
     toggleAll: function (event) {
         var checked = event.target.checked;
-        this.executeAction(toggleAll, {
+        this.context.executeAction(toggleAll, {
             checked: checked
         });
     },
     toggle: function (todo) {
-        this.executeAction(updateTodo, {
+        this.context.executeAction(updateTodo, {
             id: todo.id,
             completed: !todo.completed,
             text: todo.text
         });
     },
     destroy: function (todo) {
-        this.executeAction(deleteTodo, {
+        this.context.executeAction(deleteTodo, {
             ids: [todo.id]
         });
     },
@@ -92,7 +81,7 @@ var Component = React.createClass({
         });
     },
     save: function (todo, completed, text) {
-        this.executeAction(updateTodo, {
+        this.context.executeAction(updateTodo, {
             id: todo.id,
             completed: completed,
             text: text
@@ -104,7 +93,7 @@ var Component = React.createClass({
         this.setState({ editing: null });
     },
     render: function() {
-        var todos = this.state.items;
+        var todos = this.props.items;
         var main;
         var footer;
 
@@ -185,5 +174,12 @@ var Component = React.createClass({
     }
 });
 
+TodoApp = connectToStores(TodoApp, [TodoStore], function (stores, props) {
+    return {
+        items: stores.TodoStore.getAll()
+    };
+});
 
-module.exports = Component;
+TodoApp = provideContext(TodoApp);
+
+module.exports = TodoApp;
