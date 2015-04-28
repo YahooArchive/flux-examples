@@ -21,9 +21,12 @@ class Timestamp extends React.Component {
     _onStoreChange() {
         this.setState(this.context.getStore(TimeStore).getState());
     }
+    onReset() {
+        this.context.executeAction(updateTime);
+    }
     render() {
         return (
-            <em onClick={this.onReset} style={{fontSize: '.8em'}}>{this.state.time}</em>
+            <em onClick={this.onReset.bind(this)} style={{fontSize: '.8em'}}>{this.state.time}</em>
         );
     }
 }
