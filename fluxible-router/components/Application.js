@@ -15,10 +15,10 @@ class Application extends React.Component {
     }
     componentDidUpdate(prevProps) {
         let newProps = this.props;
-        if (newProps.pageTitle === prevProps.pageTitle) {
+        if (newProps.ApplicationStore.pageTitle === prevProps.ApplicationStore.pageTitle) {
             return;
         }
-        document.title = newProps.pageTitle;
+        document.title = newProps.ApplicationStore.pageTitle;
     }
     render() {
         var Handler = this.props.currentRoute.get('handler');
