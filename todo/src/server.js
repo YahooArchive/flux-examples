@@ -9,27 +9,31 @@ var serialize = require('serialize-javascript');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var csrf = require('csurf');
-var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
+var showTodos = require('./actions/showTodos');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
-var navigateAction = require('fluxible-router').navigateAction;
+
 
 var server = express();
 server.set('state namespace', 'App');
-server.use(favicon(__dirname + '/../favicon.ico'));
-server.use('/public', express.static(__dirname + '/build'));
+server.use(favicon(__dirname + '/../../favicon.ico'));
+server.use('/public', express.static(__dirname + '/../build'));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(csrf({cookie: true}));
 
+
 // Get access to the fetchr plugin instance
 var fetchrPlugin = app.getPlugin('FetchrPlugin');
-// Register our messages REST service
-fetchrPlugin.registerService(require('./services/message'));
+
+// Register our todos REST service
+fetchrPlugin.registerService(require('./services/todo'));
+
 // Set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
+// Every other request gets the app bootstrap
 server.use(function (req, res, next) {
     var context = app.createContext({
         req: req, // The fetchr plugin depends on this
@@ -38,28 +42,25 @@ server.use(function (req, res, next) {
         }
     });
 
-    debug('Executing showChat action');
-    context.executeAction(navigateAction, { url: req.url, type: 'pageload' }, function (err) {
-
+    context.executeAction(showTodos, {}, function (err) {
         if (err) {
             if (err.statusCode && err.statusCode === 404) {
-                next();
-            } else {
-                next(err);
+                return next();
             }
-            return;
+            else {
+                return next(err);
+            }
         }
 
-        debug('Exposing context state');
         var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
-        debug('Rendering Application component into html');
+        var componentContext = context.getComponentContext();
         var html = React.renderToStaticMarkup(HtmlComponent({
             state: exposed,
-            markup: React.renderToString(context.createElement())
+            markup: React.renderToString(context.createElement()),
+            context: componentContext
         }));
 
-        debug('Sending markup');
         res.send(html);
     });
 });

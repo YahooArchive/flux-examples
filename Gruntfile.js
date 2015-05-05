@@ -24,9 +24,22 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        babel: {
+            options: {
+                sourceMap: true
+            },
+            dist: {
+                files: [{
+                    cwd: './' + grunt.option('taskName') + '/src/',
+                    src: ['**/*.js', '**/*.jsx'],
+                    dest: './' + grunt.option('taskName') + '/dist/',
+                    expand: true
+                }]
+            }
+        },
         nodemon: {
             dev: {
-                script: './' + grunt.option('taskName') + '/server.js',
+                script: './' + grunt.option('taskName') + '/dist/server.js',
                 options: {
                     ignore: ['build/**'],
                     ext: 'js,jsx'
@@ -38,7 +51,7 @@ module.exports = function (grunt) {
                 resolve: {
                     extensions: ['', '.js', '.jsx']
                 },
-                entry: './' + grunt.option('taskName') + '/client.js',
+                entry: './' + grunt.option('taskName') + '/dist/client.js',
                 output: {
                     path: './' + grunt.option('taskName') + '/build/js',
                     filename: 'client.js'
@@ -64,13 +77,13 @@ module.exports = function (grunt) {
         }
     });
 
-
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-webpack');
 
-    grunt.registerTask('default', ['clean', 'concurrent:dev']);
-    grunt.registerTask('todo', ['clean', 'copy:todo', 'concurrent:dev']);
+    grunt.registerTask('default', ['clean', 'babel', 'concurrent:dev']);
+    grunt.registerTask('todo', ['clean', 'copy:todo', 'babel', 'concurrent:dev']);
 };
