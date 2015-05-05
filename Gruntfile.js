@@ -85,5 +85,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-webpack');
 
     grunt.registerTask('default', ['clean', 'babel', 'concurrent:dev']);
-    grunt.registerTask('todo', ['clean', 'copy:todo', 'concurrent:dev']);
+    grunt.registerTask('todo', ['clean', 'copy:todo', 'babel', 'concurrent:dev']);
 };
