@@ -17,8 +17,8 @@ var navigateAction = require('fluxible-router').navigateAction;
 
 var server = express();
 server.set('state namespace', 'App');
-server.use(favicon(__dirname + '/../favicon.ico'));
-server.use('/public', express.static(__dirname + '/build'));
+server.use(favicon(__dirname + '/../../favicon.ico'));
+server.use('/public', express.static(__dirname + '/../build'));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(csrf({cookie: true}));
