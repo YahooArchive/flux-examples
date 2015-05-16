@@ -4,7 +4,7 @@ This shows routing on the client and the server with [react-router](https://gith
 
 ## Usage
 
-Make sure you run `npm install` from the root of flux-examples. Then change directories to routing (`cd routing`) and run:
+Make sure you run `npm install` from the root of flux-examples. Then change directories to routing (`cd react-router or cd fluxible-router`) and run:
 
 ```bash
 $ npm run dev
