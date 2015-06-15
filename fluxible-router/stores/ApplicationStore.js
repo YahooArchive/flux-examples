@@ -29,7 +29,7 @@ class ApplicationStore extends BaseStore {
     }
 }
 
-ApplicationStore.storeName = 'ApplicationStore'; // PR open in dispatchr to remove this need
+ApplicationStore.storeName = 'ApplicationStore';
 ApplicationStore.handlers = {
     'UPDATE_PAGE_TITLE'    : 'updatePageTitle'
 };

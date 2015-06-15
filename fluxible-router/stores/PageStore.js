@@ -26,7 +26,7 @@ class PageStore extends BaseStore {
     }
 }
 
-PageStore.storeName = 'PageStore'; // PR open in dispatchr to remove this need
+PageStore.storeName = 'PageStore';
 PageStore.handlers = {
     'LOAD_PAGE': 'handleContentChange'
 };
