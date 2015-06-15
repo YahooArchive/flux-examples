@@ -26,7 +26,7 @@ class TimeStore extends BaseStore {
     }
 }
 
-TimeStore.storeName = 'TimeStore'; // PR open in dispatchr to remove this need
+TimeStore.storeName = 'TimeStore';
 TimeStore.handlers = {
     'NAVIGATE_START': 'handleTimeChange',
     'UPDATE_TIME': 'handleTimeChange'
