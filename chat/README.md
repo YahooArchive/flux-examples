@@ -15,3 +15,7 @@ $ npm run dev
 This will use `nodemon` and `webpack` to watch for changes and restart and rebuild as needed.
 
 Open http://localhost:3000
+
+This example also includes different patterns for render and loading data.
+ * You can add `?load=0` to defer loading data until the client. A delay of 1 second is added on the client in order to make this more apparent.
+ * You can add `?render=0` to defer rendering until the client.
