@@ -43,7 +43,7 @@ function renderPage(req, res, context) {
 
     debug('Rendering Application component into html');
     var html = React.renderToStaticMarkup(HtmlComponent({
-        //state: exposed,
+        state: exposed,
         markup: mainMarkup
     }));
 
