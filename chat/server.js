@@ -30,6 +30,27 @@ fetchrPlugin.registerService(require('./services/message'));
 // Set up the fetchr middleware
 server.use(fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware());
 
+function renderPage(req, res, context) {
+    debug('Exposing context state');
+    var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
+
+    var mainMarkup;
+    if ('0' === req.query.render) {
+        mainMarkup = '';
+    } else {
+        mainMarkup = React.renderToString(context.createElement());
+    }
+
+    debug('Rendering Application component into html');
+    var html = React.renderToStaticMarkup(HtmlComponent({
+        state: exposed,
+        markup: mainMarkup
+    }));
+
+    debug('Sending markup');
+    res.send(html);
+}
+
 server.use(function (req, res, next) {
     var context = app.createContext({
         req: req, // The fetchr plugin depends on this
@@ -39,29 +60,21 @@ server.use(function (req, res, next) {
     });
 
     debug('Executing showChat action');
-    context.executeAction(navigateAction, { url: req.url, type: 'pageload' }, function (err) {
-
-        if (err) {
-            if (err.statusCode && err.statusCode === 404) {
-                next();
-            } else {
-                next(err);
+    if ('0' === req.query.load) {
+        renderPage(req, res, context);
+    } else {
+        context.executeAction(navigateAction, { url: req.url, type: 'pageload' }, function (err) {
+            if (err) {
+                if (err.statusCode && err.statusCode === 404) {
+                    next();
+                } else {
+                    next(err);
+                }
+                return;
             }
-            return;
-        }
-
-        debug('Exposing context state');
-        var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
-
-        debug('Rendering Application component into html');
-        var html = React.renderToStaticMarkup(HtmlComponent({
-            state: exposed,
-            markup: React.renderToString(context.createElement())
-        }));
-
-        debug('Sending markup');
-        res.send(html);
-    });
+            renderPage(req, res, context);
+        });
+    }
 });
 
 var port = process.env.PORT || 3000;
