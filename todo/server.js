@@ -13,6 +13,7 @@ var React = require('react');
 var app = require('./app');
 var showTodos = require('./actions/showTodos');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
+var createElement = require('fluxible-addons-react/createElementWithContext');
 
 
 var server = express();
@@ -57,7 +58,7 @@ server.use(function (req, res, next) {
         var componentContext = context.getComponentContext();
         var html = React.renderToStaticMarkup(HtmlComponent({
             state: exposed,
-            markup: React.renderToString(context.createElement()),
+            markup: React.renderToString(createElement(context)),
             context: componentContext
         }));
 

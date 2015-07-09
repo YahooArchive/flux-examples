@@ -19,7 +19,7 @@ var MessageStore = require('../stores/MessageStore');
 var ThreadListItem = require('../components/ThreadListItem.jsx');
 var ThreadStore = require('../stores/ThreadStore');
 var UnreadThreadStore = require('../stores/UnreadThreadStore');
-var connectToStores = require('fluxible/addons/connectToStores');
+var connectToStores = require('fluxible-addons-react/connectToStores');
 var NavLink = require('fluxible-router').NavLink;
 
 var ThreadSection = React.createClass({
@@ -63,17 +63,11 @@ var ThreadSection = React.createClass({
 module.exports = connectToStores(
     ThreadSection,
     [ThreadStore, UnreadThreadStore],
-    {
-        ThreadStore: function (store) {
-            return {
-                threads: store.getAllChrono(),
-                currentThreadID: store.getCurrentID()
-            };
-        },
-        UnreadThreadStore: function (store) {
-            return {
-                unreadCount: store.getCount()
-            };
+    function (context, props) {
+        return {
+            currentThreadID: context.getStore(ThreadStore).getCurrentID(),
+            threads: context.getStore(ThreadStore).getAllChrono(),
+            unreadCount: context.getStore(UnreadThreadStore).getCount()
         }
     }
 );

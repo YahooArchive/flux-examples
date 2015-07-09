@@ -6,6 +6,7 @@
 'use strict';
 var React = require('react');
 var app = require('./app');
+var createElement = require('fluxible-addons-react/createElementWithContext');
 
 
 var dehydratedState = window.App; // sent from the server
@@ -22,5 +23,5 @@ app.rehydrate(dehydratedState, function (err, context) {
 
     var mountNode = document.getElementById('todoapp');
 
-    React.render(context.createElement(), mountNode);
+    React.render(createElement(context), mountNode);
 });

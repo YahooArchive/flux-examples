@@ -14,6 +14,7 @@ var React = require('react');
 var app = require('./app');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
 var navigateAction = require('fluxible-router').navigateAction;
+var createElement = require('fluxible-addons-react').createElementWithContext;
 
 var server = express();
 server.set('state namespace', 'App');
@@ -38,7 +39,7 @@ function renderPage(req, res, context) {
     if ('0' === req.query.render) {
         mainMarkup = '';
     } else {
-        mainMarkup = React.renderToString(context.createElement());
+        mainMarkup = React.renderToString(createElement(context));
     }
 
     debug('Rendering Application component into html');

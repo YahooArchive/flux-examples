@@ -10,8 +10,9 @@ var navigateAction = require('./actions/navigate');
 var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
-var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
-var FluxibleComponent = require('fluxible/addons/FluxibleComponent');
+var HtmlComponent = React.createFactory(require('./components/Html'));
+var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
+var createElement = require('fluxible-addons-react/createElementWithContext');
 var Router = require('react-router');
 
 var server = express();
@@ -30,6 +31,7 @@ server.use(function (req, res, next) {
             debug('Rendering Application component into html');
             var Component = React.createFactory(Handler);
             var html = React.renderToStaticMarkup(HtmlComponent({
+                context: context.getComponentContext(),
                 state: exposed,
                 markup: React.renderToString(
                     React.createElement(

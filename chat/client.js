@@ -11,6 +11,7 @@ var app = require('./app');
 var dehydratedState = window.App || {}; // Sent from the server
 var RouteStore = require('./stores/RouteStore');
 var navigateAction = require('fluxible-router').navigateAction;
+var createElement = require('fluxible-addons-react').createElementWithContext;
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
@@ -25,7 +26,7 @@ app.rehydrate(dehydratedState, function (err, context) {
 
     bootstrapDebug('React Rendering');
     var mountNode = document.getElementById('app');
-    React.render(context.createElement(), mountNode, function () {
+    React.render(createElement(context), mountNode, function () {
         bootstrapDebug('React Rendered');
     });
 

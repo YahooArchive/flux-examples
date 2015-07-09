@@ -3,11 +3,14 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 import React from 'react';
-import PageStore from '../stores/PageStore';
+import updateTime from '../actions/updateTime';
+import TimeStore from '../stores/TimeStore';
 import { connectToStores } from 'fluxible-addons-react';
 
-@connectToStores([PageStore], (context) => context.getStore(PageStore).getState())
-class Page extends React.Component {
+@connectToStores([TimeStore], (context) => {
+    return context.getStore(TimeStore).getState()
+})
+class Timestamp extends React.Component {
     static contextTypes = {
         getStore: React.PropTypes.func,
         executeAction: React.PropTypes.func
@@ -15,11 +18,14 @@ class Page extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
+    onReset() {
+        this.context.executeAction(updateTime);
+    }
     render() {
         return (
-            <p>{this.props.content}</p>
+            <em onClick={this.onReset.bind(this)} style={{fontSize: '.8em'}}>{this.props.time}</em>
         );
     }
 }
 
-export default Page;
+export default Timestamp;
