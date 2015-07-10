@@ -17,7 +17,7 @@
 var MessageSection = require('./MessageSection.jsx');
 var React = require('react');
 var ThreadSection = require('./ThreadSection.jsx');
-var provideContext = require('fluxible/addons/provideContext');
+var provideContext = require('fluxible-addons-react/provideContext');
 var handleHistory = require('fluxible-router').handleHistory;
 
 var ChatApp = React.createClass({

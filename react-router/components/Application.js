@@ -7,13 +7,9 @@ import Nav from './Nav';
 import Timestamp from './Timestamp';
 import ApplicationStore from '../stores/ApplicationStore';
 import {connectToStores, provideContext} from 'fluxible-addons-react';
-import {handleHistory} from 'fluxible-router';
+import {RouteHandler} from 'react-router';
 
 @provideContext
-@handleHistory({enableScroll: false})
-@connectToStores([ApplicationStore], (context) => ({
-    ApplicationStore: context.getStore(ApplicationStore).getState()
-}))
 class Application extends React.Component {
 
     static contextTypes = {
@@ -24,20 +20,11 @@ class Application extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
-    componentDidUpdate(prevProps) {
-        let newProps = this.props;
-        if (newProps.ApplicationStore.pageTitle === prevProps.ApplicationStore.pageTitle) {
-            return;
-        }
-        document.title = newProps.ApplicationStore.pageTitle;
-    }
     render() {
-        var Handler = this.props.currentRoute.get('handler');
-        //render content
         return (
             <div>
                 <Nav />
-                <Handler />
+                <RouteHandler />
                 <Timestamp />
             </div>
         );

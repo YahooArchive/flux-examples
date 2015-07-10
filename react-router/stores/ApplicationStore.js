@@ -34,5 +34,4 @@ var ApplicationStore = createStore({
     }
 });
 
-
 module.exports = ApplicationStore;

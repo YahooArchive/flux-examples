@@ -19,7 +19,7 @@ var MessageComposer = require('./MessageComposer.jsx');
 var MessageListItem = require('./MessageListItem.jsx');
 var MessageStore = require('../stores/MessageStore');
 var ThreadStore = require('../stores/ThreadStore');
-var connectToStores = require('fluxible/addons/connectToStores');
+var connectToStores = require('fluxible-addons-react/connectToStores');
 
 function getMessageListItem(message) {
     return (
@@ -70,16 +70,10 @@ var MessageSection = React.createClass({
 module.exports = connectToStores(
     MessageSection,
     [ThreadStore, MessageStore],
-    {
-        MessageStore: function (store) {
-            return {
-                messages: store.getAllForCurrentThread()
-            };
-        },
-        ThreadStore: function (store) {
-            return {
-                thread: store.getCurrent()
-            };
+    function (context, props) {
+        return {
+            messages: context.getStore(MessageStore).getAllForCurrentThread(),
+            thread: context.getStore(ThreadStore).getCurrent()
         }
     }
 );

@@ -4,8 +4,8 @@
  */
 'use strict';
 var React = require('react');
-var provideContext = require('fluxible/addons/provideContext');
-var connectToStores = require('fluxible/addons/connectToStores');
+var provideContext = require('fluxible-addons-react/provideContext');
+var connectToStores = require('fluxible-addons-react/connectToStores');
 var TodoStore = require('../stores/TodoStore');
 var TodoItem = require('./TodoItem');
 var Footer = require('./Footer');
@@ -174,9 +174,9 @@ var TodoApp = React.createClass({
     }
 });
 
-TodoApp = connectToStores(TodoApp, [TodoStore], function (stores, props) {
+TodoApp = connectToStores(TodoApp, [TodoStore], function (context, props) {
     return {
-        items: stores.TodoStore.getAll()
+        items: context.getStore(TodoStore).getAll()
     };
 });
 

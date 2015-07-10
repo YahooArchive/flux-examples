@@ -12,6 +12,7 @@ var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
 var HtmlComponent = React.createFactory(require('./components/Html.js'));
+var createElement = require('fluxible-addons-react/createElementWithContext');
 
 var server = express();
 server.use(favicon(__dirname + '/../favicon.ico'));
@@ -35,11 +36,9 @@ server.use(function (req, res, next) {
         var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         debug('Rendering Application component into html');
-        var Component = app.getComponent();
-
         var html = React.renderToStaticMarkup(HtmlComponent({
             state: exposed,
-            markup: React.renderToString(context.createElement()),
+            markup: React.renderToString(createElement(context)),
             context: context.getComponentContext()
         }));
 

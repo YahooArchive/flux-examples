@@ -6,6 +6,7 @@
 import React from 'react';
 import debug from 'debug';
 import app from './app';
+import { createElementWithContext } from 'fluxible-addons-react';
 
 const bootstrapDebug = debug('Example');
 const dehydratedState = window.App; // Sent from the server
@@ -22,7 +23,7 @@ app.rehydrate(dehydratedState, function (err, context) {
     const mountNode = document.getElementById('app');
 
     bootstrapDebug('React Rendering');
-    React.render(context.createElement(), mountNode, () => {
+    React.render(createElementWithContext(context), mountNode, () => {
         bootstrapDebug('React Rendered');
     });
 });

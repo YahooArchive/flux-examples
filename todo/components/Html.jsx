@@ -5,7 +5,6 @@
 'use strict';
 var React = require('react');
 var PageStore = require('../stores/PageStore');
-var FluxibleMixin = require('fluxible').FluxibleMixin;
 
 var Component = React.createClass({
     render: function() {

@@ -2,15 +2,14 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-'use strict';
-var React = require('react');
-var Link = require('react-router').Link;
+import React from 'react';
+import {Link} from 'react-router';
 
-var Nav = React.createClass({
-    contextTypes: {
+class Nav extends React.Component {
+    static contextTypes = {
         router: React.PropTypes.func.isRequired
-    },
-    render: function() {
+    };
+    render() {
         return (
             <ul className="pure-menu pure-menu-open pure-menu-horizontal">
                 <li className={this.context.router.isActive('/') ? 'pure-menu-selected' : ''}><Link to='/'>Home</Link></li>
@@ -18,6 +17,6 @@ var Nav = React.createClass({
             </ul>
         );
     }
-});
+}
 
-module.exports = Nav;
+export default Nav;

@@ -2,15 +2,18 @@
  * Copyright 2014, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-'use strict';
-var Fluxible = require('fluxible');
+import Fluxible from 'fluxible';
+import ApplicationStore from './stores/ApplicationStore';
+import TimeStore from './stores/TimeStore';
+import PageStore from './stores/PageStore';
 
-var app = new Fluxible({
-    component: require('./components/Routes.jsx')
+const app = new Fluxible({
+    component: require('./components/Routes'),
+    stores: [
+        ApplicationStore,
+        PageStore,
+        TimeStore
+    ]
 });
-
-app.registerStore(require('./stores/ApplicationStore'));
-app.registerStore(require('./stores/TimeStore'));
-app.registerStore(require('./stores/PageStore'));
 
 module.exports = app;

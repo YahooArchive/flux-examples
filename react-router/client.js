@@ -12,7 +12,8 @@ var dehydratedState = window.App; // Sent from the server
 var Router = require('react-router');
 var HistoryLocation = Router.HistoryLocation;
 var navigateAction = require('./actions/navigate');
-var FluxibleComponent = require('fluxible/addons/FluxibleComponent');
+var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
+var createElement = require('fluxible-addons-react/createElementWithContext');
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
