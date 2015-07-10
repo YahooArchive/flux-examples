@@ -6,6 +6,7 @@
   "main": "server.js",
   "author": "Michael Ridgway <mridgway@yahoo-inc.com>",
   "scripts": {
-    "dev": "grunt --gruntfile ../Gruntfile.js --taskName chat"
+    "dev": "node webpack-dev-server.js & PORT=3001 nodemon server.js -e js,jsx",
+    "start": "node server.js"
   }
 }
