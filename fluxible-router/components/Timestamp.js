@@ -22,7 +22,6 @@ class Timestamp extends React.Component {
         this.context.executeAction(updateTime);
     }
     render() {
-        console.log('re-render', this.state);
         return (
             <em onClick={this.onReset.bind(this)} style={{fontSize: '.8em'}}>{this.props.time}</em>
         );
