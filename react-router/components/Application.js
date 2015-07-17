@@ -7,9 +7,8 @@ import Nav from './Nav';
 import Timestamp from './Timestamp';
 import ApplicationStore from '../stores/ApplicationStore';
 import {connectToStores, provideContext} from 'fluxible-addons-react';
-import {RouteHandler} from 'react-router';
 
-@provideContext
+//@provideContext
 class Application extends React.Component {
 
     static contextTypes = {
@@ -24,7 +23,7 @@ class Application extends React.Component {
         return (
             <div>
                 <Nav />
-                <RouteHandler />
+                {this.props.children}
                 <Timestamp />
             </div>
         );
