@@ -44,15 +44,10 @@ server.use(function (req, res, next) {
                 params: initialState.params
               }
             );
-            var ApplicationComponent = React.createElement(
-                FluxibleComponent,
-                { context: context.getComponentContext() },
-                RouterComponent
-            );
             var html = React.renderToStaticMarkup(HtmlComponent({
                 context: context.getComponentContext(),
                 state: exposed,
-                markup: React.renderToString(ApplicationComponent)
+                markup: React.renderToString(RouterComponent)
             }));
 
             debug('Sending markup');

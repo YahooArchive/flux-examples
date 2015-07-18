@@ -36,11 +36,7 @@ function RenderApp(context, state){
                                 onUpdate={navigate} />);
 
     React.render(
-        React.createElement(
-            FluxibleComponent,
-            { context: context.getComponentContext() },
-            RouterComponent
-        ),
+        RouterComponent,
         mountNode,
         function () {
             bootstrapDebug('React Rendered');
