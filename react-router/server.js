@@ -10,9 +10,9 @@ var navigateAction = require('./actions/navigate');
 var debug = require('debug')('Example');
 var React = require('react');
 var app = require('./app');
+var createElement = require('./create-element');
 var HtmlComponent = React.createFactory(require('./components/Html'));
 var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
-var createElement = require('fluxible-addons-react/createElementWithContext');
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Location = require('react-router/lib/Location');
@@ -36,6 +36,7 @@ server.use(function (req, res, next) {
             var RouterComponent = React.createElement(
               Router,
               {
+                createElement: createElement(context),
                 children: app.getComponent(),
                 location: initialState.location,
                 branch: initialState.branch,

@@ -8,7 +8,7 @@ import Timestamp from './Timestamp';
 import ApplicationStore from '../stores/ApplicationStore';
 import {connectToStores, provideContext} from 'fluxible-addons-react';
 
-//@provideContext
+@provideContext
 class Application extends React.Component {
 
     static contextTypes = {

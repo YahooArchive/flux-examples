@@ -8,13 +8,13 @@ var React = require('react');
 var debug = require('debug');
 var bootstrapDebug = debug('Example');
 var app = require('./app');
+var createElement = require('./create-element');
 var dehydratedState = window.App; // Sent from the server
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var BrowserHistory = require('react-router/lib/BrowserHistory').default;
 var navigateAction = require('./actions/navigate');
 var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
-var createElement = require('fluxible-addons-react/createElementWithContext');
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
@@ -27,8 +27,10 @@ function RenderApp(context, state){
     function navigate() {
         context.executeAction(navigateAction, state)
     }
+
     var mountNode = document.getElementById('app');
     var RouterComponent = (<Router
+                                createElement={createElement(context)}
                                 children={app.getComponent()}
                                 history={new BrowserHistory()}
                                 onUpdate={navigate} />);
@@ -53,7 +55,7 @@ app.rehydrate(dehydratedState, function (err, context) {
     window.context = context;
 
     Router.run(app.getComponent(),
-        new BrowserHistory(),
+        window.location,
         function (error, state, transition) {
             RenderApp(context, state);
         }
