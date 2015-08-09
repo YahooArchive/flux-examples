@@ -56,13 +56,6 @@ var MessageSection = React.createClass({
     _scrollToBottom: function() {
         var ul = this.refs.messageList.getDOMNode();
         ul.scrollTop = ul.scrollHeight;
-    },
-
-    /**
-     * Event handler for 'change' events coming from the MessageStore
-     */
-    _onChange: function() {
-        this.setState(this.getStateFromStores());
     }
 
 });
