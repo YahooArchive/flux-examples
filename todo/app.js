@@ -3,7 +3,6 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
-var React = require('react');
 var Fluxible = require('fluxible');
 var fetchrPlugin = require('fluxible-plugin-fetchr');
 
