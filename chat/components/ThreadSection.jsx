@@ -49,13 +49,6 @@ var ThreadSection = React.createClass({
                 </ul>
             </div>
         );
-    },
-
-    /**
-     * Event handler for 'change' events coming from the stores
-     */
-    _onChange: function() {
-        this.setState(this.getStateFromStores());
     }
 
 });
