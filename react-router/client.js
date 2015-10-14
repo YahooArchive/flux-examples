@@ -8,28 +8,35 @@ var React = require('react');
 var debug = require('debug');
 var bootstrapDebug = debug('Example');
 var app = require('./app');
+var createElement = require('./create-element');
 var dehydratedState = window.App; // Sent from the server
-var Router = require('react-router');
-var HistoryLocation = Router.HistoryLocation;
+var ReactRouter = require('react-router');
+var Router = ReactRouter.Router;
+var BrowserHistory = require('react-router/lib/BrowserHistory').default;
 var navigateAction = require('./actions/navigate');
 var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
-var createElement = require('fluxible-addons-react/createElementWithContext');
 
 window.React = React; // For chrome dev tool support
 debug.enable('*');
 
 bootstrapDebug('rehydrating app');
 
-function RenderApp(context, Handler){
+
+function RenderApp(context, state){
     bootstrapDebug('React Rendering');
+    function navigate() {
+        context.executeAction(navigateAction, state)
+    }
+
     var mountNode = document.getElementById('app');
-    var Component = React.createFactory(Handler);
+    var RouterComponent = (<Router
+                                createElement={createElement(context)}
+                                children={app.getComponent()}
+                                history={new BrowserHistory()}
+                                onUpdate={navigate} />);
+
     React.render(
-        React.createElement(
-            FluxibleComponent,
-            { context: context.getComponentContext() },
-            Component()
-        ),
+        RouterComponent,
         mountNode,
         function () {
             bootstrapDebug('React Rendered');
@@ -43,18 +50,10 @@ app.rehydrate(dehydratedState, function (err, context) {
     }
     window.context = context;
 
-    var firstRender = true;
-    Router.run(app.getComponent(), HistoryLocation, function (Handler, state) {
-        if (firstRender) {
-            // Don't call the action on the first render on top of the server rehydration
-            // Otherwise there is a race condition where the action gets executed before
-            // render has been called, which can cause the checksum to fail.
-            RenderApp(context, Handler);
-            firstRender = false;
-        } else {
-            context.executeAction(navigateAction, state, function () {
-                RenderApp(context, Handler);
-            });
+    Router.run(app.getComponent(),
+        window.location,
+        function (error, state, transition) {
+            RenderApp(context, state);
         }
-    });
+    );
 });

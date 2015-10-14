@@ -18,7 +18,7 @@
     "fluxible-plugin-fetchr": "^0.3.3",
     "fluxible-router": "^0.2.0",
     "react": "0.13.x",
-    "react-router": "^0.13.0",
+    "react-router": "1.0.0-beta3",
     "serialize-javascript": "^1.0.0",
     "serve-favicon": "^2.1.6"
   },

@@ -3,19 +3,15 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 import React from 'react';
+import {contextTypes} from 'fluxible';
 import Nav from './Nav';
 import Timestamp from './Timestamp';
 import ApplicationStore from '../stores/ApplicationStore';
-import {connectToStores, provideContext} from 'fluxible-addons-react';
-import {RouteHandler} from 'react-router';
 
-@provideContext
+
 class Application extends React.Component {
 
-    static contextTypes = {
-        getStore: React.PropTypes.func,
-        executeAction: React.PropTypes.func
-    };
+    static contextTypes = contextTypes;
 
     constructor(props, context) {
         super(props, context);
@@ -24,7 +20,7 @@ class Application extends React.Component {
         return (
             <div>
                 <Nav />
-                <RouteHandler />
+                {this.props.children}
                 <Timestamp />
             </div>
         );

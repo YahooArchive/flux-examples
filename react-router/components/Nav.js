@@ -7,7 +7,7 @@ import {Link} from 'react-router';
 
 class Nav extends React.Component {
     static contextTypes = {
-        router: React.PropTypes.func.isRequired
+        router: React.PropTypes.object.isRequired
     };
     render() {
         return (
