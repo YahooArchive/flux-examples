@@ -14,8 +14,8 @@ var Component = React.createClass({
                 <meta charSet="utf-8" />
                 <title>{this.props.context.getStore(PageStore).getPageTitle()}</title>
                 <meta name="viewport" content="width=device-width, user-scalable=no" />
-                <link rel="stylesheet" href="/public/base.css" />
-                <link rel="stylesheet" href="/public/styles.css" />
+                <link rel="stylesheet" href="/assets/todomvc-common/base.css" />
+                <link rel="stylesheet" href="/assets/styles.css" />
             </head>
             <body>
                 <section id="todoapp" dangerouslySetInnerHTML={{__html: this.props.markup}}></section>
@@ -25,9 +25,9 @@ var Component = React.createClass({
                     <p>Some code inspried by <a href="http://todomvc.com/examples/react/">TodoMVC React (Pete Hunt)</a></p>
                     <p>Showing off <a href="http://fluxible.io">Fluxible</a></p>
                 </footer>
+                <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
+                <script src="/public/js/client.js" defer></script>
             </body>
-            <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
-            <script src="/public/js/client.js" defer></script>
             </html>
         );
     }

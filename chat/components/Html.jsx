@@ -6,35 +6,30 @@
 var React = require('react');
 
 /**
- * React class to handle the rendering of the HTML head section
- *
- * @class Html
- * @constructor
+ * Stateless React component to handle the rendering of the HTML head section
  */
-var Html = React.createClass({
-    /**
-     * Refer to React documentation render
-     *
-     * @method render
-     * @return {Object} HTML head section
-     */
-    render: function() {
-        return (
-            <html>
-            <head>
-                <meta charSet="utf-8" />
-                <title>{this.props.title}</title>
-                <meta name="viewport" content="width=device-width, user-scalable=no" />
-                <link rel="stylesheet" href="https://rawgit.com/facebook/flux/master/examples/flux-chat/css/chatapp.css" />
-            </head>
-            <body>
-                <div id="app" dangerouslySetInnerHTML={{__html: this.props.markup}}></div>
-            </body>
-            <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
+var Html = function (props) {
+    return (
+        <html>
+        <head>
+            <meta charSet="utf-8" />
+            <title>{props.title}</title>
+            <meta name="viewport" content="width=device-width, user-scalable=no" />
+            <link rel="stylesheet" href="https://rawgit.com/facebook/flux/master/examples/flux-chat/css/chatapp.css" />
+        </head>
+        <body>
+            <div id="app" dangerouslySetInnerHTML={{__html: props.markup}}></div>
+            <script dangerouslySetInnerHTML={{__html: props.state}}></script>
             <script src="/public/js/client.js" defer></script>
-            </html>
-        );
-    }
-});
+        </body>
+        </html>
+    );
+};
+
+Html.propTypes = {
+    title: React.PropTypes.object,
+    markup: React.PropTypes.string.isRequired,
+    state: React.PropTypes.string.isRequired
+};
 
 module.exports = Html;

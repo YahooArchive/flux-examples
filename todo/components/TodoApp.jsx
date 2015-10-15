@@ -32,13 +32,13 @@ var TodoApp = React.createClass({
 
         event.preventDefault();
 
-        var text = this.refs.newField.getDOMNode().value.trim();
+        var text = this.refs.newField.value.trim();
 
         if (text) {
             this.context.executeAction(createTodo, {
                 text: text
             });
-            this.refs.newField.getDOMNode().value = '';
+            this.refs.newField.value = '';
         }
     },
     changeFilter: function (filter, event) {

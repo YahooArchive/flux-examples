@@ -11,8 +11,9 @@ var cookieParser = require('cookie-parser');
 var csrf = require('csurf');
 var debug = require('debug')('Example');
 var React = require('react');
+var ReactDOM = require('react-dom/server');
 var app = require('./app');
-var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
+var HtmlComponent = require('./components/Html.jsx');
 var navigateAction = require('fluxible-router').navigateAction;
 var createElement = require('fluxible-addons-react').createElementWithContext;
 
@@ -39,11 +40,11 @@ function renderPage(req, res, context) {
     if ('0' === req.query.render) {
         mainMarkup = '';
     } else {
-        mainMarkup = React.renderToString(createElement(context));
+        mainMarkup = ReactDOM.renderToString(createElement(context));
     }
 
     debug('Rendering Application component into html');
-    var html = React.renderToStaticMarkup(HtmlComponent({
+    var html = ReactDOM.renderToStaticMarkup(React.createElement(HtmlComponent, {
         state: exposed,
         markup: mainMarkup
     }));

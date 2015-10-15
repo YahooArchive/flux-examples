@@ -4,25 +4,28 @@
  */
 'use strict';
 require('babel/register');
-var express = require('express');
-var favicon = require('serve-favicon');
-var serialize = require('serialize-javascript');
-var navigateAction = require('fluxible-router').navigateAction;
-var debug = require('debug')('Example');
-var React = require('react');
-var app = require('./app');
-var HtmlComponent = React.createFactory(require('./components/Html.js'));
-var createElement = require('fluxible-addons-react/createElementWithContext');
 
-var server = express();
+import express from 'express';
+import favicon from 'serve-favicon';
+import serialize from 'serialize-javascript';
+import {navigateAction} from 'fluxible-router';
+import debugLib from 'debug';
+import React from 'react';
+import ReactDOM from 'react-dom/server';
+import app from './app';
+import HtmlComponent from './components/Html';
+import {createElementWithContext} from 'fluxible-addons-react';
+
+const debug = debugLib('Example');
+const server = express();
+
 server.use(favicon(__dirname + '/../favicon.ico'));
 server.use('/public', express.static(__dirname + '/build'));
-
-server.use(function (req, res, next) {
-    var context = app.createContext();
+server.use((req, res, next) => {
+    const context = app.createContext();
 
     debug('Executing navigate action');
-    context.executeAction(navigateAction, { url: req.url }, function (err) {
+    context.executeAction(navigateAction, { url: req.url }, (err) => {
         if (err) {
             if (err.statusCode && err.statusCode === 404) {
                 next();
@@ -33,12 +36,12 @@ server.use(function (req, res, next) {
         }
 
         debug('Exposing context state');
-        var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
+        const exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         debug('Rendering Application component into html');
-        var html = React.renderToStaticMarkup(HtmlComponent({
+        const html = ReactDOM.renderToStaticMarkup(React.createElement(HtmlComponent, {
             state: exposed,
-            markup: React.renderToString(createElement(context)),
+            markup: ReactDOM.renderToString(createElementWithContext(context)),
             context: context.getComponentContext()
         }));
 
@@ -47,6 +50,6 @@ server.use(function (req, res, next) {
     });
 });
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 server.listen(port);
 console.log('Listening on port ' + port);
