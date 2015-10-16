@@ -5,13 +5,11 @@
 /*global document, window */
 'use strict';
 var React = require('react');
+var ReactDOM = require('react-dom');
 var app = require('./app');
 var createElement = require('fluxible-addons-react/createElementWithContext');
 
-
 var dehydratedState = window.App; // sent from the server
-window.React = React; // for chrome dev tool support
-
 
 app.rehydrate(dehydratedState, function (err, context) {
 
@@ -23,5 +21,5 @@ app.rehydrate(dehydratedState, function (err, context) {
 
     var mountNode = document.getElementById('todoapp');
 
-    React.render(createElement(context), mountNode);
+    ReactDOM.render(createElement(context), mountNode);
 });

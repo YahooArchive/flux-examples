@@ -18,25 +18,21 @@ var React = require('react');
 
 var ReactPropTypes = React.PropTypes;
 
-var MessageListItem = React.createClass({
+var MessageListItem = function (props) {
+    var message = props.message;
+    return (
+        <li className="message-list-item">
+            <h5 className="message-author-name">{message.authorName}</h5>
+            <div className="message-time">
+                {(new Date(message.timestamp)).toTimeString()}
+            </div>
+            <div className="message-text">{message.text}</div>
+        </li>
+    );
+};
 
-    propTypes: {
-        message: ReactPropTypes.object
-    },
-
-    render: function() {
-        var message = this.props.message;
-        return (
-            <li className="message-list-item">
-                <h5 className="message-author-name">{message.authorName}</h5>
-                <div className="message-time">
-                    {(new Date(message.timestamp)).toTimeString()}
-                </div>
-                <div className="message-text">{message.text}</div>
-            </li>
-        );
-    }
-
-});
+MessageListItem.propTypes = {
+    message: ReactPropTypes.object
+};
 
 module.exports = MessageListItem;

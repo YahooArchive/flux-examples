@@ -6,6 +6,7 @@
   "main": "server.js",
   "author": "Reza Akhavan <jedireza@yahoo-inc.com>",
   "scripts": {
-    "dev": "grunt todo --gruntfile ../Gruntfile.js --taskName todo"
+    "dev": "node webpack-dev-server.js & PORT=3001 nodemon server.js -e js,jsx",
+    "start": "node server.js"
   }
 }

@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var csrf = require('csurf');
 var React = require('react');
+var ReactDOM = require('react-dom/server');
 var app = require('./app');
 var showTodos = require('./actions/showTodos');
 var HtmlComponent = React.createFactory(require('./components/Html.jsx'));
@@ -20,6 +21,7 @@ var server = express();
 server.set('state namespace', 'App');
 server.use(favicon(__dirname + '/../favicon.ico'));
 server.use('/public', express.static(__dirname + '/build'));
+server.use('/assets', express.static(__dirname + '/assets'));
 server.use(cookieParser());
 server.use(bodyParser.json());
 server.use(csrf({cookie: true}));
@@ -56,9 +58,9 @@ server.use(function (req, res, next) {
         var exposed = 'window.App=' + serialize(app.dehydrate(context)) + ';';
 
         var componentContext = context.getComponentContext();
-        var html = React.renderToStaticMarkup(HtmlComponent({
+        var html = ReactDOM.renderToStaticMarkup(HtmlComponent({
             state: exposed,
-            markup: React.renderToString(createElement(context)),
+            markup: ReactDOM.renderToString(createElement(context)),
             context: componentContext
         }));
 

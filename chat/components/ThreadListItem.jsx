@@ -16,35 +16,31 @@
 'use strict';
 var React = require('react');
 var classNames = require('classnames');
-
 var ReactPropTypes = React.PropTypes;
 
-var ThreadListItem = React.createClass({
+var ThreadListItem = function (props) {
+    var thread = props.thread;
+    var lastMessage = thread.lastMessage;
+    var classSet = classNames({
+        'thread-list-item': true,
+        'active': props.isActive
+    });
+    return (
+        <li className={classSet}>
+            <h5 className="thread-name">{thread.name}</h5>
+            <div className="thread-time">
+                {(new Date(lastMessage.timestamp)).toTimeString()}
+            </div>
+            <div className="thread-last-message">
+                {lastMessage.text}
+            </div>
+        </li>
+    );
+};
 
-    propTypes: {
-        thread: ReactPropTypes.object,
-        currentThreadID: ReactPropTypes.string
-    },
-
-    render: function() {
-        var thread = this.props.thread;
-        var lastMessage = thread.lastMessage;
-        var classSet = classNames({
-            'thread-list-item': true,
-            'active': this.props.isActive
-        });
-        return (
-            <li className={classSet}>
-                <h5 className="thread-name">{thread.name}</h5>
-                <div className="thread-time">
-                    {(new Date(lastMessage.timestamp)).toTimeString()}
-                </div>
-                <div className="thread-last-message">
-                    {lastMessage.text}
-                </div>
-            </li>
-        );
-    },
-});
+ThreadListItem.propTypes = {
+    thread: ReactPropTypes.object,
+    currentThreadID: ReactPropTypes.string
+};
 
 module.exports = ThreadListItem;

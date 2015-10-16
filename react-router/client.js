@@ -15,9 +15,6 @@ var navigateAction = require('./actions/navigate');
 var FluxibleComponent = require('fluxible-addons-react/FluxibleComponent');
 var createElement = require('fluxible-addons-react/createElementWithContext');
 
-window.React = React; // For chrome dev tool support
-debug.enable('*');
-
 bootstrapDebug('rehydrating app');
 
 function RenderApp(context, Handler){
@@ -41,6 +38,7 @@ app.rehydrate(dehydratedState, function (err, context) {
     if (err) {
         throw err;
     }
+    window.debug = debug;
     window.context = context;
 
     var firstRender = true;
