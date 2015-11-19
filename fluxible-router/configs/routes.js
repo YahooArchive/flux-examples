@@ -4,7 +4,7 @@ export default {
         method: 'get',
         handler: require('../components/Home'),
         label: 'Home',
-        action: (context, payload, done) => {
+        action: (context, route, done) => {
             context.dispatch('UPDATE_PAGE_TITLE', { pageTitle: 'Home | flux-examples | routing' });
             done();
         }
@@ -14,7 +14,7 @@ export default {
         method: 'get',
         handler: require('../components/About'),
         label: 'About',
-        action: (context, payload, done) => {
+        action: (context, route, done) => {
             context.dispatch('UPDATE_PAGE_TITLE', { pageTitle: 'About | flux-examples | routing' });
             done();
         }
@@ -23,8 +23,8 @@ export default {
         path: '/page/:id',
         method: 'get',
         handler: require('../components/Page'),
-        action: (context, payload, done) => {
-            var pageId = payload.get('params').get('id');
+        action: (context, route, done) => {
+            var pageId = route.params.id;
             context.dispatch('LOAD_PAGE', { id: pageId });
             context.dispatch('UPDATE_PAGE_TITLE', { pageTitle: pageId + ' [Dynamic Page] | flux-examples | routing' });
             done();
